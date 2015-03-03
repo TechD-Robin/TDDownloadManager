@@ -1,0 +1,371 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2AA3AB741AA629DC00A45D67 /* TDDownloadManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2AA3AB731AA629DC00A45D67 /* TDDownloadManager.h */; };
+		2AA3AB761AA629DC00A45D67 /* TDDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA3AB751AA629DC00A45D67 /* TDDownloadManager.m */; };
+		2AA3AB7C1AA629DC00A45D67 /* libTDDownloadManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AA3AB701AA629DC00A45D67 /* libTDDownloadManager.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2AA3AB7D1AA629DC00A45D67 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AA3AB681AA629DC00A45D67 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2AA3AB6F1AA629DC00A45D67;
+			remoteInfo = TDDownloadManager;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2AA3AB6E1AA629DC00A45D67 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				2AA3AB741AA629DC00A45D67 /* TDDownloadManager.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2AA3AB701AA629DC00A45D67 /* libTDDownloadManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTDDownloadManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AA3AB731AA629DC00A45D67 /* TDDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TDDownloadManager.h; sourceTree = "<group>"; };
+		2AA3AB751AA629DC00A45D67 /* TDDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDDownloadManager.m; sourceTree = "<group>"; };
+		2AA3AB7B1AA629DC00A45D67 /* TDDownloadManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TDDownloadManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AA3AB811AA629DC00A45D67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2AA3AB6D1AA629DC00A45D67 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AA3AB781AA629DC00A45D67 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AA3AB7C1AA629DC00A45D67 /* libTDDownloadManager.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2AA3AB671AA629DC00A45D67 = {
+			isa = PBXGroup;
+			children = (
+				2AA3AB721AA629DC00A45D67 /* TDDownloadManager */,
+				2AA3AB7F1AA629DC00A45D67 /* TDDownloadManagerTests */,
+				2AA3AB711AA629DC00A45D67 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2AA3AB711AA629DC00A45D67 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2AA3AB701AA629DC00A45D67 /* libTDDownloadManager.a */,
+				2AA3AB7B1AA629DC00A45D67 /* TDDownloadManagerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2AA3AB721AA629DC00A45D67 /* TDDownloadManager */ = {
+			isa = PBXGroup;
+			children = (
+				2AA3AB731AA629DC00A45D67 /* TDDownloadManager.h */,
+				2AA3AB751AA629DC00A45D67 /* TDDownloadManager.m */,
+			);
+			path = TDDownloadManager;
+			sourceTree = "<group>";
+		};
+		2AA3AB7F1AA629DC00A45D67 /* TDDownloadManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				2AA3AB801AA629DC00A45D67 /* Supporting Files */,
+			);
+			path = TDDownloadManagerTests;
+			sourceTree = "<group>";
+		};
+		2AA3AB801AA629DC00A45D67 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2AA3AB811AA629DC00A45D67 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2AA3AB6F1AA629DC00A45D67 /* TDDownloadManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AA3AB841AA629DC00A45D67 /* Build configuration list for PBXNativeTarget "TDDownloadManager" */;
+			buildPhases = (
+				2AA3AB6C1AA629DC00A45D67 /* Sources */,
+				2AA3AB6D1AA629DC00A45D67 /* Frameworks */,
+				2AA3AB6E1AA629DC00A45D67 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TDDownloadManager;
+			productName = TDDownloadManager;
+			productReference = 2AA3AB701AA629DC00A45D67 /* libTDDownloadManager.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		2AA3AB7A1AA629DC00A45D67 /* TDDownloadManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2AA3AB871AA629DC00A45D67 /* Build configuration list for PBXNativeTarget "TDDownloadManagerTests" */;
+			buildPhases = (
+				2AA3AB771AA629DC00A45D67 /* Sources */,
+				2AA3AB781AA629DC00A45D67 /* Frameworks */,
+				2AA3AB791AA629DC00A45D67 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2AA3AB7E1AA629DC00A45D67 /* PBXTargetDependency */,
+			);
+			name = TDDownloadManagerTests;
+			productName = TDDownloadManagerTests;
+			productReference = 2AA3AB7B1AA629DC00A45D67 /* TDDownloadManagerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2AA3AB681AA629DC00A45D67 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = TechD;
+				TargetAttributes = {
+					2AA3AB6F1AA629DC00A45D67 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					2AA3AB7A1AA629DC00A45D67 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 2AA3AB6B1AA629DC00A45D67 /* Build configuration list for PBXProject "TDDownloadManager" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2AA3AB671AA629DC00A45D67;
+			productRefGroup = 2AA3AB711AA629DC00A45D67 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2AA3AB6F1AA629DC00A45D67 /* TDDownloadManager */,
+				2AA3AB7A1AA629DC00A45D67 /* TDDownloadManagerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2AA3AB791AA629DC00A45D67 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2AA3AB6C1AA629DC00A45D67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2AA3AB761AA629DC00A45D67 /* TDDownloadManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2AA3AB771AA629DC00A45D67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2AA3AB7E1AA629DC00A45D67 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2AA3AB6F1AA629DC00A45D67 /* TDDownloadManager */;
+			targetProxy = 2AA3AB7D1AA629DC00A45D67 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2AA3AB821AA629DC00A45D67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2AA3AB831AA629DC00A45D67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2AA3AB851AA629DC00A45D67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		2AA3AB861AA629DC00A45D67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		2AA3AB881AA629DC00A45D67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TDDownloadManagerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2AA3AB891AA629DC00A45D67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TDDownloadManagerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2AA3AB6B1AA629DC00A45D67 /* Build configuration list for PBXProject "TDDownloadManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AA3AB821AA629DC00A45D67 /* Debug */,
+				2AA3AB831AA629DC00A45D67 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2AA3AB841AA629DC00A45D67 /* Build configuration list for PBXNativeTarget "TDDownloadManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AA3AB851AA629DC00A45D67 /* Debug */,
+				2AA3AB861AA629DC00A45D67 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2AA3AB871AA629DC00A45D67 /* Build configuration list for PBXNativeTarget "TDDownloadManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2AA3AB881AA629DC00A45D67 /* Debug */,
+				2AA3AB891AA629DC00A45D67 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2AA3AB681AA629DC00A45D67 /* Project object */;
+}
