@@ -1,0 +1,396 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2A2DAC0A1AA781B1002E408F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC091AA781B1002E408F /* main.m */; };
+		2A2DAC0D1AA781B1002E408F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC0C1AA781B1002E408F /* AppDelegate.m */; };
+		2A2DAC241AA781B2002E408F /* DemoDownloadManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC231AA781B2002E408F /* DemoDownloadManagerTests.m */; };
+		2A2DAC2F1AA7831F002E408F /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC2E1AA7831F002E408F /* TableViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2A2DAC1E1AA781B2002E408F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A2DABFC1AA781B1002E408F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2A2DAC031AA781B1002E408F;
+			remoteInfo = DemoDownloadManager;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2A2DAC041AA781B1002E408F /* DemoDownloadManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoDownloadManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A2DAC081AA781B1002E408F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A2DAC091AA781B1002E408F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2A2DAC0B1AA781B1002E408F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2A2DAC0C1AA781B1002E408F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2A2DAC1D1AA781B2002E408F /* DemoDownloadManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoDownloadManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A2DAC221AA781B2002E408F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2A2DAC231AA781B2002E408F /* DemoDownloadManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoDownloadManagerTests.m; sourceTree = "<group>"; };
+		2A2DAC2D1AA7831F002E408F /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		2A2DAC2E1AA7831F002E408F /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2A2DAC011AA781B1002E408F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2A2DAC1A1AA781B2002E408F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2A2DABFB1AA781B1002E408F = {
+			isa = PBXGroup;
+			children = (
+				2A2DAC061AA781B1002E408F /* DemoDownloadManager */,
+				2A2DAC201AA781B2002E408F /* DemoDownloadManagerTests */,
+				2A2DAC051AA781B1002E408F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2A2DAC051AA781B1002E408F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A2DAC041AA781B1002E408F /* DemoDownloadManager.app */,
+				2A2DAC1D1AA781B2002E408F /* DemoDownloadManagerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A2DAC061AA781B1002E408F /* DemoDownloadManager */ = {
+			isa = PBXGroup;
+			children = (
+				2A2DAC2D1AA7831F002E408F /* TableViewController.h */,
+				2A2DAC2E1AA7831F002E408F /* TableViewController.m */,
+				2A2DAC0B1AA781B1002E408F /* AppDelegate.h */,
+				2A2DAC0C1AA781B1002E408F /* AppDelegate.m */,
+				2A2DAC071AA781B1002E408F /* Supporting Files */,
+			);
+			path = DemoDownloadManager;
+			sourceTree = "<group>";
+		};
+		2A2DAC071AA781B1002E408F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2A2DAC081AA781B1002E408F /* Info.plist */,
+				2A2DAC091AA781B1002E408F /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2A2DAC201AA781B2002E408F /* DemoDownloadManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				2A2DAC231AA781B2002E408F /* DemoDownloadManagerTests.m */,
+				2A2DAC211AA781B2002E408F /* Supporting Files */,
+			);
+			path = DemoDownloadManagerTests;
+			sourceTree = "<group>";
+		};
+		2A2DAC211AA781B2002E408F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2A2DAC221AA781B2002E408F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2A2DAC031AA781B1002E408F /* DemoDownloadManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A2DAC271AA781B2002E408F /* Build configuration list for PBXNativeTarget "DemoDownloadManager" */;
+			buildPhases = (
+				2A2DAC001AA781B1002E408F /* Sources */,
+				2A2DAC011AA781B1002E408F /* Frameworks */,
+				2A2DAC021AA781B1002E408F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DemoDownloadManager;
+			productName = DemoDownloadManager;
+			productReference = 2A2DAC041AA781B1002E408F /* DemoDownloadManager.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2A2DAC1C1AA781B2002E408F /* DemoDownloadManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2A2DAC2A1AA781B2002E408F /* Build configuration list for PBXNativeTarget "DemoDownloadManagerTests" */;
+			buildPhases = (
+				2A2DAC191AA781B2002E408F /* Sources */,
+				2A2DAC1A1AA781B2002E408F /* Frameworks */,
+				2A2DAC1B1AA781B2002E408F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2A2DAC1F1AA781B2002E408F /* PBXTargetDependency */,
+			);
+			name = DemoDownloadManagerTests;
+			productName = DemoDownloadManagerTests;
+			productReference = 2A2DAC1D1AA781B2002E408F /* DemoDownloadManagerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2A2DABFC1AA781B1002E408F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = TechD;
+				TargetAttributes = {
+					2A2DAC031AA781B1002E408F = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					2A2DAC1C1AA781B2002E408F = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 2A2DAC031AA781B1002E408F;
+					};
+				};
+			};
+			buildConfigurationList = 2A2DABFF1AA781B1002E408F /* Build configuration list for PBXProject "DemoDownloadManager" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2A2DABFB1AA781B1002E408F;
+			productRefGroup = 2A2DAC051AA781B1002E408F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2A2DAC031AA781B1002E408F /* DemoDownloadManager */,
+				2A2DAC1C1AA781B2002E408F /* DemoDownloadManagerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2A2DAC021AA781B1002E408F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2A2DAC1B1AA781B2002E408F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2A2DAC001AA781B1002E408F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A2DAC0D1AA781B1002E408F /* AppDelegate.m in Sources */,
+				2A2DAC2F1AA7831F002E408F /* TableViewController.m in Sources */,
+				2A2DAC0A1AA781B1002E408F /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2A2DAC191AA781B2002E408F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2A2DAC241AA781B2002E408F /* DemoDownloadManagerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2A2DAC1F1AA781B2002E408F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2A2DAC031AA781B1002E408F /* DemoDownloadManager */;
+			targetProxy = 2A2DAC1E1AA781B2002E408F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2A2DAC251AA781B2002E408F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		2A2DAC261AA781B2002E408F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2A2DAC281AA781B2002E408F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = DemoDownloadManager/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2A2DAC291AA781B2002E408F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = DemoDownloadManager/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		2A2DAC2B1AA781B2002E408F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = DemoDownloadManagerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoDownloadManager.app/DemoDownloadManager";
+			};
+			name = Debug;
+		};
+		2A2DAC2C1AA781B2002E408F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = DemoDownloadManagerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DemoDownloadManager.app/DemoDownloadManager";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2A2DABFF1AA781B1002E408F /* Build configuration list for PBXProject "DemoDownloadManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A2DAC251AA781B2002E408F /* Debug */,
+				2A2DAC261AA781B2002E408F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2A2DAC271AA781B2002E408F /* Build configuration list for PBXNativeTarget "DemoDownloadManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A2DAC281AA781B2002E408F /* Debug */,
+				2A2DAC291AA781B2002E408F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		2A2DAC2A1AA781B2002E408F /* Build configuration list for PBXNativeTarget "DemoDownloadManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2A2DAC2B1AA781B2002E408F /* Debug */,
+				2A2DAC2C1AA781B2002E408F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2A2DABFC1AA781B1002E408F /* Project object */;
+}
