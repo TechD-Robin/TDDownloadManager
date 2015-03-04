@@ -35,6 +35,12 @@
 - ( BOOL ) _CreateDemoViewController;
 
 //  ------------------------------------------------------------------------------------------------
+- ( void ) _CheckReachabilityStatus;
+
+//  ------------------------------------------------------------------------------------------------
++ ( void ) _OutputResult:(NSInteger)result;
+
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
@@ -63,7 +69,7 @@
 {
     
     demoList                        = [NSMutableArray arrayWithCapacity: 4];
-    [demoList                       addObject: @" test" ];
+    [demoList                       addObject: @" Check Reachability Status" ];
     
     demoViewController              = nil;
     
@@ -138,6 +144,43 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+- ( void ) _CheckReachabilityStatus
+{
+    [AFNetworkReachabilityManager checkReachabilityStatus: ^(AFNetworkReachabilityStatus status)
+    {
+        [TableViewController        _OutputResult:(NSInteger)status];
+    }];
+}
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
++ ( void ) _OutputResult:(NSInteger)result
+{
+    switch ( result )
+    {
+        case 0:
+        {
+            NSLog( @"device's network is not reachable" );
+            break;
+        }
+        case 1:
+        {
+            NSLog( @"WWAN is reachable" );
+            break;
+        }
+        case 2:
+        {
+            NSLog( @"WIFI is reachable" );
+            break;
+        }
+        default:
+        {
+            NSLog( @"device's network has error" );
+            break;
+        }
+    }
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -225,15 +268,24 @@
 //  ------------------------------------------------------------------------------------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog( @"%@", indexPath );
+//    NSLog( @"%@", indexPath );
+//    
+//    if ( [self _CreateDemoViewController] == NO )
+//    {
+//        return;
+//    }
     
-    if ( [self _CreateDemoViewController] == NO )
+    switch ( indexPath.row )
     {
-        return;
+        case 0:                     [self _CheckReachabilityStatus];                break;
+            
+        default:
+            break;
     }
     
-//    [regulator                      setCenter: CGPointMake(  ( [[demoViewController view] bounds].size.width / 2.0f ), ( [[demoViewController view] bounds].size.height / 2.0f ) )];
-    [self                           presentViewController: demoViewController animated: YES completion: nil];
+    
+    
+//    [self                           presentViewController: demoViewController animated: YES completion: nil];
     
     
 }
