@@ -6,6 +6,7 @@
 //  Copyright (c) 2015年 TechD. All rights reserved.
 //
 
+
 #import "TableViewController.h"
 
 #import "ARCMacros.h"
@@ -36,6 +37,10 @@
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _CheckReachabilityStatus;
+- ( void ) _CheckReachabilityStatusWithResult;
+- ( void ) _CheckReachabilityStatusForDomain;
+- ( void ) _CheckReachabilityStatusForDomainWithResult;
+
 
 //  ------------------------------------------------------------------------------------------------
 + ( void ) _OutputResult:(NSInteger)result;
@@ -70,6 +75,9 @@
     
     demoList                        = [NSMutableArray arrayWithCapacity: 4];
     [demoList                       addObject: @" Check Reachability Status" ];
+    [demoList                       addObject: @" Check Network Reachability Status" ];
+    [demoList                       addObject: @" Check Reachability For Domain (result)" ];
+    [demoList                       addObject: @" Check Reachability For Domain (status)" ];
     
     demoViewController              = nil;
     
@@ -151,6 +159,28 @@
         [TableViewController        _OutputResult:(NSInteger)status];
     }];
 }
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _CheckReachabilityStatusWithResult
+{
+    
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _CheckReachabilityStatusForDomain
+{
+    [AFNetworkReachabilityManager checkReachabilityStatusForDomain: @"www.google.com.tw" result: ^(AFNetworkReachabilityStatus status)
+    {
+        [TableViewController        _OutputResult:(NSInteger)status];
+    }];    
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _CheckReachabilityStatusForDomainWithResult
+{
+    
+}
+
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -277,7 +307,10 @@
     
     switch ( indexPath.row )
     {
-        case 0:                     [self _CheckReachabilityStatus];                break;
+        case 0: [self               _CheckReachabilityStatus];                      break;
+        case 1: [self               _CheckReachabilityStatusWithResult];            break;
+        case 2: [self               _CheckReachabilityStatusForDomain];             break;
+        case 3: [self               _CheckReachabilityStatusForDomainWithResult];   break;
             
         default:
             break;
@@ -287,8 +320,8 @@
     
 //    [self                           presentViewController: demoViewController animated: YES completion: nil];
     
-    
 }
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
