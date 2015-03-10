@@ -31,6 +31,8 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
 @interface TDNetworkReachabilityManager ()
 {
     NSMutableArray                * afManagerContainer;
+    
+    NSMutableArray                * callbackBlockContainer;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -62,6 +64,9 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
 - ( BOOL ) _InsertManager:(AFNetworkReachabilityManager *)afManager;
 - ( BOOL ) _RemoveManager:(AFNetworkReachabilityManager *)afManager;
 
+- ( void ) _InsertCallbackBlock:(id)callbackBlock;
+- ( void ) _RemoveCallbackBlock:(id)callbackBlock;
+
 //  ------------------------------------------------------------------------------------------------
 
 @end
@@ -84,6 +89,7 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
 - ( void ) _InitAttributes
 {
     afManagerContainer              = [[NSMutableArray alloc] init];
+    callbackBlockContainer          = [[NSMutableArray alloc] init];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -100,6 +106,8 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
     dispatch_once( &onceToken, ^{
         [afManagerContainer         addObject: afManager];
     });
+    
+    NSLog( @"insert manager : %@", afManager );
     return YES;
 }
 
@@ -116,10 +124,48 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
     dispatch_once( &onceToken, ^{
         [afManagerContainer         removeObject: afManager];
     });
+    
+    NSLog( @"remove manager : %@", afManager );
+    afManager                       = nil;
     return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( void ) _InsertCallbackBlock:(id)callbackBlock
+{
+    if ( nil == callbackBlock )
+    {
+        return;
+    }
+    
+    static  dispatch_once_t         onceToken;
+    
+    dispatch_once( &onceToken, ^{
+        [afManagerContainer         addObject: callbackBlock];
+    });
+    
+    NSLog( @"insert callback block : %@", callbackBlock );
+    return;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _RemoveCallbackBlock:(id)callbackBlock
+{
+    if ( nil == callbackBlock )
+    {
+        return;
+    }
+    
+    static  dispatch_once_t         onceToken;
+    
+    dispatch_once( &onceToken, ^{
+        [afManagerContainer         removeObject: callbackBlock];
+    });
+    
+    NSLog( @"remove callback block : %@", callbackBlock );
+    return;
+}
+
 //  ------------------------------------------------------------------------------------------------
 
 @end
@@ -165,6 +211,13 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
 //.        [afManagerContainer         release];
         afManagerContainer          = nil;
         
+    }
+    
+    if ( nil != callbackBlockContainer )
+    {
+        [callbackBlockContainer     removeAllObjects];
+        callbackBlockContainer      = nil;
+
     }
 }
 
@@ -223,6 +276,43 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
 }
 
 //  ------------------------------------------------------------------------------------------------
++ ( BOOL ) keepCallbackBlock:(id)callbackBlock
+{
+    if ( nil == callbackBlock )
+    {
+        return NO;
+    }
+    
+    TDNetworkReachabilityManager  * managerSelf;
+    
+    managerSelf                     = [TDNetworkReachabilityManager shareManager];
+    if ( nil == managerSelf )
+    {
+        return NO;
+    }
+    [managerSelf                    _InsertCallbackBlock: callbackBlock];
+    return YES;
+}
+
++ ( BOOL ) releaseCallbackBlock:(id)callbackBlock
+{
+    if ( nil == callbackBlock )
+    {
+        return NO;
+    }
+    
+    TDNetworkReachabilityManager  * managerSelf;
+    
+    managerSelf                     = [TDNetworkReachabilityManager shareManager];
+    if ( nil == managerSelf )
+    {
+        return NO;
+    }
+    [managerSelf                    _RemoveCallbackBlock: callbackBlock];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 + ( BOOL ) checkReachabilityStatus:(void (^)(AFNetworkReachabilityStatus status))statusBlock
 {
@@ -269,11 +359,51 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
 
 //  ------------------------------------------------------------------------------------------------
 //  --------------------------------
-+ ( BOOL ) checkReachabilityStatusForDomain:(NSString *)domain result:(void (^)(AFNetworkReachabilityStatus status))statusBlock
+//+ ( BOOL ) checkReachabilityStatusForDomain:(NSString *)domain result:(void (^)(AFNetworkReachabilityStatus status))statusBlock
+//{
+//    if ( nil == domain )
+//    {
+//        return NO;
+//    }
+//    
+//    AFNetworkReachabilityManager  * manager;
+//    
+//    manager                         = [AFNetworkReachabilityManager managerForDomain: domain];
+//    if ( nil == manager )
+//    {
+//        return NO;
+//    }
+//    
+//    [TDNetworkReachabilityManager   keepingManager: manager];               //  when ARC & nothing to keep the allocated memory.
+//    [manager                        startMonitoring];
+//    
+//    
+//    __weak id                               blockManager;
+//    __weak AFNetworkReachabilityStatusBlock blockStatusBlock;
+//    
+//    blockManager                    = manager;
+//    blockStatusBlock                = statusBlock;
+//    [manager                        setReachabilityStatusChangeBlock: ^(AFNetworkReachabilityStatus status)
+//     {
+//         NSLog( @"status block : %@", blockStatusBlock );
+//         
+//         if ( nil != blockStatusBlock )
+//         {
+//             blockStatusBlock( status );
+//         }
+////         [blockManager                  stopMonitoring];
+//         [TDNetworkReachabilityManager  releaseManager: blockManager];      // release the keeping.
+//     }];
+//    
+//    return YES;
+//}
+
+//  ------------------------------------------------------------------------------------------------
++ ( void * ) checkReachabilityStatusForDomain:(NSString *)domain result:(void (^)(AFNetworkReachabilityStatus status))statusBlock
 {
     if ( nil == domain )
     {
-        return NO;
+        return NULL;
     }
     
     AFNetworkReachabilityManager  * manager;
@@ -281,10 +411,11 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
     manager                         = [AFNetworkReachabilityManager managerForDomain: domain];
     if ( nil == manager )
     {
-        return NO;
+        return NULL;
     }
     
     [TDNetworkReachabilityManager   keepingManager: manager];               //  when ARC & nothing to keep the allocated memory.
+    [TDNetworkReachabilityManager   keepCallbackBlock: statusBlock];
     [manager                        startMonitoring];
     
     
@@ -295,16 +426,20 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
     blockStatusBlock                = statusBlock;
     [manager                        setReachabilityStatusChangeBlock: ^(AFNetworkReachabilityStatus status)
      {
+         NSLog( @"status block : %@", blockStatusBlock );
+         
          if ( nil != blockStatusBlock )
          {
              blockStatusBlock( status );
          }
-         [blockManager                  stopMonitoring];
+         //         [blockManager                  stopMonitoring];
          [TDNetworkReachabilityManager  releaseManager: blockManager];      // release the keeping.
+         [TDNetworkReachabilityManager  releaseCallbackBlock: blockStatusBlock];
      }];
     
-    return YES;
+    return (__bridge void *)manager;
 }
+
 
 //  ------------------------------------------------------------------------------------------------
 + ( BOOL ) checkReachabilityStatusForDomain:(NSString *)domain status:(void (^)(BOOL isReachable))reachableBlock;
@@ -343,6 +478,95 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
     
     return YES;
 }
+
+//  ------------------------------------------------------------------------------------------------
+//+ ( BOOL ) checkReachabilityStatusForAddress:(const void *)address result:(void (^)(AFNetworkReachabilityStatus status))statusBlock
+//{
+//    if ( NULL == address )
+//    {
+//        return NO;
+//    }
+//    
+//    AFNetworkReachabilityManager  * manager;
+//    
+//    manager                         = [AFNetworkReachabilityManager managerForAddress: address];
+//    if ( nil == manager )
+//    {
+//        return NO;
+//    }
+//    
+//
+//    [TDNetworkReachabilityManager   keepingManager: manager];               //  when ARC & nothing to keep the allocated memory.
+//    [manager                        startMonitoring];
+//    
+//    
+//    __weak id                               blockManager;
+//    __weak AFNetworkReachabilityStatusBlock blockStatusBlock;
+//    
+//    blockManager                    = manager;
+//    blockStatusBlock                = statusBlock;
+//    [manager                        setReachabilityStatusChangeBlock: ^(AFNetworkReachabilityStatus status)
+//     {
+//         NSLog( @"status block : %@", blockStatusBlock );
+//         
+//         if ( nil != blockStatusBlock )
+//         {
+//             blockStatusBlock( status );
+//         }
+////         [blockManager                  stopMonitoring];
+//         [TDNetworkReachabilityManager  releaseManager: blockManager];      // release the keeping.
+//     }];
+//    
+//    return YES;
+//    
+//    
+//}
+
+//  ------------------------------------------------------------------------------------------------
++ ( void * ) checkReachabilityStatusForAddress:(const void *)address result:(void (^)(AFNetworkReachabilityStatus status))statusBlock;
+{
+    if ( NULL == address )
+    {
+        return NULL;
+    }
+    
+    AFNetworkReachabilityManager  * manager;
+    
+    manager                         = [AFNetworkReachabilityManager managerForAddress: address];
+    if ( nil == manager )
+    {
+        return NULL;
+    }
+    
+    
+    [TDNetworkReachabilityManager   keepingManager: manager];               //  when ARC & nothing to keep the allocated memory.
+    [manager                        startMonitoring];
+    [TDNetworkReachabilityManager   keepCallbackBlock: statusBlock];
+    
+    
+    __weak id                               blockManager;
+    __weak AFNetworkReachabilityStatusBlock blockStatusBlock;
+    
+    blockManager                    = manager;
+    blockStatusBlock                = statusBlock;
+    [manager                        setReachabilityStatusChangeBlock: ^(AFNetworkReachabilityStatus status)
+     {
+         NSLog( @"status block : %@", blockStatusBlock );
+         
+         if ( nil != blockStatusBlock )
+         {
+             blockStatusBlock( status );
+         }
+         //         [blockManager                  stopMonitoring];
+         [TDNetworkReachabilityManager  releaseManager: blockManager];      // release the keeping.
+         [TDNetworkReachabilityManager  releaseCallbackBlock: blockStatusBlock];
+     }];
+    
+    return (__bridge void *)manager;
+    
+    
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

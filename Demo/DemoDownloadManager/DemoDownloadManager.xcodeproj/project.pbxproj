@@ -30,8 +30,8 @@
 		2A2DAC6A1AA78429002E408F /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC551AA78429002E408F /* UIProgressView+AFNetworking.m */; };
 		2A2DAC6B1AA78429002E408F /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC571AA78429002E408F /* UIRefreshControl+AFNetworking.m */; };
 		2A2DAC6C1AA78429002E408F /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC591AA78429002E408F /* UIWebView+AFNetworking.m */; };
-		2A2DAC731AA78450002E408F /* AFNetworkReachabilityManager+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC701AA78450002E408F /* AFNetworkReachabilityManager+TechD.m */; };
 		2A2DAC741AA78450002E408F /* TDDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC721AA78450002E408F /* TDDownloadManager.m */; };
+		2AC3D3C41AAF4216007CB19F /* TDNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D3C31AAF4216007CB19F /* TDNetworkReachabilityManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,11 +93,11 @@
 		2A2DAC571AA78429002E408F /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		2A2DAC581AA78429002E408F /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		2A2DAC591AA78429002E408F /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
-		2A2DAC6F1AA78450002E408F /* AFNetworkReachabilityManager+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFNetworkReachabilityManager+TechD.h"; sourceTree = "<group>"; };
-		2A2DAC701AA78450002E408F /* AFNetworkReachabilityManager+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFNetworkReachabilityManager+TechD.m"; sourceTree = "<group>"; };
 		2A2DAC711AA78450002E408F /* TDDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDDownloadManager.h; sourceTree = "<group>"; };
 		2A2DAC721AA78450002E408F /* TDDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDDownloadManager.m; sourceTree = "<group>"; };
 		2A2DAC751AA785B5002E408F /* ARCMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARCMacros.h; path = ../../../ARCMacros.h; sourceTree = "<group>"; };
+		2AC3D3C21AAF4216007CB19F /* TDNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		2AC3D3C31AAF4216007CB19F /* TDNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDNetworkReachabilityManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,9 +140,9 @@
 		2A2DAC061AA781B1002E408F /* DemoDownloadManager */ = {
 			isa = PBXGroup;
 			children = (
+				2A2DAC751AA785B5002E408F /* ARCMacros.h */,
 				2A2DAC2D1AA7831F002E408F /* TableViewController.h */,
 				2A2DAC2E1AA7831F002E408F /* TableViewController.m */,
-				2A2DAC751AA785B5002E408F /* ARCMacros.h */,
 				2A2DAC0B1AA781B1002E408F /* AppDelegate.h */,
 				2A2DAC0C1AA781B1002E408F /* AppDelegate.m */,
 				2A2DAC071AA781B1002E408F /* Supporting Files */,
@@ -250,21 +250,13 @@
 		2A2DAC6D1AA78450002E408F /* TDDownloadManager */ = {
 			isa = PBXGroup;
 			children = (
-				2A2DAC6E1AA78450002E408F /* AFNetwork+TechD */,
+				2AC3D3C21AAF4216007CB19F /* TDNetworkReachabilityManager.h */,
+				2AC3D3C31AAF4216007CB19F /* TDNetworkReachabilityManager.m */,
 				2A2DAC711AA78450002E408F /* TDDownloadManager.h */,
 				2A2DAC721AA78450002E408F /* TDDownloadManager.m */,
 			);
 			name = TDDownloadManager;
 			path = ../../TDDownloadManager;
-			sourceTree = "<group>";
-		};
-		2A2DAC6E1AA78450002E408F /* AFNetwork+TechD */ = {
-			isa = PBXGroup;
-			children = (
-				2A2DAC6F1AA78450002E408F /* AFNetworkReachabilityManager+TechD.h */,
-				2A2DAC701AA78450002E408F /* AFNetworkReachabilityManager+TechD.m */,
-			);
-			path = "AFNetwork+TechD";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,10 +376,10 @@
 				2A2DAC601AA78429002E408F /* AFURLRequestSerialization.m in Sources */,
 				2A2DAC621AA78429002E408F /* AFURLSessionManager.m in Sources */,
 				2A2DAC6C1AA78429002E408F /* UIWebView+AFNetworking.m in Sources */,
+				2AC3D3C41AAF4216007CB19F /* TDNetworkReachabilityManager.m in Sources */,
 				2A2DAC2F1AA7831F002E408F /* TableViewController.m in Sources */,
 				2A2DAC651AA78429002E408F /* AFNetworkActivityIndicatorManager.m in Sources */,
 				2A2DAC0A1AA781B1002E408F /* main.m in Sources */,
-				2A2DAC731AA78450002E408F /* AFNetworkReachabilityManager+TechD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -559,6 +551,7 @@
 				2A2DAC291AA781B2002E408F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2A2DAC2A1AA781B2002E408F /* Build configuration list for PBXNativeTarget "DemoDownloadManagerTests" */ = {
 			isa = XCConfigurationList;
@@ -567,6 +560,7 @@
 				2A2DAC2C1AA781B2002E408F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

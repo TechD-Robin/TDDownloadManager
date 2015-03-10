@@ -7,11 +7,12 @@
 //
 
 
+#import <netinet/in.h>
+
 #import "TableViewController.h"
 
 #import "ARCMacros.h"
-#import "AFNetworkReachabilityManager+TechD.h"
-
+#import "TDNetworkReachabilityManager.h"
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -154,7 +155,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _CheckReachabilityStatus
 {
-    [AFNetworkReachabilityManager checkReachabilityStatus: ^(AFNetworkReachabilityStatus status)
+    [TDNetworkReachabilityManager checkReachabilityStatus: ^(AFNetworkReachabilityStatus status)
     {
         [TableViewController        _OutputResult:(NSInteger)status];
     }];
@@ -169,16 +170,37 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _CheckReachabilityStatusForDomain
 {
-    [AFNetworkReachabilityManager checkReachabilityStatusForDomain: @"www.google.com.tw" result: ^(AFNetworkReachabilityStatus status)
+    [TDNetworkReachabilityManager checkReachabilityStatusForDomain: @"www.google.com.tw" result: ^(AFNetworkReachabilityStatus status)
     {
-        [TableViewController        _OutputResult:(NSInteger)status];
+        NSLog( @"\n\rcheck domain" );
+       [TableViewController        _OutputResult:(NSInteger)status];
     }];    
+    [TDNetworkReachabilityManager checkReachabilityStatusForDomain: @"techd.idv.tw" result: ^(AFNetworkReachabilityStatus status)
+     {
+         [TableViewController        _OutputResult:(NSInteger)status];
+     }];
+    [TDNetworkReachabilityManager checkReachabilityStatusForDomain: @"www.google.com.tw" result: ^(AFNetworkReachabilityStatus status)
+     {
+         [TableViewController        _OutputResult:(NSInteger)status];
+     }];
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _CheckReachabilityStatusForDomainWithResult
 {
+    struct sockaddr_in ipAddress;
+    ipAddress.sin_len = sizeof(ipAddress);
+    ipAddress.sin_family = AF_INET;
+    ipAddress.sin_port = htons(80);
+    inet_pton(AF_INET, "192.168.1.1", &ipAddress.sin_addr);
     
+    static void * a;
+    
+    a = [TDNetworkReachabilityManager checkReachabilityStatusForAddress: &ipAddress result: ^(AFNetworkReachabilityStatus status)
+     {
+         NSLog( @"\n\rcheck address" );
+         [TableViewController        _OutputResult:(NSInteger)status];
+     }];
 }
 
 
