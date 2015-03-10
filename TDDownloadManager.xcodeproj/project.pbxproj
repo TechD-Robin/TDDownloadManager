@@ -28,6 +28,7 @@
 		2AA3ABC21AA6332200A45D67 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA3ABAE1AA6332200A45D67 /* UIProgressView+AFNetworking.m */; };
 		2AA3ABC31AA6332200A45D67 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA3ABB01AA6332200A45D67 /* UIRefreshControl+AFNetworking.m */; };
 		2AA3ABC41AA6332200A45D67 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA3ABB21AA6332200A45D67 /* UIWebView+AFNetworking.m */; };
+		2AC3D3C11AAEFC83007CB19F /* TDNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D3C01AAEFC83007CB19F /* TDNetworkReachabilityManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,8 @@
 		2AA3ABB01AA6332200A45D67 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		2AA3ABB11AA6332200A45D67 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		2AA3ABB21AA6332200A45D67 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		2AC3D3BF1AAEFC83007CB19F /* TDNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		2AC3D3C01AAEFC83007CB19F /* TDNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDNetworkReachabilityManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +145,8 @@
 			children = (
 				2AA3AB731AA629DC00A45D67 /* TDDownloadManager.h */,
 				2AA3AB751AA629DC00A45D67 /* TDDownloadManager.m */,
+				2AC3D3BF1AAEFC83007CB19F /* TDNetworkReachabilityManager.h */,
+				2AC3D3C01AAEFC83007CB19F /* TDNetworkReachabilityManager.m */,
 			);
 			path = TDDownloadManager;
 			sourceTree = "<group>";
@@ -332,6 +337,7 @@
 				2AA3ABBC1AA6332200A45D67 /* README.md in Sources */,
 				2AA3ABB91AA6332200A45D67 /* AFURLRequestSerialization.m in Sources */,
 				2AA3ABBE1AA6332200A45D67 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				2AC3D3C11AAEFC83007CB19F /* TDNetworkReachabilityManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
