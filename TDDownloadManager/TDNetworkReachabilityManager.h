@@ -13,16 +13,6 @@
 #import "AFNetworking.h"
 
 
-//  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-typedef  NS_ENUM( NSInteger, TDNetworkReachabilityStatus )
-{
-    TDNetworkReachabilityStatusUnknown          = -1,
-    TDNetworkReachabilityStatusNotReachable     = 0,
-    TDNetworkReachabilityStatusViaWiFi,
-    TDNetworkReachabilityStatusViaWWAN
-    
-};
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

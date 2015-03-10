@@ -173,13 +173,12 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) shareManager
 {
-    static  TDNetworkReachabilityManager  * manager;
+    static  TDNetworkReachabilityManager  * manager = nil;
     static  dispatch_once_t                 onceToken;
     
-    manager                         = nil;
     dispatch_once( &onceToken, ^{
         
-        manager                     = [self init];
+        manager                     = [[self alloc] init];
     });
     return manager;
 }
