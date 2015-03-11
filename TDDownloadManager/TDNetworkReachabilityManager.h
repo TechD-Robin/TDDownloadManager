@@ -26,19 +26,16 @@
 + ( BOOL ) checkNetworkReachabilityStatus:(void (^)(BOOL isReachable))reachableBlock;
 
 //  ------------------------------------------------------------------------------------------------
-//+ ( BOOL ) checkReachabilityStatusForDomain:(NSString *)domain result:(void (^)(AFNetworkReachabilityStatus status))statusBlock;
++ ( BOOL ) checkReachabilityStatusForDomain:(NSString *)domain status:(void (^)(AFNetworkReachabilityStatus status))statusBlock;
 
 //  ------------------------------------------------------------------------------------------------
-+ ( void * ) checkReachabilityStatusForDomain:(NSString *)domain result:(void (^)(AFNetworkReachabilityStatus status))statusBlock;
++ ( BOOL ) checkReachabilityStatusForDomain:(NSString *)domain result:(void (^)(BOOL isReachable))reachableBlock;
 
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) checkReachabilityStatusForDomain:(NSString *)domain status:(void (^)(BOOL isReachable))reachableBlock;
++ ( BOOL ) checkReachabilityStatusForAddress:(const void *)address status:(void (^)(AFNetworkReachabilityStatus status))statusBlock;
 
 //  ------------------------------------------------------------------------------------------------
-//+ ( BOOL ) checkReachabilityStatusForAddress:(const void *)address result:(void (^)(AFNetworkReachabilityStatus status))statusBlock;
-
-//  ------------------------------------------------------------------------------------------------
-+ ( void * ) checkReachabilityStatusForAddress:(const void *)address result:(void (^)(AFNetworkReachabilityStatus status))statusBlock;
++ ( BOOL ) checkReachabilityStatusForAddress:(const void *)address result:(void (^)(BOOL isReachable))reachableBlock;
 
 
 //  ------------------------------------------------------------------------------------------------
