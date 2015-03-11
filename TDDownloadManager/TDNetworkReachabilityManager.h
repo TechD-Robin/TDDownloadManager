@@ -32,10 +32,10 @@
 + ( BOOL ) checkReachabilityStatusForDomain:(NSString *)domain result:(void (^)(BOOL isReachable))reachableBlock;
 
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) checkReachabilityStatusForAddress:(const void *)address status:(void (^)(AFNetworkReachabilityStatus status))statusBlock;
++ ( BOOL ) checkReachabilityStatusForAddress:(NSString *)address with:(NSUInteger)port status:(void (^)(AFNetworkReachabilityStatus status))statusBlock;
 
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) checkReachabilityStatusForAddress:(const void *)address result:(void (^)(BOOL isReachable))reachableBlock;
++ ( BOOL ) checkReachabilityStatusForAddress:(NSString *)address with:(NSUInteger)port result:(void (^)(BOOL isReachable))reachableBlock;
 
 
 //  ------------------------------------------------------------------------------------------------

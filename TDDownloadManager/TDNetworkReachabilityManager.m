@@ -8,6 +8,9 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
+#import <netinet/in.h>
+#import <arpa/inet.h>       //  for solve : implicit declaration of function ‘inet_ntop’ is invalid C99.
+
 #import "TDNetworkReachabilityManager.h"
 
 //  ------------------------------------------------------------------------------------------------
@@ -381,16 +384,25 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
 }
 
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) checkReachabilityStatusForAddress:(const void *)address status:(void (^)(AFNetworkReachabilityStatus status))statusBlock
++ ( BOOL ) checkReachabilityStatusForAddress:(NSString *)address with:(NSUInteger)port status:(void (^)(AFNetworkReachabilityStatus status))statusBlock;
 {
-    if ( NULL == address )
+    if ( nil == address )
     {
         return NO;
     }
     
+    struct sockaddr_in              ipAddress;
+    
+    memset( &ipAddress, 0, sizeof( ipAddress ) );
+    ipAddress.sin_len               = sizeof( ipAddress );
+    ipAddress.sin_family            = AF_INET;
+    ipAddress.sin_port              = htons( (unsigned short)port );
+    inet_pton(AF_INET, [address UTF8String], &ipAddress.sin_addr);
+    
+    
     AFNetworkReachabilityManager  * manager;
     
-    manager                         = [AFNetworkReachabilityManager managerForAddress: address];
+    manager                         = [AFNetworkReachabilityManager managerForAddress: &ipAddress];
     if ( nil == manager )
     {
         return NO;
@@ -400,16 +412,25 @@ typedef     void (^AFNetworkReachabilityStatusBlock)(AFNetworkReachabilityStatus
 }
 
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) checkReachabilityStatusForAddress:(const void *)address result:(void (^)(BOOL isReachable))reachableBlock
++ ( BOOL ) checkReachabilityStatusForAddress:(NSString *)address with:(NSUInteger)port result:(void (^)(BOOL isReachable))reachableBlock
 {
-    if ( NULL == address )
+    if ( nil == address )
     {
         return NO;
     }
     
+    struct sockaddr_in              ipAddress;
+    
+    memset( &ipAddress, 0, sizeof( ipAddress ) );
+    ipAddress.sin_len               = sizeof( ipAddress );
+    ipAddress.sin_family            = AF_INET;
+    ipAddress.sin_port              = htons( (unsigned short)port );
+    inet_pton( AF_INET, [address UTF8String], &ipAddress.sin_addr );
+    
+    
     AFNetworkReachabilityManager  * manager;
     
-    manager                         = [AFNetworkReachabilityManager managerForAddress: address];
+    manager                         = [AFNetworkReachabilityManager managerForAddress: &ipAddress];
     if ( nil == manager )
     {
         return NO;
