@@ -7,8 +7,6 @@
 //
 
 
-#import <netinet/in.h>
-
 #import "TableViewController.h"
 
 #import "ARCMacros.h"
@@ -209,37 +207,21 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _CheckReachabilityStatusForAddress
 {
-    struct sockaddr_in ipAddress;
-    ipAddress.sin_len = sizeof(ipAddress);
-    ipAddress.sin_family = AF_INET;
-    ipAddress.sin_port = htons(80);
-    inet_pton(AF_INET, "192.168.1.99", &ipAddress.sin_addr);
-
-    [TDNetworkReachabilityManager checkReachabilityStatusForAddress: &ipAddress status: ^(AFNetworkReachabilityStatus status)
+    [TDNetworkReachabilityManager checkReachabilityStatusForAddress: @"192.168.1.99" with: 0 status: ^(AFNetworkReachabilityStatus status)
     {
          NSLog( @"\n\rcheck address" );
          [TableViewController        _OutputResult:(NSInteger)status];
-    }];
-    
+    }];    
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _CheckReachabilityStatusForAddressWithResult
 {
-    struct sockaddr_in ipAddress;
-    ipAddress.sin_len = sizeof(ipAddress);
-    ipAddress.sin_family = AF_INET;
-    ipAddress.sin_port = htons(80);
-    inet_pton(AF_INET, "192.168.1.200", &ipAddress.sin_addr);
-    
-    [TDNetworkReachabilityManager checkReachabilityStatusForAddress: &ipAddress result: ^(BOOL isReachable)
+    [TDNetworkReachabilityManager checkReachabilityStatusForAddress: @"192.168.1.1" with: 0 result: ^(BOOL isReachable)
     {
         NSLog( @"network reachable : %d", (int)isReachable );
     }];
-    
-    
 }
-
 
 
 //  ------------------------------------------------------------------------------------------------
