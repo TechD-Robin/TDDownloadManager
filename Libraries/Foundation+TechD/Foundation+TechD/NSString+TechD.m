@@ -1,6 +1,6 @@
 //
 //  NSString+TechD.m
-//  TDDownloadManager
+//  Foundation+TechD
 //
 //  Created by Robin Hsu on 2015/3/18.
 //  Copyright (c) 2015年 TechD. All rights reserved.
@@ -22,7 +22,8 @@
 {
     NSNumberFormatter             * numberFormatter;
     
-    numberFormatter                 = [[NSNumberFormatter alloc] init];
+    //numberFormatter                 = [[NSNumberFormatter alloc] init];
+    numberFormatter                 = [NSNumberFormatter new];
     if ( nil == numberFormatter )
     {
         return NO;
