@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2A1B18DD1AB9D4CD00B5F345 /* NSString+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1B18DC1AB9D4CD00B5F345 /* NSString+TechD.m */; };
 		2A2DAC0A1AA781B1002E408F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC091AA781B1002E408F /* main.m */; };
 		2A2DAC0D1AA781B1002E408F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC0C1AA781B1002E408F /* AppDelegate.m */; };
 		2A2DAC241AA781B2002E408F /* DemoDownloadManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC231AA781B2002E408F /* DemoDownloadManagerTests.m */; };
@@ -49,6 +50,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A1B18DA1AB9D4CC00B5F345 /* Foundation+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Foundation+TechD.h"; sourceTree = "<group>"; };
+		2A1B18DB1AB9D4CC00B5F345 /* NSString+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TechD.h"; sourceTree = "<group>"; };
+		2A1B18DC1AB9D4CD00B5F345 /* NSString+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TechD.m"; sourceTree = "<group>"; };
 		2A2DAC041AA781B1002E408F /* DemoDownloadManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoDownloadManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A2DAC081AA781B1002E408F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A2DAC091AA781B1002E408F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -130,6 +134,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A1B18D81AB9D4CC00B5F345 /* Foundation+TechD */ = {
+			isa = PBXGroup;
+			children = (
+				2A1B18D91AB9D4CC00B5F345 /* Foundation+TechD */,
+			);
+			name = "Foundation+TechD";
+			path = "../../Libraries/Foundation+TechD";
+			sourceTree = "<group>";
+		};
+		2A1B18D91AB9D4CC00B5F345 /* Foundation+TechD */ = {
+			isa = PBXGroup;
+			children = (
+				2A1B18DA1AB9D4CC00B5F345 /* Foundation+TechD.h */,
+				2A1B18DB1AB9D4CC00B5F345 /* NSString+TechD.h */,
+				2A1B18DC1AB9D4CD00B5F345 /* NSString+TechD.m */,
+			);
+			path = "Foundation+TechD";
+			sourceTree = "<group>";
+		};
 		2A2DABFB1AA781B1002E408F = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				2A2DAC311AA78429002E408F /* AFNetworking */,
+				2A1B18D81AB9D4CC00B5F345 /* Foundation+TechD */,
 				2A8FDD2F1AB745AB006BD130 /* TDFoundation */,
 				2A2DAC6D1AA78450002E408F /* TDDownloadManager */,
 			);
@@ -288,10 +312,10 @@
 			children = (
 				2A8FDD331AB745AB006BD130 /* ARCMacros.h */,
 				2A8FDD341AB745AB006BD130 /* TDFoundation.h */,
-				2A8FDD351AB745AB006BD130 /* TDTexturePackerXMLReader.h */,
-				2A8FDD361AB745AB006BD130 /* TDTexturePackerXMLReader.m */,
 				2A8FDD371AB745AB006BD130 /* TDUtilities.h */,
 				2A8FDD381AB745AB006BD130 /* TDUtilities.m */,
+				2A8FDD351AB745AB006BD130 /* TDTexturePackerXMLReader.h */,
+				2A8FDD361AB745AB006BD130 /* TDTexturePackerXMLReader.m */,
 			);
 			path = TDFoundation;
 			sourceTree = "<group>";
@@ -409,6 +433,7 @@
 				2A8FDD3B1AB745AB006BD130 /* TDTexturePackerXMLReader.m in Sources */,
 				2A2DAC611AA78429002E408F /* AFURLResponseSerialization.m in Sources */,
 				2A2DAC661AA78429002E408F /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				2A1B18DD1AB9D4CD00B5F345 /* NSString+TechD.m in Sources */,
 				2A2DAC5F1AA78429002E408F /* AFURLConnectionOperation.m in Sources */,
 				2A2DAC741AA78450002E408F /* TDDownloadManager.m in Sources */,
 				2A2DAC5E1AA78429002E408F /* AFSecurityPolicy.m in Sources */,
