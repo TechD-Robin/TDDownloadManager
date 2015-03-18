@@ -205,7 +205,7 @@ static  NSString  * const kTDXMLReaderKeyFramesOffsetY              = @"oY";
     
     NSString                      * filePath;
     
-    filePath                        = TDGetPathForDirectories( directory, filename, @"plist", subpath );
+    filePath                        = TDGetPathForDirectories( directory, filename, @"plist", subpath, YES );
     if ( [[NSFileManager defaultManager] fileExistsAtPath: filePath] == NO )
     {
         NSLog( @"file %s no exist.", [filePath UTF8String] );

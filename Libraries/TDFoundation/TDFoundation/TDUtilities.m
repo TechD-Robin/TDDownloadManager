@@ -14,18 +14,16 @@
 
 
 //  ------------------------------------------------------------------------------------------------
-NSString * TDGetPathForDirectories( TDGetPathDirectory directory, NSString * name, NSString * typeExt, NSString * inDirectorySubpath )
+NSString * TDGetPathForDirectories( TDGetPathDirectory directory, NSString * name, NSString * typeExt, NSString * inDirectorySubpath, BOOL checkFileExist )
 {
 
     NSArray                       * searchList;
     NSString                      * searchPath;
     NSString                      * filename;
-    NSString                      * filenameWithExt;
     
     searchList                      = nil;
     searchPath                      = nil;
     filename                        = nil;
-    filenameWithExt                 = nil;
     switch ( directory )
     {
         case TDLibraryDirectory:
@@ -60,9 +58,11 @@ NSString * TDGetPathForDirectories( TDGetPathDirectory directory, NSString * nam
     
     if ( ( nil != inDirectorySubpath ) && ( [inDirectorySubpath isEqualToString: @""] == NO ) )
     {
-        searchPath                  = [searchPath stringByAppendingFormat: @"/%s", [inDirectorySubpath UTF8String]];
+        //searchPath                  = [searchPath stringByAppendingFormat: @"/%s", [inDirectorySubpath UTF8String]];
+        searchPath                  = [searchPath stringByAppendingPathComponent: inDirectorySubpath];
     }
-    filename                        = [searchPath stringByAppendingFormat: @"/%s", [name UTF8String]];
+    //filename                        = [searchPath stringByAppendingFormat: @"/%s", [name UTF8String]];
+    filename                        = [searchPath stringByAppendingPathComponent: name];
     
     
     if ( ( nil != typeExt ) && ( [typeExt isEqualToString: @""] == NO ) )
@@ -71,13 +71,54 @@ NSString * TDGetPathForDirectories( TDGetPathDirectory directory, NSString * nam
         filename                    = [filename stringByAppendingPathExtension: typeExt];
     }
 
-    if ( [[NSFileManager defaultManager] fileExistsAtPath: filename] == NO )
+    if ( ( YES == checkFileExist ) && ( [[NSFileManager defaultManager] fileExistsAtPath: filename] == NO ) )
     {
         return nil;
     }
 
     return filename;
 }
+
+//  ------------------------------------------------------------------------------------------------
+NSString * TDGetPathForDirectoriesWithTimestamp( TDGetPathDirectory directory, NSString * name, NSString * timestamp, NSString * typeExt, NSString * inDirectorySubpath, BOOL checkFileExist )
+{
+    NSString                      * filename;
+    
+    filename                        = TDGetPathForDirectories( directory, name, typeExt, inDirectorySubpath, checkFileExist );
+    if ( nil == filename )
+    {
+        return nil;
+    }
+    
+    filename                        = [filename stringByDeletingPathExtension];
+    if ( nil == filename )
+    {
+        return nil;
+    }
+    
+    if ( ( nil != typeExt ) && ( [typeExt length] > 0 ) )
+    {
+        filename                    = [filename stringByAppendingPathExtension: typeExt];
+    }
+    if ( ( nil != timestamp ) && ( [timestamp length] > 0 ) )
+    {
+        filename                    = [filename stringByAppendingPathExtension: timestamp];
+    }
+    
+    /*
+    if ( ( nil != timestamp ) && ( [timestamp length] > 0 ) )
+    {
+        filename                    = [filename stringByAppendingPathExtension: timestamp];
+    }
+    if ( ( nil != typeExt ) && ( [typeExt length] > 0 ) )
+    {
+        filename                    = [filename stringByAppendingPathExtension: typeExt];
+    }
+     */
+    
+    return filename;
+}
+
 
 
 //  ------------------------------------------------------------------------------------------------
