@@ -173,7 +173,7 @@ NSURL * _PreSaveProcedure( NSURLResponse * response, NSString * subpath )
 }
 
 //  ------------------------------------------------------------------------------------------------
-BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile )
+BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile, BOOL coverOldFile )
 {
     //  when destation data warning,  skip move file.
     if ( ( nil == destationFile ) || ( [destationFile length] == 0 ) )
@@ -197,6 +197,16 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile 
         }
     }
 
+    //  when must cover older file.
+    if ( ( YES == coverOldFile ) && ( [manager fileExistsAtPath: destationFile] == YES ) )
+    {
+        error                       = nil;
+        if ( [manager removeItemAtPath: destationFile error: &error] == NO )
+        {
+            NSLog( @"delete file error : %@", error );
+        }
+    }
+    
     //  move file.
     error                           = nil;
     //  iOS file system's letter is not to differentiate between lowercase and uppercase, so always set to lowercase.
@@ -215,6 +225,31 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile 
     return YES;
 }
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark class TDNetworkReachabilityManager
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark declare private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@interface TDDownloadManager (Private)
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
++ ( BOOL ) _DownloadProcedure:(NSString *)destationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder;
+
+
+//  ------------------------------------------------------------------------------------------------
+
+@end
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -223,35 +258,18 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile 
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-@implementation TDDownloadManager
+#pragma mark -
+#pragma mark implementation private category (Private)
+//  ------------------------------------------------------------------------------------------------
+@implementation TDDownloadManager (Private)
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) download:(NSString *)file from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory updateCheckBy:(NSString *)timestamp
++ ( BOOL ) _DownloadProcedure:(NSString *)destationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder
 {
-    if ( nil == fileURL )
+    if ( ( nil == destationFile ) || ( nil == fileURL ) || ( nil == subpath ) )
     {
         return NO;
-    }
-    
-    BOOL                            download;
-    NSString                      * destationFilename;
-    NSString                      * extension;
-    
-    download                        = NO;
-    extension                       = nil;
-    destationFilename               = nil;
-    if ( nil != file )
-    {
-        extension                   = [file pathExtension];
-        destationFilename           = TDGetPathForDirectoriesWithTimestamp( directory, [file stringByDeletingPathExtension], timestamp, [file pathExtension], subpath, NO );
-    }
-    download                        = _SearchUpdateFile( file, [destationFilename stringByDeletingLastPathComponent], timestamp );
-    
-    if ( NO == download )
-    {
-        NSLog( @"already have a latest file in the directory." );
-        return YES;
     }
     
     
@@ -282,15 +300,12 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile 
         //  這邊修正成, 在 tmp 目錄下產生一個 downloads 目錄, 然後先去檢查該目錄是否存在, 不存在則產生, 在檢查裡頭是否已經存在預定存放的檔案, 如果已經存在則移除.
         //    這樣就能完整控制下載後的檔案, 一定會是最新的 ... 因為會持續被刪除 ...
         return _PreSaveProcedure( response, subpath );
-    }
-    completionHandler:  ^( NSURLResponse * response, NSURL * filePath, NSError * error )
-    {
-        //  然後在這個地方, 再把已經存好的檔案, 移動到預定應該擺放的位置或目錄底下; 擺放的同時 一樣進行目錄產生 舊版本檔案的刪除 然後在移動剛剛下載完成的檔案.
-        
-
-        _UpdateFileToCurrentDirectory( filePath, destationFilename );
-        
-    }];
+   }
+   completionHandler:  ^( NSURLResponse * response, NSURL * filePath, NSError * error )
+   {
+        //  然後在這個地方, 再把已經存好的檔案, 移動到預定應該擺放的位置或目錄底下; 擺放的同時 一樣進行目錄產生 然後在移動剛剛下載完成的檔案.
+        _UpdateFileToCurrentDirectory( filePath, destationFile, coverOlder );
+   }];
     
     [downloatTask                   resume];
     
@@ -305,6 +320,135 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile 
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark implementation for public
+//  ------------------------------------------------------------------------------------------------
+@implementation TDDownloadManager
+
+//  ------------------------------------------------------------------------------------------------
++ ( BOOL ) simpleDownload:(NSString *)downloadURL forDirectory:(NSSearchPathDirectory)directory;
+{
+    if ( nil == downloadURL )
+    {
+        return NO;
+    }
+    
+    NSURL                         * url;
+    NSURLRequest                  * urlRequest;
+    NSURLSessionConfiguration     * configuration;
+    AFURLSessionManager           * manager;
+    NSURLSessionDownloadTask      * downloatTask;
+    
+    downloatTask                    = nil;
+    manager                         = nil;
+    url                             = [NSURL URLWithString: downloadURL];
+    configuration                   = [NSURLSessionConfiguration defaultSessionConfiguration];
+    if ( ( nil == url ) || ( nil == configuration ) )
+    {
+        return NO;
+    }
+    
+    urlRequest                      = [NSURLRequest requestWithURL: url];
+    manager                         = [[AFURLSessionManager alloc] initWithSessionConfiguration: configuration];
+    if ( ( nil == urlRequest ) || ( nil == manager ) )
+    {
+        return NO;
+    }
+    
+    downloatTask                    = [manager downloadTaskWithRequest: urlRequest progress: nil destination: ^NSURL * ( NSURL * targetPath, NSURLResponse * response )
+    {
+        NSURL                     * directoryURL;
+        
+        directoryURL                = [[NSFileManager defaultManager] URLForDirectory: directory inDomain: NSUserDomainMask appropriateForURL: nil create: NO error: nil];
+        if ( nil == directoryURL )
+        {
+            return nil;
+        }
+        return [directoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+    }
+    completionHandler:  ^( NSURLResponse * response, NSURL * filePath, NSError * error )
+    {
+        NSLog( @"filish download : %@", filePath );
+    }];
+    
+    [downloatTask                   resume];
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
++ ( BOOL ) download:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory updateCheckBy:(NSString *)timestamp
+{
+    if ( ( nil == filename ) || ( nil == fileURL ) || ( nil == subpath ) )
+    {
+        return NO;
+    }
+    
+    BOOL                            download;
+    NSString                      * destationFilename;
+    
+    download                        = NO;
+    destationFilename               = nil;
+    destationFilename               = TDGetPathForDirectoriesWithTimestamp( directory, [filename stringByDeletingPathExtension], timestamp, [filename pathExtension], subpath, NO );
+    if ( nil == destationFilename )
+    {
+        return NO;
+    }
+    
+    download                        = _SearchUpdateFile( filename, [destationFilename stringByDeletingLastPathComponent], timestamp );
+    if ( NO == download )
+    {
+        NSLog( @"already have a latest file in the directory." );
+        return YES;
+    }
+    
+    return [TDDownloadManager _DownloadProcedure: destationFilename from: fileURL into: subpath coverOlder: NO];;
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
++ ( BOOL ) replacementDownload:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory
+{
+    if ( ( nil == filename ) || ( nil == fileURL ) || ( nil == subpath ) )
+    {
+        return NO;
+    }
+    
+    NSString                      * destationFilename;
+    
+    destationFilename               = nil;
+    destationFilename               = TDGetPathForDirectories( directory, [filename stringByDeletingPathExtension], [filename pathExtension], subpath, NO );
+    if ( nil == destationFilename )
+    {
+        return NO;
+    }
+    
+    return [TDDownloadManager _DownloadProcedure: destationFilename from: fileURL into: subpath coverOlder: YES];
+}
+//  ------------------------------------------------------------------------------------------------
+
+
+@end
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
