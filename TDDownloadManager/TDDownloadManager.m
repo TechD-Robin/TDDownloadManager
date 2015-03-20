@@ -582,6 +582,57 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
 }
 
 //  ------------------------------------------------------------------------------------------------
++ ( BOOL ) readJSONFile:(NSString *)jsonURL
+               withSave:(NSString *)filename into:(NSString *)subpath of:(TDGetPathDirectory)directory extension:(NSString *)timestamp
+             compeleted:( void(^)( NSDictionary * jsonContent, NSError * error, BOOL finished ) )compeleted
+{
+    
+    [TDDownloadManager              readJSONFile: jsonURL compeleted: ^( NSDictionary * jsonContent, NSError * error )
+    {
+        //  when get json from URL have a error.
+        if ( nil != error )
+        {
+            if ( nil != compeleted )
+            {
+                compeleted( nil, error, NO );
+            }
+            return;
+        }
+        
+
+        //  save json data to file.
+        BOOL                        result;
+        NSError                   * outputError;
+        NSString                  * destationFilename;
+        NSOutputStream            * outputStream;
+        
+        outputError                 = nil;
+        outputStream                = nil;
+        destationFilename           = nil;
+        result                      = NO;
+        destationFilename           = TDGetPathForDirectoriesWithTimestamp( directory, [filename stringByDeletingPathExtension], timestamp, [filename pathExtension], subpath, NO );
+        if ( nil == destationFilename )
+        {
+            if ( nil != compeleted )
+            {
+                compeleted( jsonContent, nil, NO );
+            }
+            return;
+        }
+        
+        result                      = [NSJSONSerialization saveJSONContainer: jsonContent toFileAtPath: destationFilename];
+        if ( nil != compeleted )
+        {
+            compeleted( jsonContent, nil, result );
+        }
+        return;
+    }];
+    
+    
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
 
 
 @end
