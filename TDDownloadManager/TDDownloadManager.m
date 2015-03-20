@@ -429,6 +429,56 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
     
     return [TDDownloadManager _DownloadProcedure: destationFilename from: fileURL into: subpath coverOlder: YES];
 }
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
++ ( BOOL ) readJSONFile:(NSString *)jsonURL compeleted:( void(^)( NSDictionary * jsonContent, NSError * error ) )compeleted
+{
+    NSSet                         * contentTypes;
+    NSURL                         * url;
+    NSURLRequest                  * urlRequest;
+    AFHTTPRequestOperationManager * manager;
+    
+    contentTypes                    = nil;
+    manager                         = [AFHTTPRequestOperationManager manager];
+    if ( nil == manager )
+    {
+        return NO;
+    }
+    
+    url                             = [NSURL URLWithString: jsonURL];
+    if ( nil == url )
+    {
+        return NO;
+    }
+    
+    urlRequest                      = [NSURLRequest requestWithURL: url];
+    if ( nil == urlRequest )
+    {
+        return NO;
+    }
+    
+    contentTypes                    = [NSSet setWithObjects: @"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", nil];
+    [manager                        setResponseSerializer: [AFJSONResponseSerializer serializer]];
+    [[manager                       responseSerializer] setAcceptableContentTypes: contentTypes];
+    [manager                        GET: jsonURL parameters: nil success: ^( AFHTTPRequestOperation * operation, id responseObject )
+    {
+        if ( nil != compeleted )
+        {
+            compeleted( responseObject, nil );
+        }
+    }
+    failure: ^( AFHTTPRequestOperation * operation, NSError * error )
+    {
+        if ( nil != compeleted )
+        {
+            compeleted( nil, error );
+        }
+    }];
+
+    return YES;
+}
+
 //  ------------------------------------------------------------------------------------------------
 
 

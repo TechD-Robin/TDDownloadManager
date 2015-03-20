@@ -29,6 +29,9 @@
 + ( BOOL ) replacementDownload:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory;
 
 //  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
++ ( BOOL ) readJSONFile:(NSString *)jsonURL compeleted:( void(^)( NSDictionary * jsonContent, NSError * error ) )compeleted;
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
