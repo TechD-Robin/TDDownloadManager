@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A1B18DD1AB9D4CD00B5F345 /* NSString+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1B18DC1AB9D4CD00B5F345 /* NSString+TechD.m */; };
+		2A2295C81ABC7D2D002D5F37 /* NSJSONSerialization+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2295C71ABC7D2D002D5F37 /* NSJSONSerialization+TechD.m */; };
 		2A2DAC0A1AA781B1002E408F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC091AA781B1002E408F /* main.m */; };
 		2A2DAC0D1AA781B1002E408F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC0C1AA781B1002E408F /* AppDelegate.m */; };
 		2A2DAC241AA781B2002E408F /* DemoDownloadManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC231AA781B2002E408F /* DemoDownloadManagerTests.m */; };
@@ -53,6 +54,8 @@
 		2A1B18DA1AB9D4CC00B5F345 /* Foundation+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Foundation+TechD.h"; sourceTree = "<group>"; };
 		2A1B18DB1AB9D4CC00B5F345 /* NSString+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TechD.h"; sourceTree = "<group>"; };
 		2A1B18DC1AB9D4CD00B5F345 /* NSString+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TechD.m"; sourceTree = "<group>"; };
+		2A2295C61ABC7D2D002D5F37 /* NSJSONSerialization+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSJSONSerialization+TechD.h"; sourceTree = "<group>"; };
+		2A2295C71ABC7D2D002D5F37 /* NSJSONSerialization+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSJSONSerialization+TechD.m"; sourceTree = "<group>"; };
 		2A2DAC041AA781B1002E408F /* DemoDownloadManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoDownloadManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A2DAC081AA781B1002E408F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A2DAC091AA781B1002E408F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 				2A1B18DA1AB9D4CC00B5F345 /* Foundation+TechD.h */,
 				2A1B18DB1AB9D4CC00B5F345 /* NSString+TechD.h */,
 				2A1B18DC1AB9D4CD00B5F345 /* NSString+TechD.m */,
+				2A2295C61ABC7D2D002D5F37 /* NSJSONSerialization+TechD.h */,
+				2A2295C71ABC7D2D002D5F37 /* NSJSONSerialization+TechD.m */,
 			);
 			path = "Foundation+TechD";
 			sourceTree = "<group>";
@@ -425,6 +430,7 @@
 				2A2DAC671AA78429002E408F /* UIAlertView+AFNetworking.m in Sources */,
 				2A2DAC5A1AA78429002E408F /* AFHTTPRequestOperation.m in Sources */,
 				2A2DAC0D1AA781B1002E408F /* AppDelegate.m in Sources */,
+				2A2295C81ABC7D2D002D5F37 /* NSJSONSerialization+TechD.m in Sources */,
 				2A8FDD3A1AB745AB006BD130 /* README.md in Sources */,
 				2A2DAC5B1AA78429002E408F /* AFHTTPRequestOperationManager.m in Sources */,
 				2A2DAC5D1AA78429002E408F /* AFNetworkReachabilityManager.m in Sources */,
