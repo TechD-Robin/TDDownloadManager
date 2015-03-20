@@ -28,7 +28,6 @@ BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * ti
     NSArray                       * fileSeparated;
     NSArray                       * destFileSeparated;
     NSString                      * fileExtension;
-    NSDictionary                  * attributes;
     NSError                       * error;
     
     error                           = nil;
@@ -37,7 +36,6 @@ BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * ti
     fileExtension                   = nil;
     manager                         = [NSFileManager defaultManager];
     list                            = [manager contentsOfDirectoryAtPath: path error: &error];
-    attributes                      = [manager attributesOfFileSystemForPath: path error: &error];
     
     NSLog( @"list: %@", list  );
     for ( NSString * file in list )
@@ -61,10 +59,12 @@ BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * ti
             {
                 if ( NO == isDir )
                 {
-                    //  when filename is equal and isn't dir.
+                    //  when filename is equal and it isn't dir.
                     return NO;              //  skip to download.
                 }
-                return YES;                 //  when file is not found in list, must download.
+                
+                //  when file is found in list, but it's dir
+                return YES;                 //  must download.
             }
             continue;
         }
@@ -103,9 +103,24 @@ BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * ti
                 }
                 
                 //  compare both timestamp, if can find a file's timestamp equal or more then input's timestamp, don't download.
-                if ( [fileExtension integerValue] >= [timestamp integerValue] )
+                if ( [fileExtension integerValue] < [timestamp integerValue] )
                 {
-                    return NO;              //  not need to download.
+                    NSLog( @"timestamp more then, file name : %@ ", file );
+                    continue;
+                }
+                
+                //  check file is dir ?
+                isDir                   = NO;
+                if ( [manager fileExistsAtPath: [path stringByAppendingPathComponent: file] isDirectory: &isDir] == YES )
+                {
+                    if ( NO == isDir )
+                    {
+                        //  when filename is equal and it isn't dir.
+                        return NO;              //  skip to download.
+                    }
+                    
+                    //  when file is found in list, but it's dir
+                    return YES;                 //  must download.
                 }
                 break;
             }
@@ -115,6 +130,79 @@ BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * ti
     return YES;         //  must download.
 }
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+BOOL _RemoveUpdateOlderFile( NSString * destationFile, NSString * path, NSString * timestamp )
+{
+    if ( ( nil == destationFile ) || ( nil == path ) || ( nil == timestamp ) )
+    {
+        return NO;
+    }
+
+    NSFileManager                 * manager;
+    NSArray                       * list;
+    NSArray                       * fileSeparated;
+    NSArray                       * destFileSeparated;
+    NSString                      * fileExtension;
+    NSError                       * error;
+    
+    error                           = nil;
+    fileSeparated                   = nil;
+    destFileSeparated               = nil;
+    fileExtension                   = nil;
+    manager                         = [NSFileManager defaultManager];
+    list                            = [manager contentsOfDirectoryAtPath: path error: &error];
+    
+    for ( NSString * file in list )
+    {
+        if ( nil == file )
+        {
+            continue;
+        }
+        
+        fileSeparated               = [file componentsSeparatedByString: @"."];
+        destFileSeparated           = [destationFile componentsSeparatedByString: @"."];
+        if ( ( ( nil == fileSeparated ) || ( nil == destFileSeparated ) ) || ( [fileSeparated count] != ( [destFileSeparated count] + 1 ) ) )
+        {
+            continue;
+        }
+        
+        if ( [[[file stringByDeletingPathExtension] lowercaseString] isEqualToString: [destationFile lowercaseString]] == NO )
+        {
+            continue;
+        }
+        
+        fileExtension               = [file pathExtension];
+        if ( ( nil == fileExtension ) || ( [fileExtension length] == 0 ) || ( [fileExtension isNumeric] == NO ) )
+        {
+            continue;
+        }
+        
+        //  compare both timestamp, if can find a file's timestamp equal or more then input's timestamp.
+        if ( [fileExtension integerValue] >= [timestamp integerValue] )
+        {
+            continue;
+        }
+        
+        //  when find older, delete it.
+        if ( [manager fileExistsAtPath: [path stringByAppendingPathComponent: file]] == NO )
+        {
+            continue;
+        }
+        
+        error                       = nil;
+        if ( [manager removeItemAtPath: [path stringByAppendingPathComponent: file] error: &error] == NO )
+        {
+            NSLog( @"delete file error : %@", error );
+            continue;
+        }
+        NSLog( @"remove older :%s", [[path stringByAppendingPathComponent: file] UTF8String] );
+        
+        
+    }   //  End of  for ( NSString * file in list ).
+    
+    return YES;
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -244,7 +332,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) _DownloadProcedure:(NSString *)destationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder;
++ ( BOOL ) _DownloadProcedure:(NSString *)destationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder compeleted:( void(^)( BOOL finish ) )compeleted;
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -265,7 +353,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) _DownloadProcedure:(NSString *)destationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder
++ ( BOOL ) _DownloadProcedure:(NSString *)destationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder compeleted:( void(^)( BOOL finish ) )compeleted
 {
     if ( ( nil == destationFile ) || ( nil == fileURL ) || ( nil == subpath ) )
     {
@@ -304,7 +392,13 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
    completionHandler:  ^( NSURLResponse * response, NSURL * filePath, NSError * error )
    {
         //  然後在這個地方, 再把已經存好的檔案, 移動到預定應該擺放的位置或目錄底下; 擺放的同時 一樣進行目錄產生 然後在移動剛剛下載完成的檔案.
-        _UpdateFileToCurrentDirectory( filePath, destationFile, coverOlder );
+       BOOL                         result;
+       
+       result                       = _UpdateFileToCurrentDirectory( filePath, destationFile, coverOlder );
+       if ( nil != compeleted )
+       {
+           compeleted( result );
+       }
    }];
     
     [downloatTask                   resume];
@@ -388,9 +482,11 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
         return NO;
     }
     
+    BOOL                            result;
     BOOL                            download;
     NSString                      * destationFilename;
     
+    result                          = NO;
     download                        = NO;
     destationFilename               = nil;
     destationFilename               = TDGetPathForDirectoriesWithTimestamp( directory, [filename stringByDeletingPathExtension], timestamp, [filename pathExtension], subpath, NO );
@@ -406,7 +502,17 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
         return YES;
     }
     
-    return [TDDownloadManager _DownloadProcedure: destationFilename from: fileURL into: subpath coverOlder: NO];;
+    //  when download finish, delete update older files.    //  cover older's value change to set: YES, because maybe find the same filename in destation directory, but it's 'dir'.
+    result                          = [TDDownloadManager _DownloadProcedure: destationFilename from: fileURL into: subpath coverOlder: YES compeleted: ^ ( BOOL finish )
+    {
+        if ( NO == finish )
+        {
+            return;
+        }
+        _RemoveUpdateOlderFile( filename, [destationFilename stringByDeletingLastPathComponent], timestamp );
+    }];
+    
+    return YES;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -427,7 +533,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
         return NO;
     }
     
-    return [TDDownloadManager _DownloadProcedure: destationFilename from: fileURL into: subpath coverOlder: YES];
+    return [TDDownloadManager _DownloadProcedure: destationFilename from: fileURL into: subpath coverOlder: YES compeleted: nil];
 }
 
 //  ------------------------------------------------------------------------------------------------
