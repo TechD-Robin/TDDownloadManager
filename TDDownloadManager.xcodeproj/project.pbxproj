@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A1B18D71AB9D22400B5F345 /* NSString+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1B18D61AB9D22400B5F345 /* NSString+TechD.m */; };
+		2A2295C51ABC7910002D5F37 /* NSJSONSerialization+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2295C41ABC7910002D5F37 /* NSJSONSerialization+TechD.m */; };
 		2A8FDD281AB737A4006BD130 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2A8FDD1F1AB737A4006BD130 /* LICENSE */; };
 		2A8FDD291AB737A4006BD130 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD201AB737A4006BD130 /* README.md */; };
 		2A8FDD2A1AB737A4006BD130 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD201AB737A4006BD130 /* README.md */; };
@@ -66,6 +67,8 @@
 		2A1B18D41AB9D10600B5F345 /* Foundation+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Foundation+TechD.h"; path = "Libraries/Foundation+TechD/Foundation+TechD/Foundation+TechD.h"; sourceTree = "<group>"; };
 		2A1B18D51AB9D22400B5F345 /* NSString+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+TechD.h"; path = "Libraries/Foundation+TechD/Foundation+TechD/NSString+TechD.h"; sourceTree = "<group>"; };
 		2A1B18D61AB9D22400B5F345 /* NSString+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+TechD.m"; path = "Libraries/Foundation+TechD/Foundation+TechD/NSString+TechD.m"; sourceTree = "<group>"; };
+		2A2295C31ABC7910002D5F37 /* NSJSONSerialization+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSJSONSerialization+TechD.h"; path = "Libraries/Foundation+TechD/Foundation+TechD/NSJSONSerialization+TechD.h"; sourceTree = "<group>"; };
+		2A2295C41ABC7910002D5F37 /* NSJSONSerialization+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSJSONSerialization+TechD.m"; path = "Libraries/Foundation+TechD/Foundation+TechD/NSJSONSerialization+TechD.m"; sourceTree = "<group>"; };
 		2A8FDD1F1AB737A4006BD130 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		2A8FDD201AB737A4006BD130 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2A8FDD221AB737A4006BD130 /* ARCMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCMacros.h; sourceTree = "<group>"; };
@@ -154,6 +157,8 @@
 				2A1B18D41AB9D10600B5F345 /* Foundation+TechD.h */,
 				2A1B18D51AB9D22400B5F345 /* NSString+TechD.h */,
 				2A1B18D61AB9D22400B5F345 /* NSString+TechD.m */,
+				2A2295C31ABC7910002D5F37 /* NSJSONSerialization+TechD.h */,
+				2A2295C41ABC7910002D5F37 /* NSJSONSerialization+TechD.m */,
 			);
 			name = "Foundation+TechD";
 			sourceTree = "<group>";
@@ -407,6 +412,7 @@
 				2A1B18D71AB9D22400B5F345 /* NSString+TechD.m in Sources */,
 				2AA3ABC11AA6332200A45D67 /* UIImageView+AFNetworking.m in Sources */,
 				2AA3ABC01AA6332200A45D67 /* UIButton+AFNetworking.m in Sources */,
+				2A2295C51ABC7910002D5F37 /* NSJSONSerialization+TechD.m in Sources */,
 				2AA3ABC31AA6332200A45D67 /* UIRefreshControl+AFNetworking.m in Sources */,
 				2A8FDD2D1AB737A4006BD130 /* TDUtilities.m in Sources */,
 				2AA3ABC41AA6332200A45D67 /* UIWebView+AFNetworking.m in Sources */,
