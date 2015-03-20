@@ -105,7 +105,6 @@ BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * ti
                 //  compare both timestamp, if can find a file's timestamp equal or more then input's timestamp, don't download.
                 if ( [fileExtension integerValue] < [timestamp integerValue] )
                 {
-                    NSLog( @"timestamp more then, file name : %@ ", file );
                     continue;
                 }
                 
@@ -118,9 +117,6 @@ BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * ti
                         //  when filename is equal and it isn't dir.
                         return NO;              //  skip to download.
                     }
-                    
-                    //  when file is found in list, but it's dir
-                    return YES;                 //  must download.
                 }
                 break;
             }
