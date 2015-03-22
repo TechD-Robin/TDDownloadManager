@@ -14,6 +14,51 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+NSString * TDGetCurrentFilePathWithUpdate( NSString * filename, NSString * subpath, TDGetPathDirectory directory, NSString * updateFilename, NSString * updateSubpath, TDGetPathDirectory updateDirectory, NSString * updateTimestamp )
+{
+    NSString                      * currentFilename;
+    
+    currentFilename                 = nil;
+    //  first, search update file.
+    if ( nil != updateFilename )
+    {
+        currentFilename             = TDGetPathForDirectoriesWithTimestamp( updateDirectory, [updateFilename stringByDeletingPathExtension], updateTimestamp, [updateFilename pathExtension], updateSubpath, NO );
+        if ( nil != currentFilename )
+        {
+            BOOL                    isDir;
+            
+            isDir                   = YES;
+            if ( [[NSFileManager defaultManager] fileExistsAtPath: currentFilename isDirectory: &isDir] == YES )
+            {
+                if ( NO == isDir )
+                {
+                    return currentFilename;
+                }
+            }
+        }
+    }
+    
+    //  second, search original file.
+    if ( nil == filename )
+    {
+        return nil;
+    }
+    
+    currentFilename                 = TDGetPathForDirectories( directory, [filename stringByDeletingPathExtension], [filename pathExtension], subpath,  YES );
+    if ( nil == currentFilename )
+    {
+        return nil;
+    }
+    return currentFilename;
+}
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 //+ ( BOOL ) _SearchUpdate:(NSString *)destationFile in:(NSString *)path with:(NSString *)timestamp
 BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * timestamp )
 {

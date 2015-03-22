@@ -13,6 +13,11 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+//- ( NSString * ) TDGetCurrentFile:(NSString *)filename in:(NSString *)subpath of:(TDGetPathDirectory)directory;
+NSString * TDGetCurrentFilePathWithUpdate( NSString * filename, NSString * subpath, TDGetPathDirectory directory, NSString * updateFilename, NSString * updateSubpath, TDGetPathDirectory updateDirectory, NSString * updateTimestamp );
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 @interface TDDownloadManager : NSObject
 
 //  ------------------------------------------------------------------------------------------------
