@@ -18,6 +18,8 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for get path.
+//  ------------------------------------------------------------------------------------------------
 NSString * TDGetCurrentFilePathWithUpdate( NSString * filename, NSString * subpath, TDGetPathDirectory directory, NSString * updateFilename, NSString * updateSubpath, TDGetPathDirectory updateDirectory, NSString * updateTimestamp )
 {
     NSString                      * currentFilename;
@@ -59,7 +61,19 @@ NSString * TDGetCurrentFilePathWithUpdate( NSString * filename, NSString * subpa
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-//+ ( BOOL ) _SearchUpdate:(NSString *)destationFile in:(NSString *)path with:(NSString *)timestamp
+#pragma mark private method for TDDownload Manager Object.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief search a update's file in directory with timestamp for download condition.
+ *  search a update's file in directory with timestamp for download condition;
+ *  if can find the update's file in the update's directory, and the file's timestamp more then the internet's then decision to skip download, otherwise download from internet.
+ *
+ *  @param destationFile            a filename of update.
+ *  @param path                     a file's full path of update.
+ *  @param timestamp                the file update condition that was check for integer type.
+ *
+ *  @return YES|NO                  decision to download the update's file or not.
+ */
 BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * timestamp )
 {
     if ( ( nil == destationFile ) || ( nil == path ) )
@@ -154,7 +168,7 @@ BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * ti
                 }
                 
                 //  check file is dir ?
-                isDir                   = NO;
+                isDir               = NO;
                 if ( [manager fileExistsAtPath: [path stringByAppendingPathComponent: file] isDirectory: &isDir] == YES )
                 {
                     if ( NO == isDir )
@@ -172,7 +186,16 @@ BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * ti
 }
 
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief search the path of destination, if find the timestamp older then update's then remove it.
+ *  search the path of destination, if find the timestamp older then update's then remove it.
+ *
+ *  @param destationFile            a filename of update.
+ *  @param path                     a file's full path of update.
+ *  @param timestamp                the file update condition that was check for integer type.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 BOOL _RemoveUpdateOlderFile( NSString * destationFile, NSString * path, NSString * timestamp )
 {
     if ( ( nil == destationFile ) || ( nil == path ) || ( nil == timestamp ) )
@@ -246,7 +269,18 @@ BOOL _RemoveUpdateOlderFile( NSString * destationFile, NSString * path, NSString
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for AFNetwork's block of method of download.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief call the pre-save procedure when use the download method to download file is completed.
+ *  call the pre-save procedure when use the download method to download file is completed ( the method download file to temporary).
+ *  then change to new filename with path on here.
+ *
+ *  @param response                 the download's method's response.
+ *  @param subpath                  the subpath of directory.
+ *
+ *  @return URL|nil                 a new file path's URL of download file or nil.
+ */
 NSURL * _PreSaveProcedure( NSURLResponse * response, NSString * subpath )
 {
     if ( nil == response )
@@ -302,6 +336,17 @@ NSURL * _PreSaveProcedure( NSURLResponse * response, NSString * subpath )
 }
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief call this method when usee the download method to download file is completed.
+ *  call this method when usee the download method to download file is completed ( the method move the file to new path already ).
+ *  then change to new filename with path on here again ( move the file to current path for project used. ).
+ *
+ *  @param sourceURL                the file's source's URL.
+ *  @param destinationFile          the file's destination filename.
+ *  @param coverOldFile             decision to replace older file or not.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile, BOOL coverOldFile )
 {
     //  when destation data warning,  skip move file.
@@ -361,7 +406,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark class TDNetworkReachabilityManager
+#pragma mark class TDDownloadManager
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -372,7 +417,19 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
 @interface TDDownloadManager (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for download procedure.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief download a file from URL and save the file to directory.
+ *
+ *  @param destinationFile          a file's destination filename (full path).
+ *  @param fileURL                  the URL of file at internet.
+ *  @param subpath                  the subpath of directory.
+ *  @param coverOldFile             decision to replace older file or not.
+ *  @param compeleted               a block section be executed when download completed.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 + ( BOOL ) _DownloadProcedure:(NSString *)destationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder compeleted:( void(^)( BOOL finish ) )compeleted;
 
 
@@ -393,6 +450,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
 @implementation TDDownloadManager (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for download procedure.
 //  ------------------------------------------------------------------------------------------------
 + ( BOOL ) _DownloadProcedure:(NSString *)destationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder compeleted:( void(^)( BOOL finish ) )compeleted
 {
@@ -429,18 +487,18 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
         //  這邊修正成, 在 tmp 目錄下產生一個 downloads 目錄, 然後先去檢查該目錄是否存在, 不存在則產生, 在檢查裡頭是否已經存在預定存放的檔案, 如果已經存在則移除.
         //    這樣就能完整控制下載後的檔案, 一定會是最新的 ... 因為會持續被刪除 ...
         return _PreSaveProcedure( response, subpath );
-   }
-   completionHandler:  ^( NSURLResponse * response, NSURL * filePath, NSError * error )
-   {
+    }
+    completionHandler:  ^( NSURLResponse * response, NSURL * filePath, NSError * error )
+    {
         //  然後在這個地方, 再把已經存好的檔案, 移動到預定應該擺放的位置或目錄底下; 擺放的同時 一樣進行目錄產生 然後在移動剛剛下載完成的檔案.
-       BOOL                         result;
+        BOOL                         result;
        
-       result                       = _UpdateFileToCurrentDirectory( filePath, destationFile, coverOlder );
-       if ( nil != compeleted )
-       {
-           compeleted( result );
-       }
-   }];
+        result                       = _UpdateFileToCurrentDirectory( filePath, destationFile, coverOlder );
+        if ( nil != compeleted )
+        {
+            compeleted( result );
+        }
+    }];
     
     [downloatTask                   resume];
     
@@ -464,6 +522,8 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
 //  ------------------------------------------------------------------------------------------------
 @implementation TDDownloadManager
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for download file.
 //  ------------------------------------------------------------------------------------------------
 + ( BOOL ) simpleDownload:(NSString *)downloadURL forDirectory:(NSSearchPathDirectory)directory;
 {
@@ -515,7 +575,6 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
 }
 
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
 + ( BOOL ) download:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory updateCheckBy:(NSString *)timestamp
 {
     if ( ( nil == filename ) || ( nil == fileURL ) || ( nil == subpath ) )
@@ -556,7 +615,6 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
     return YES;
 }
 
-//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 + ( BOOL ) replacementDownload:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory
 {
