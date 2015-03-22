@@ -68,15 +68,15 @@ NSString * TDGetCurrentFilePathWithUpdate( NSString * filename, NSString * subpa
  *  search a update's file in directory with timestamp for download condition;
  *  if can find the update's file in the update's directory, and the file's timestamp more then the internet's then decision to skip download, otherwise download from internet.
  *
- *  @param destationFile            a filename of update.
+ *  @param destinationFile          a filename of update.
  *  @param path                     a file's full path of update.
  *  @param timestamp                the file update condition that was check for integer type.
  *
  *  @return YES|NO                  decision to download the update's file or not.
  */
-BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * timestamp )
+BOOL _SearchUpdateFile( NSString * destinationFile, NSString * path, NSString * timestamp )
 {
-    if ( ( nil == destationFile ) || ( nil == path ) )
+    if ( ( nil == destinationFile ) || ( nil == path ) )
     {
         return NO;
     }
@@ -107,8 +107,8 @@ BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * ti
         //  if unuse timestamp to compare, when find the file then skip download the file.
         if ( ( nil == timestamp ) || ( [timestamp length] == 0 ) || ( [timestamp isNumeric] == NO ) )
         {
-            //if ( [file isEqualToString: destationFile] == NO )
-            if ( [[file lowercaseString] isEqualToString: [destationFile lowercaseString]] == NO )
+            //if ( [file isEqualToString: destinationFile] == NO )
+            if ( [[file lowercaseString] isEqualToString: [destinationFile lowercaseString]] == NO )
             {
                 continue;
             }
@@ -130,7 +130,7 @@ BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * ti
         
         
         fileSeparated               = [file componentsSeparatedByString: @"."];
-        destFileSeparated           = [destationFile componentsSeparatedByString: @"."];
+        destFileSeparated           = [destinationFile componentsSeparatedByString: @"."];
         if ( ( ( nil == fileSeparated ) || ( nil == destFileSeparated ) ) || ( [fileSeparated count] != ( [destFileSeparated count] + 1 ) ) )
         {
             continue;
@@ -150,7 +150,7 @@ BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * ti
             }
             default:
             {
-                if ( [[[file stringByDeletingPathExtension] lowercaseString] isEqualToString: [destationFile lowercaseString]] == NO )
+                if ( [[[file stringByDeletingPathExtension] lowercaseString] isEqualToString: [destinationFile lowercaseString]] == NO )
                 {
                     continue;
                 }
@@ -190,15 +190,15 @@ BOOL _SearchUpdateFile( NSString * destationFile, NSString * path, NSString * ti
  *  @brief search the path of destination, if find the timestamp older then update's then remove it.
  *  search the path of destination, if find the timestamp older then update's then remove it.
  *
- *  @param destationFile            a filename of update.
+ *  @param destinationFile          a filename of update.
  *  @param path                     a file's full path of update.
  *  @param timestamp                the file update condition that was check for integer type.
  *
  *  @return YES|NO                  method success or failure.
  */
-BOOL _RemoveUpdateOlderFile( NSString * destationFile, NSString * path, NSString * timestamp )
+BOOL _RemoveUpdateOlderFile( NSString * destinationFile, NSString * path, NSString * timestamp )
 {
-    if ( ( nil == destationFile ) || ( nil == path ) || ( nil == timestamp ) )
+    if ( ( nil == destinationFile ) || ( nil == path ) || ( nil == timestamp ) )
     {
         return NO;
     }
@@ -225,13 +225,13 @@ BOOL _RemoveUpdateOlderFile( NSString * destationFile, NSString * path, NSString
         }
         
         fileSeparated               = [file componentsSeparatedByString: @"."];
-        destFileSeparated           = [destationFile componentsSeparatedByString: @"."];
+        destFileSeparated           = [destinationFile componentsSeparatedByString: @"."];
         if ( ( ( nil == fileSeparated ) || ( nil == destFileSeparated ) ) || ( [fileSeparated count] != ( [destFileSeparated count] + 1 ) ) )
         {
             continue;
         }
         
-        if ( [[[file stringByDeletingPathExtension] lowercaseString] isEqualToString: [destationFile lowercaseString]] == NO )
+        if ( [[[file stringByDeletingPathExtension] lowercaseString] isEqualToString: [destinationFile lowercaseString]] == NO )
         {
             continue;
         }
@@ -347,35 +347,35 @@ NSURL * _PreSaveProcedure( NSURLResponse * response, NSString * subpath )
  *
  *  @return YES|NO                  method success or failure.
  */
-BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile, BOOL coverOldFile )
+BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFile, BOOL coverOldFile )
 {
-    //  when destation data warning,  skip move file.
-    if ( ( nil == destationFile ) || ( [destationFile length] == 0 ) )
+    //  when destination data warning,  skip move file.
+    if ( ( nil == destinationFile ) || ( [destinationFile length] == 0 ) )
     {
         return NO;
     }
     
-    NSURL                         * destationURL;
+    NSURL                         * destinationURL;
     NSFileManager                 * manager;
     NSError                       * error;
 
     error                           = nil;
     manager                         = [NSFileManager defaultManager];
     //  create subpath on here, when path not exist.
-    if ( [manager fileExistsAtPath: [destationFile stringByDeletingLastPathComponent]] == NO )
+    if ( [manager fileExistsAtPath: [destinationFile stringByDeletingLastPathComponent]] == NO )
     {
-        if ( [manager createDirectoryAtPath: [destationFile stringByDeletingLastPathComponent] withIntermediateDirectories: YES attributes: nil error: &error] == NO )
+        if ( [manager createDirectoryAtPath: [destinationFile stringByDeletingLastPathComponent] withIntermediateDirectories: YES attributes: nil error: &error] == NO )
         {
-            NSLog( @"create destation path error : %@", error );
+            NSLog( @"create destination path error : %@", error );
             return NO;
         }
     }
 
     //  when must cover older file.
-    if ( ( YES == coverOldFile ) && ( [manager fileExistsAtPath: destationFile] == YES ) )
+    if ( ( YES == coverOldFile ) && ( [manager fileExistsAtPath: destinationFile] == YES ) )
     {
         error                       = nil;
-        if ( [manager removeItemAtPath: destationFile error: &error] == NO )
+        if ( [manager removeItemAtPath: destinationFile error: &error] == NO )
         {
             NSLog( @"delete file error : %@", error );
         }
@@ -384,15 +384,15 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
     //  move file.
     error                           = nil;
     //  iOS file system's letter is not to differentiate between lowercase and uppercase, so always set to lowercase.
-    destationFile                   = [destationFile lowercaseString];
-    destationFile                   = [@"file://" stringByAppendingString: destationFile];
-    destationURL                    = [NSURL URLWithString: destationFile];
-    if ( nil == destationURL )
+    destinationFile                 = [destinationFile lowercaseString];
+    destinationFile                 = [@"file://" stringByAppendingString: destinationFile];
+    destinationURL                  = [NSURL URLWithString: destinationFile];
+    if ( nil == destinationURL )
     {
         return NO;
     }
     
-    if ( [manager moveItemAtURL: sourceURL toURL: destationURL error: &error] == NO )
+    if ( [manager moveItemAtURL: sourceURL toURL: destinationURL error: &error] == NO )
     {
         NSLog( @"move file error : %@", error );
     }
@@ -426,11 +426,11 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
  *  @param fileURL                  the URL of file at internet.
  *  @param subpath                  the subpath of directory.
  *  @param coverOldFile             decision to replace older file or not.
- *  @param compeleted               a block section be executed when download completed.
+ *  @param completed                a block section be executed when download completed.
  *
  *  @return YES|NO                  method success or failure.
  */
-+ ( BOOL ) _DownloadProcedure:(NSString *)destationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder compeleted:( void(^)( BOOL finish ) )compeleted;
++ ( BOOL ) _DownloadProcedure:(NSString *)destinationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder completed:( void(^)( BOOL finish ) )completed;
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -452,9 +452,9 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for download procedure.
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) _DownloadProcedure:(NSString *)destationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder compeleted:( void(^)( BOOL finish ) )compeleted
++ ( BOOL ) _DownloadProcedure:(NSString *)destinationFile from:(NSString *)fileURL into:(NSString *)subpath coverOlder:(BOOL)coverOlder completed:( void(^)( BOOL finish ) )completed
 {
-    if ( ( nil == destationFile ) || ( nil == fileURL ) || ( nil == subpath ) )
+    if ( ( nil == destinationFile ) || ( nil == fileURL ) || ( nil == subpath ) )
     {
         return NO;
     }
@@ -493,10 +493,10 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
         //  然後在這個地方, 再把已經存好的檔案, 移動到預定應該擺放的位置或目錄底下; 擺放的同時 一樣進行目錄產生 然後在移動剛剛下載完成的檔案.
         BOOL                         result;
        
-        result                       = _UpdateFileToCurrentDirectory( filePath, destationFile, coverOlder );
-        if ( nil != compeleted )
+        result                       = _UpdateFileToCurrentDirectory( filePath, destinationFile, coverOlder );
+        if ( nil != completed )
         {
-            compeleted( result );
+            completed( result );
         }
     }];
     
@@ -584,35 +584,35 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
     
     BOOL                            result;
     BOOL                            download;
-    NSString                      * destationFilename;
+    NSString                      * destinationFilename;
     
     result                          = NO;
     download                        = NO;
-    destationFilename               = nil;
-    destationFilename               = TDGetPathForDirectoriesWithTimestamp( directory, [filename stringByDeletingPathExtension], timestamp, [filename pathExtension], subpath, NO );
-    if ( nil == destationFilename )
+    destinationFilename             = nil;
+    destinationFilename             = TDGetPathForDirectoriesWithTimestamp( directory, [filename stringByDeletingPathExtension], timestamp, [filename pathExtension], subpath, NO );
+    if ( nil == destinationFilename )
     {
         return NO;
     }
     
-    download                        = _SearchUpdateFile( filename, [destationFilename stringByDeletingLastPathComponent], timestamp );
+    download                        = _SearchUpdateFile( filename, [destinationFilename stringByDeletingLastPathComponent], timestamp );
     if ( NO == download )
     {
         NSLog( @"already have a latest file in the directory." );
         return YES;
     }
     
-    //  when download finish, delete update older files.    //  cover older's value change to set: YES, because maybe find the same filename in destation directory, but it's 'dir'.
-    result                          = [TDDownloadManager _DownloadProcedure: destationFilename from: fileURL into: subpath coverOlder: YES compeleted: ^ ( BOOL finish )
+    //  when download finish, delete update older files.    //  cover older's value change to set: YES, because maybe find the same filename in destination directory, but it's 'dir'.
+    result                          = [TDDownloadManager _DownloadProcedure: destinationFilename from: fileURL into: subpath coverOlder: YES completed: ^ ( BOOL finish )
     {
         if ( NO == finish )
         {
             return;
         }
-        _RemoveUpdateOlderFile( filename, [destationFilename stringByDeletingLastPathComponent], timestamp );
+        _RemoveUpdateOlderFile( filename, [destinationFilename stringByDeletingLastPathComponent], timestamp );
     }];
     
-    return YES;
+    return result;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -623,21 +623,21 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
         return NO;
     }
     
-    NSString                      * destationFilename;
+    NSString                      * destinationFilename;
     
-    destationFilename               = nil;
-    destationFilename               = TDGetPathForDirectories( directory, [filename stringByDeletingPathExtension], [filename pathExtension], subpath, NO );
-    if ( nil == destationFilename )
+    destinationFilename             = nil;
+    destinationFilename             = TDGetPathForDirectories( directory, [filename stringByDeletingPathExtension], [filename pathExtension], subpath, NO );
+    if ( nil == destinationFilename )
     {
         return NO;
     }
     
-    return [TDDownloadManager _DownloadProcedure: destationFilename from: fileURL into: subpath coverOlder: YES compeleted: nil];
+    return [TDDownloadManager _DownloadProcedure: destinationFilename from: fileURL into: subpath coverOlder: YES completed: nil];
 }
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) readJSONFile:(NSString *)jsonURL compeleted:( void(^)( NSDictionary * jsonContent, NSError * error ) )compeleted
++ ( BOOL ) readJSONFile:(NSString *)jsonURL completed:( void(^)( NSDictionary * jsonContent, NSError * error ) )completed
 {
     NSSet                         * contentTypes;
     NSURL                         * url;
@@ -668,16 +668,16 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
     [[manager                       responseSerializer] setAcceptableContentTypes: contentTypes];
     [manager                        GET: jsonURL parameters: nil success: ^( AFHTTPRequestOperation * operation, id responseObject )
     {
-        if ( nil != compeleted )
+        if ( nil != completed )
         {
-            compeleted( responseObject, nil );
+            completed( responseObject, nil );
         }
     }
     failure: ^( AFHTTPRequestOperation * operation, NSError * error )
     {
-        if ( nil != compeleted )
+        if ( nil != completed )
         {
-            compeleted( nil, error );
+            completed( nil, error );
         }
     }];
 
@@ -687,17 +687,17 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
 //  ------------------------------------------------------------------------------------------------
 + ( BOOL ) readJSONFile:(NSString *)jsonURL
                withSave:(NSString *)filename into:(NSString *)subpath of:(TDGetPathDirectory)directory extension:(NSString *)timestamp
-             compeleted:( void(^)( NSDictionary * jsonContent, NSError * error, BOOL finished ) )compeleted
+             completed:( void(^)( NSDictionary * jsonContent, NSError * error, BOOL finished ) )completed
 {
     
-    [TDDownloadManager              readJSONFile: jsonURL compeleted: ^( NSDictionary * jsonContent, NSError * error )
+    [TDDownloadManager              readJSONFile: jsonURL completed: ^( NSDictionary * jsonContent, NSError * error )
     {
         //  when get json from URL have a error.
         if ( nil != error )
         {
-            if ( nil != compeleted )
+            if ( nil != completed )
             {
-                compeleted( nil, error, NO );
+                completed( nil, error, NO );
             }
             return;
         }
@@ -706,27 +706,27 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destationFile,
         //  save json data to file.
         BOOL                        result;
         NSError                   * outputError;
-        NSString                  * destationFilename;
+        NSString                  * destinationFilename;
         NSOutputStream            * outputStream;
         
         outputError                 = nil;
         outputStream                = nil;
-        destationFilename           = nil;
+        destinationFilename         = nil;
         result                      = NO;
-        destationFilename           = TDGetPathForDirectoriesWithTimestamp( directory, [filename stringByDeletingPathExtension], timestamp, [filename pathExtension], subpath, NO );
-        if ( nil == destationFilename )
+        destinationFilename         = TDGetPathForDirectoriesWithTimestamp( directory, [filename stringByDeletingPathExtension], timestamp, [filename pathExtension], subpath, NO );
+        if ( nil == destinationFilename )
         {
-            if ( nil != compeleted )
+            if ( nil != completed )
             {
-                compeleted( jsonContent, nil, NO );
+                completed( jsonContent, nil, NO );
             }
             return;
         }
         
-        result                      = [NSJSONSerialization saveJSONContainer: jsonContent toFileAtPath: destationFilename];
-        if ( nil != compeleted )
+        result                      = [NSJSONSerialization saveJSONContainer: jsonContent toFileAtPath: destinationFilename];
+        if ( nil != completed )
         {
-            compeleted( jsonContent, nil, result );
+            completed( jsonContent, nil, result );
         }
         return;
     }];

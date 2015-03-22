@@ -93,12 +93,12 @@ NSString * TDGetCurrentFilePathWithUpdate( NSString * filename, NSString * subpa
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 //  --------------------------------
-+ ( BOOL ) readJSONFile:(NSString *)jsonURL compeleted:( void(^)( NSDictionary * jsonContent, NSError * error ) )compeleted;
++ ( BOOL ) readJSONFile:(NSString *)jsonURL completed:( void(^)( NSDictionary * jsonContent, NSError * error ) )completed;
 
 //  ------------------------------------------------------------------------------------------------
 + ( BOOL ) readJSONFile:(NSString *)jsonURL
                withSave:(NSString *)filename into:(NSString *)subpath of:(TDGetPathDirectory)directory extension:(NSString *)timestamp
-             compeleted:( void(^)( NSDictionary * jsonContent, NSError * error, BOOL finished ) )compeleted;
+             completed:( void(^)( NSDictionary * jsonContent, NSError * error, BOOL finished ) )completed;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
