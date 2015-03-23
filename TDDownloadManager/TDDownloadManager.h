@@ -38,6 +38,18 @@ NSString * TDGetCurrentFilePathWithUpdate( NSString * filename, NSString * subpa
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+#pragma mark type define.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief a block section be executed when read json data from internet is completed.
+ *  a block section be executed when read json data from internet is completed, these parameters will return completed information to method caller.
+ *
+ *  @param jsonContent              a container to store the JSON data.
+ *  @param error                    a NSError object, if download method failure then this object has error informatioin, otherwise it's nil object.
+ *  @param finished (YES|NO)        a boolean value, if download method success then the value is YES, otherwise it's NO.
+ *
+ *  @return void                    nothing.
+ */
 typedef     void (^ReadJSONCompletedCallbackBlock)(NSDictionary * jsonContent, NSError * error, BOOL finished);
 
 //  ------------------------------------------------------------------------------------------------
@@ -94,11 +106,31 @@ typedef     void (^ReadJSONCompletedCallbackBlock)(NSDictionary * jsonContent, N
 + ( BOOL ) replacementDownload:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for download JSON data.
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
+/**
+ *  @brief download a JSON data from URL and assign the data into container of callback block.
+ *
+ *  @param jsonURL                  the URL of JSON data at internet.
+ *  @param completed                a block section be executed when download completed.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 + ( BOOL ) readJSONFile:(NSString *)jsonURL completed:(ReadJSONCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief
+ *
+ *  @param jsonURL                  the URL of JSON data at internet.
+ *  @param filename                 save JSON filename.
+ *  @param subpath                  the subpath of directory
+ *  @param directory                enumeration for directory.
+ *  @param timestamp                the file update condition that was check for integer type.
+ *  @param completed                a block section be executed when download completed.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 + ( BOOL ) readJSONFile:(NSString *)jsonURL
                withSave:(NSString *)filename into:(NSString *)subpath of:(TDGetPathDirectory)directory extension:(NSString *)timestamp
              completed:(ReadJSONCompletedCallbackBlock)completed;
