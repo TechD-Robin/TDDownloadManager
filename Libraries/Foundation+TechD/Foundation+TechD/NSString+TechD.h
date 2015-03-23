@@ -16,6 +16,12 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check the string content, that type is numeric or not.
+ *  check the string content, that type is numeric or not.
+ *
+ *  @return YES|NO                  type is numberic or not.
+ */
 - ( BOOL ) isNumeric;
 
 
