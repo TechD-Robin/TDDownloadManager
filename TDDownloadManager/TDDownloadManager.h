@@ -36,6 +36,9 @@ NSString * TDGetCurrentFilePathWithUpdate( NSString * filename, NSString * subpa
 //  ------------------------------------------------------------------------------------------------
 
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+typedef     void (^ReadJSONCompletedCallbackBlock)(NSDictionary * jsonContent, NSError * error, BOOL finished);
 
 //  ------------------------------------------------------------------------------------------------
 //  the Download Manager provide method simply download data from URL;
@@ -93,12 +96,12 @@ NSString * TDGetCurrentFilePathWithUpdate( NSString * filename, NSString * subpa
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 //  --------------------------------
-+ ( BOOL ) readJSONFile:(NSString *)jsonURL completed:( void(^)( NSDictionary * jsonContent, NSError * error ) )completed;
++ ( BOOL ) readJSONFile:(NSString *)jsonURL completed:(ReadJSONCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
 + ( BOOL ) readJSONFile:(NSString *)jsonURL
                withSave:(NSString *)filename into:(NSString *)subpath of:(TDGetPathDirectory)directory extension:(NSString *)timestamp
-             completed:( void(^)( NSDictionary * jsonContent, NSError * error, BOOL finished ) )completed;
+             completed:(ReadJSONCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------

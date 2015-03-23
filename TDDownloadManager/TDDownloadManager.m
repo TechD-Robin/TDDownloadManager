@@ -637,7 +637,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-+ ( BOOL ) readJSONFile:(NSString *)jsonURL completed:( void(^)( NSDictionary * jsonContent, NSError * error ) )completed
++ ( BOOL ) readJSONFile:(NSString *)jsonURL completed:(ReadJSONCompletedCallbackBlock)completed
 {
     NSSet                         * contentTypes;
     NSURL                         * url;
@@ -670,14 +670,14 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     {
         if ( nil != completed )
         {
-            completed( responseObject, nil );
+            completed( responseObject, nil, YES );
         }
     }
     failure: ^( AFHTTPRequestOperation * operation, NSError * error )
     {
         if ( nil != completed )
         {
-            completed( nil, error );
+            completed( nil, error, NO );
         }
     }];
 
@@ -687,10 +687,10 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 //  ------------------------------------------------------------------------------------------------
 + ( BOOL ) readJSONFile:(NSString *)jsonURL
                withSave:(NSString *)filename into:(NSString *)subpath of:(TDGetPathDirectory)directory extension:(NSString *)timestamp
-             completed:( void(^)( NSDictionary * jsonContent, NSError * error, BOOL finished ) )completed
+             completed:(ReadJSONCompletedCallbackBlock)completed
 {
     
-    [TDDownloadManager              readJSONFile: jsonURL completed: ^( NSDictionary * jsonContent, NSError * error )
+    [TDDownloadManager              readJSONFile: jsonURL completed: ^( NSDictionary * jsonContent, NSError * error, BOOL finished )
     {
         //  when get json from URL have a error.
         if ( nil != error )
