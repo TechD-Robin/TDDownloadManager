@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "TableViewController.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 @interface AppDelegate ()
 
@@ -22,8 +23,10 @@
     [[self                          window] setBackgroundColor: [UIColor whiteColor]];
     [[self                          window] makeKeyAndVisible];
     [[self                          window] setRootViewController: [[TableViewController alloc] initWithStyle: UITableViewStyleGrouped]];
+
     
-    
+//    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled: YES];
     return YES;
 }
 
