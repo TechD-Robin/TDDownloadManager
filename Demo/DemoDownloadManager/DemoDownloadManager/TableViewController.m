@@ -11,6 +11,7 @@
 
 #import "ARCMacros.h"
 #import "TDNetworkReachabilityManager.h"
+#import "TDDownloadManager.h"
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -42,9 +43,16 @@
 - ( void ) _CheckReachabilityStatusForAddress;
 - ( void ) _CheckReachabilityStatusForAddressWithResult;
 
-
 //  ------------------------------------------------------------------------------------------------
 + ( void ) _OutputResult:(NSInteger)result;
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _DownloadFileAlwaysCover;
+- ( void ) _DownloadFileWithTimestamp;
+- ( void ) _SimpleDownload;
+- ( void ) _GetJSONFile;
+- ( void ) _GetJSONWithSaveToFile;
+- ( void ) _GetCurrentFilePath;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -74,13 +82,19 @@
 - ( void ) _InitAttributes
 {
     
-    demoList                        = [NSMutableArray arrayWithCapacity: 6];
+    demoList                        = [NSMutableArray arrayWithCapacity: 10];
     [demoList                       addObject: @" Is Reachability Status" ];
     [demoList                       addObject: @" Is Network Reachability Status" ];
     [demoList                       addObject: @" Is Reachability For Domain (result)" ];
     [demoList                       addObject: @" Is Reachability For Domain (status)" ];
     [demoList                       addObject: @" Is Reachability For Address (result)" ];
     [demoList                       addObject: @" Is Reachability For Address (status)" ];
+    [demoList                       addObject: @" download file alwaysCover." ];
+    [demoList                       addObject: @" download file with timestamp." ];
+    [demoList                       addObject: @" simple download the file." ];
+    [demoList                       addObject: @" get json file." ];
+    [demoList                       addObject: @" get json data with save to file." ];
+    [demoList                       addObject: @" get file current path with update." ];
     
     demoViewController              = nil;
     
@@ -148,7 +162,7 @@
 {
     [demoViewController             dismissViewControllerAnimated: YES completion: ^()
      {
-         [self                       _ReleaseDemoViewController];
+         [self                      _ReleaseDemoViewController];
      }];
     
 }
@@ -166,7 +180,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _CheckReachabilityStatusWithResult
 {
-    [TDNetworkReachabilityManager checkNetworkReachabilityStatus: ^(BOOL isReachable)
+    [TDNetworkReachabilityManager   checkNetworkReachabilityStatus: ^(BOOL isReachable)
     {
         NSLog( @"device network reachable : %d", (int)isReachable );
     }];
@@ -178,27 +192,27 @@
     [TDNetworkReachabilityManager checkReachabilityStatusForDomain: @"www.google.com.tw" status: ^(AFNetworkReachabilityStatus status)
     {
         NSLog( @"\n\rcheck domain" );
-       [TableViewController        _OutputResult:(NSInteger)status];
+       [TableViewController         _OutputResult:(NSInteger)status];
     }];    
-    [TDNetworkReachabilityManager checkReachabilityStatusForDomain: @"techd.idv.tw" status: ^(AFNetworkReachabilityStatus status)
+    [TDNetworkReachabilityManager   checkReachabilityStatusForDomain: @"techd.idv.tw" status: ^(AFNetworkReachabilityStatus status)
      {
-         [TableViewController        _OutputResult:(NSInteger)status];
+         [TableViewController       _OutputResult:(NSInteger)status];
      }];
-    [TDNetworkReachabilityManager checkReachabilityStatusForDomain: @"www.google.com.tw" status: ^(AFNetworkReachabilityStatus status)
+    [TDNetworkReachabilityManager   checkReachabilityStatusForDomain: @"www.google.com.tw" status: ^(AFNetworkReachabilityStatus status)
      {
-         [TableViewController        _OutputResult:(NSInteger)status];
+         [TableViewController       _OutputResult:(NSInteger)status];
      }];
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _CheckReachabilityStatusForDomainWithResult
 {
-    [TDNetworkReachabilityManager checkReachabilityStatusForDomain: @"techd.idv.tw" result: ^(BOOL isReachable)
+    [TDNetworkReachabilityManager   checkReachabilityStatusForDomain: @"techd.idv.tw" result: ^(BOOL isReachable)
     {
         NSLog( @"network reachable : %d", (int)isReachable );
     }];
     
-    [TDNetworkReachabilityManager checkReachabilityStatusForDomain: @"www.google.com.tw" result: ^(BOOL isReachable)
+    [TDNetworkReachabilityManager   checkReachabilityStatusForDomain: @"www.google.com.tw" result: ^(BOOL isReachable)
      {
          NSLog( @"network reachable : %d", (int)isReachable );
      }];
@@ -207,7 +221,7 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _CheckReachabilityStatusForAddress
 {
-    [TDNetworkReachabilityManager checkReachabilityStatusForAddress: @"192.168.1.99" with: 0 status: ^(AFNetworkReachabilityStatus status)
+    [TDNetworkReachabilityManager   checkReachabilityStatusForAddress: @"192.168.1.99" with: 0 status: ^(AFNetworkReachabilityStatus status)
     {
          NSLog( @"\n\rcheck address" );
          [TableViewController        _OutputResult:(NSInteger)status];
@@ -217,12 +231,11 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _CheckReachabilityStatusForAddressWithResult
 {
-    [TDNetworkReachabilityManager checkReachabilityStatusForAddress: @"192.168.1.1" with: 0 result: ^(BOOL isReachable)
+    [TDNetworkReachabilityManager   checkReachabilityStatusForAddress: @"192.168.1.1" with: 0 result: ^(BOOL isReachable)
     {
         NSLog( @"network reachable : %d", (int)isReachable );
     }];
 }
-
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -255,6 +268,74 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+- ( void ) _DownloadFileAlwaysCover
+{
+    [TDDownloadManager              replacementDownload: @"StickerLibrary"
+                                                   from: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
+                                                   into: @"Test"
+                                                     of: TDCachesDirectory];
+    
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _DownloadFileWithTimestamp
+{
+    [TDDownloadManager              download: @"StickerLibraryTabUpdate.zip"
+                                        from: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
+                                        into: @"Test"
+                                          of: TDDocumentDirectory
+                               updateCheckBy: @"15032001"];
+    
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _SimpleDownload
+{
+//    [TDDownloadManager simpleDownload: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download" forDirectory: NSCachesDirectory];
+    [TDDownloadManager              simpleDownload: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
+                                      forDirectory: NSDocumentDirectory];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _GetJSONFile
+{
+    NSString                      * urlString;
+    
+    urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXMnJWUzhvS3ZuN1k&export=download";
+    
+    [TDDownloadManager readJSONFile: urlString completed: ^( NSDictionary * jsonContent, NSError * error, BOOL finished )
+    {
+        NSLog( @"result : %d \ncontent: %@  \nif error : %@", finished, jsonContent, error );
+    }];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _GetJSONWithSaveToFile
+{
+    NSString                      * urlString;
+    
+    urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXMnJWUzhvS3ZuN1k&export=download";
+    
+    [TDDownloadManager readJSONFile: urlString withSave: @"StickerLibraryTabUpdate.json" into: @"Test" of: TDDocumentDirectory extension: @"15032001"
+                         completed: ^( NSDictionary * jsonContent, NSError * error, BOOL finished )
+    {
+        NSLog( @"result : %d \ncontent: %@  \nif error : %@", finished, jsonContent, error );
+    }];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _GetCurrentFilePath
+{
+    NSString                      * file;
+    
+    file                            = TDGetCurrentFilePathWithUpdate( @"StickerLibraryTabUpdate.zip", nil, TDDocumentDirectory, @"StickerLibraryTabUpdate", @"Test", TDDocumentDirectory, @"15032005" );
+    
+    NSLog( @"current file : %@", file );
+    
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  --------------------------------
 
 @end
 
@@ -355,6 +436,13 @@
         case 4: [self               _CheckReachabilityStatusForAddress];            break;
         case 5: [self               _CheckReachabilityStatusForAddressWithResult];  break;
             
+        case 6: [self               _DownloadFileAlwaysCover];          break;
+        case 7: [self               _DownloadFileWithTimestamp];        break;
+        case 8: [self               _SimpleDownload];                   break;
+            
+        case 9: [self               _GetJSONFile];                      break;
+        case 10:[self               _GetJSONWithSaveToFile];            break;
+        case 11:[self               _GetCurrentFilePath];               break;
         default:
             break;
     }
