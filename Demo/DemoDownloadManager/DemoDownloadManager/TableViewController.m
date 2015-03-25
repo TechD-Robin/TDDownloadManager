@@ -12,6 +12,7 @@
 #import "ARCMacros.h"
 #import "TDNetworkReachabilityManager.h"
 #import "TDDownloadManager.h"
+#import "TDPreUploadProcedure.h"
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -54,6 +55,8 @@
 - ( void ) _GetJSONWithSaveToFile;
 - ( void ) _GetCurrentFilePath;
 
+- ( void ) _PreLoadProcedure;
+
 //  ------------------------------------------------------------------------------------------------
 
 @end
@@ -95,7 +98,9 @@
     [demoList                       addObject: @" get json file." ];
     [demoList                       addObject: @" get json data with save to file." ];
     [demoList                       addObject: @" get file current path with update." ];
-    
+
+    [demoList                       addObject: @" preload procedure." ];
+
     demoViewController              = nil;
     
 }
@@ -335,6 +340,27 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+- ( void ) _PreLoadProcedure
+{
+    TDPreUploadProcedure          * procedure;
+    NSString                      * urlString;
+    
+    urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXMnJWUzhvS3ZuN1k&export=download";
+    procedure                       = [TDPreUploadProcedure preUpload: urlString withSave: @"System.json" into: @"Download/Configure" of: TDDocumentDirectory];
+    if ( nil == procedure )
+    {
+        return;
+    }
+    
+//    [procedure                      startProcedure];
+//    [procedure                      startProcedureWithKey: @"UpdateTab"];
+    [procedure                      startProcedureWithKeys: [NSArray arrayWithObjects: @"UpdateTab", @"abc", nil]];
+    
+    
+}
+
+
+//  ------------------------------------------------------------------------------------------------
 //  --------------------------------
 
 @end
@@ -443,6 +469,8 @@
         case 9: [self               _GetJSONFile];                      break;
         case 10:[self               _GetJSONWithSaveToFile];            break;
         case 11:[self               _GetCurrentFilePath];               break;
+            
+        case 12:[self               _PreLoadProcedure];                 break;
         default:
             break;
     }
