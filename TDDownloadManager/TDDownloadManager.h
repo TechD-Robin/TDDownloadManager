@@ -139,6 +139,9 @@ typedef     void (^ReadJSONCompletedCallbackBlock)(NSDictionary * jsonContent, N
              completed:(ReadJSONCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
++ ( BOOL ) readJSONFile:(NSString *)jsonURL withSaveInto:(NSString *)fullPath completed:(ReadJSONCompletedCallbackBlock)completed;
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 

@@ -491,9 +491,9 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     completionHandler:  ^( NSURLResponse * response, NSURL * filePath, NSError * error )
     {
         //  然後在這個地方, 再把已經存好的檔案, 移動到預定應該擺放的位置或目錄底下; 擺放的同時 一樣進行目錄產生 然後在移動剛剛下載完成的檔案.
-        BOOL                         result;
+        BOOL                        result;
        
-        result                       = _UpdateFileToCurrentDirectory( filePath, destinationFile, coverOlder );
+        result                      = _UpdateFileToCurrentDirectory( filePath, destinationFile, coverOlder );
         if ( nil != completed )
         {
             completed( result );
@@ -598,7 +598,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     download                        = _SearchUpdateFile( filename, [destinationFilename stringByDeletingLastPathComponent], timestamp );
     if ( NO == download )
     {
-        NSLog( @"already have a latest file in the directory." );
+        NSLog( @"already have a latest file in the directory. %@", filename );
         return YES;
     }
     
@@ -732,6 +732,43 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
         return;
     }];
     
+    return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
++ ( BOOL ) readJSONFile:(NSString *)jsonURL withSaveInto:(NSString *)fullPath completed:(ReadJSONCompletedCallbackBlock)completed
+{
+    
+    [TDDownloadManager              readJSONFile: jsonURL completed: ^( NSDictionary * jsonContent, NSError * error, BOOL finished )
+     {
+         //  when get json from URL have a error.
+         if ( nil != error )
+         {
+             if ( nil != completed )
+             {
+                 completed( nil, error, NO );
+             }
+             return;
+         }
+         
+         //  save json data to file.
+         if ( nil == fullPath )
+         {
+             if ( nil != completed )
+             {
+                 completed( jsonContent, nil, NO );     //  cannot save to file.
+             }
+         }
+         
+         BOOL                       result;
+         
+         result                     = [NSJSONSerialization saveJSONContainer: jsonContent toFileAtPath: fullPath];
+         if ( nil != completed )
+         {
+             completed( jsonContent, nil, result );
+         }
+         return;
+     }];
     
     return YES;
 }
