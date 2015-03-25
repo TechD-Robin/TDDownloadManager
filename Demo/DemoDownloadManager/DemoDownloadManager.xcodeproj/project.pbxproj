@@ -37,6 +37,7 @@
 		2A8FDD3A1AB745AB006BD130 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD311AB745AB006BD130 /* README.md */; };
 		2A8FDD3B1AB745AB006BD130 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD361AB745AB006BD130 /* TDTexturePackerXMLReader.m */; };
 		2A8FDD3C1AB745AB006BD130 /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD381AB745AB006BD130 /* TDUtilities.m */; };
+		2A9B92451AC2C6CD0044CC8A /* TDPreUploadProcedure.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9B92441AC2C6CD0044CC8A /* TDPreUploadProcedure.m */; };
 		2AC3D3C41AAF4216007CB19F /* TDNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D3C31AAF4216007CB19F /* TDNetworkReachabilityManager.m */; };
 /* End PBXBuildFile section */
 
@@ -115,6 +116,8 @@
 		2A8FDD361AB745AB006BD130 /* TDTexturePackerXMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTexturePackerXMLReader.m; sourceTree = "<group>"; };
 		2A8FDD371AB745AB006BD130 /* TDUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDUtilities.h; sourceTree = "<group>"; };
 		2A8FDD381AB745AB006BD130 /* TDUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDUtilities.m; sourceTree = "<group>"; };
+		2A9B92431AC2C6CD0044CC8A /* TDPreUploadProcedure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDPreUploadProcedure.h; sourceTree = "<group>"; };
+		2A9B92441AC2C6CD0044CC8A /* TDPreUploadProcedure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDPreUploadProcedure.m; sourceTree = "<group>"; };
 		2AC3D3C21AAF4216007CB19F /* TDNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDNetworkReachabilityManager.h; sourceTree = "<group>"; };
 		2AC3D3C31AAF4216007CB19F /* TDNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDNetworkReachabilityManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -296,6 +299,8 @@
 				2AC3D3C31AAF4216007CB19F /* TDNetworkReachabilityManager.m */,
 				2A2DAC711AA78450002E408F /* TDDownloadManager.h */,
 				2A2DAC721AA78450002E408F /* TDDownloadManager.m */,
+				2A9B92431AC2C6CD0044CC8A /* TDPreUploadProcedure.h */,
+				2A9B92441AC2C6CD0044CC8A /* TDPreUploadProcedure.m */,
 			);
 			name = TDDownloadManager;
 			path = ../../TDDownloadManager;
@@ -446,6 +451,7 @@
 				2A2DAC5C1AA78429002E408F /* AFHTTPSessionManager.m in Sources */,
 				2A2DAC601AA78429002E408F /* AFURLRequestSerialization.m in Sources */,
 				2A2DAC621AA78429002E408F /* AFURLSessionManager.m in Sources */,
+				2A9B92451AC2C6CD0044CC8A /* TDPreUploadProcedure.m in Sources */,
 				2A2DAC6C1AA78429002E408F /* UIWebView+AFNetworking.m in Sources */,
 				2AC3D3C41AAF4216007CB19F /* TDNetworkReachabilityManager.m in Sources */,
 				2A2DAC2F1AA7831F002E408F /* TableViewController.m in Sources */,
