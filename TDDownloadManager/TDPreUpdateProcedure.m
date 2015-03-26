@@ -1,5 +1,5 @@
 //
-//  TDPreUploadProcedure.m
+//  TDPreUpdateProcedure.m
 //  TDDownloadManager
 //
 //  Created by Robin Hsu on 2015/3/25.
@@ -9,7 +9,7 @@
 //  ------------------------------------------------------------------------------------------------
 
 
-#import "TDPreUploadProcedure.h"
+#import "TDPreUpdateProcedure.h"
 
 #import "TDNetworkReachabilityManager.h"
 #import "TDDownloadManager.h"
@@ -21,13 +21,13 @@
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 #pragma mark -
-#pragma mark class TDPreUploadProcedure
+#pragma mark class TDPreUpdateProcedure
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare private category ()
 //  ------------------------------------------------------------------------------------------------
-@interface TDPreUploadProcedure ()
+@interface TDPreUpdateProcedure ()
 {
     NSString                      * configureUpdateURL;
     
@@ -55,7 +55,7 @@
 #pragma mark -
 #pragma mark declare private category (Private)
 //  ------------------------------------------------------------------------------------------------
-@interface TDPreUploadProcedure (Private)
+@interface TDPreUpdateProcedure (Private)
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for initial this class.
@@ -93,7 +93,7 @@
 #pragma mark -
 #pragma mark implementation private category (Private)
 //  ------------------------------------------------------------------------------------------------
-@implementation TDPreUploadProcedure (Private)
+@implementation TDPreUpdateProcedure (Private)
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for initial this class.
@@ -299,7 +299,7 @@
 #pragma mark -
 #pragma mark implementation for public
 //  ------------------------------------------------------------------------------------------------
-@implementation TDPreUploadProcedure
+@implementation TDPreUpdateProcedure
 
 
 //  ------------------------------------------------------------------------------------------------

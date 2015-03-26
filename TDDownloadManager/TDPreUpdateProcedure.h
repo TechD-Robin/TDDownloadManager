@@ -1,5 +1,5 @@
 //
-//  TDPreUploadProcedure.h
+//  TDPreUpdateProcedure.h
 //  TDDownloadManager
 //
 //  Created by Robin Hsu on 2015/3/25.
@@ -23,7 +23,13 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-@interface TDPreUploadProcedure : NSObject
+/**
+ *  a pre-upload procedure object is provide simple method for check and update configure data at internet,
+ *  this method compare with project's main functional, that can be executed at first timing.
+ */
+#pragma mark -
+#pragma mark class TDPreUpdateProcedure
+@interface TDPreUpdateProcedure : NSObject
 
 //  ------------------------------------------------------------------------------------------------
 
