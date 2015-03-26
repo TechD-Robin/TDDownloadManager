@@ -139,6 +139,16 @@ typedef     void (^ReadJSONCompletedCallbackBlock)(NSDictionary * jsonContent, N
              completed:(ReadJSONCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief download a JSON data from URL and assign the data into container of callback block, and save the data to file.
+ *  download a JSON data from URL and assign the data into container of callback block, and save the data to full path of file.
+ *
+ *  @param jsonURL                  the URL of JSON data at internet.
+ *  @param fullPath                 save JSON's full path of file.
+ *  @param completed                a block section be executed when download completed.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 + ( BOOL ) readJSONFile:(NSString *)jsonURL withSaveInto:(NSString *)fullPath completed:(ReadJSONCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
