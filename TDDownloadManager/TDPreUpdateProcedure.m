@@ -67,18 +67,58 @@
 - ( void ) _InitAttributes;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for configure data's action
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief load configure data from local file(ios device).
+ *  load configure data from local file(ios device).
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _LoadConfigureDataFromFile;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check device' network is reachable or not, with the device to the URL's 'domain'.
+ *  check device' network is reachable or not, with the device to the URL's 'domain'.
+ *
+ *  @param reachableBlock           a reachable block section to be executed when check finish.
+ */
 - ( void ) _CheckNetworkReachable:(ReachableStatusBlock)reachableBlock;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief download configure data from the URL and assign the data into the container.
+ *  download configure data from the URL and assign the data into the container.
+ *
+ *  @param completed                a completed block section to be executed when download finish.
+ */
 - ( void ) _PreDownloadSystemConfigure:(void(^)(BOOL finished) )completed;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for update from configure data
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief execute update procedure with configure data.
+ *  execute update procedure with configure data when find the data of keys.
+ *
+ *  @param keyList                  a list of keys.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _UpdateProcedure:(NSArray *)keyList;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief check and download data with the configure data.
+ *  check and download data with the configure data.
+ *
+ *  @param updateInfo               a configure data for key.
+ *
+ *  @return YES|NO                  method success or failure.
+ */
 - ( BOOL ) _UpdateDataWith:(NSDictionary *)updateInfo;
+
 //  ------------------------------------------------------------------------------------------------
 
 @end
@@ -98,7 +138,6 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for initial this class.
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
 
 - ( void ) _InitAttributes
 {
@@ -112,6 +151,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for configure data's action
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _LoadConfigureDataFromFile
 {
@@ -224,6 +264,7 @@
 
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for update from configure data
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _UpdateProcedure:(NSArray *)keyList
 {
@@ -232,24 +273,24 @@
         return NO;
     }
     
-    NSString                  * aKey;
-    NSDictionary              * infoData;
+    NSString                      * aKey;
+    NSDictionary                  * infoData;
     
     
     for ( int i = 0; i < [keyList count]; ++i )
     {
-        aKey                    = [keyList objectAtIndex: i];
+        aKey                        = [keyList objectAtIndex: i];
         if ( nil == aKey )
         {
             continue;
         }
         
-        infoData                = [configureData objectForKey: aKey];
+        infoData                    = [configureData objectForKey: aKey];
         if ( nil == infoData )
         {
             continue;
         }
-        [self                   _UpdateDataWith: infoData];
+        [self                       _UpdateDataWith: infoData];
         
     }
  
@@ -264,26 +305,22 @@
         return NO;
     }
     
-    NSString                  * name;
-    NSString                  * timestamp;
-    NSString                  * dataLink;
+    NSString                      * name;
+    NSString                      * timestamp;
+    NSString                      * dataLink;
     
-    name                        = [updateInfo objectForKey: @"Name"];
-    timestamp                   = [updateInfo objectForKey: @"Timestamp"];
-    dataLink                    = [updateInfo objectForKey: @"DataLink"];
+    name                            = [updateInfo objectForKey: @"Name"];
+    timestamp                       = [updateInfo objectForKey: @"Timestamp"];
+    dataLink                        = [updateInfo objectForKey: @"DataLink"];
     if ( ( nil == name ) || ( nil == dataLink ) )
     {
         return NO;
     }
     
-    [TDDownloadManager          download: name from: dataLink into: configureSubpath of: configureDirectory updateCheckBy: timestamp];
-    
-    
-    
+    [TDDownloadManager              download: name from: dataLink into: configureSubpath of: configureDirectory updateCheckBy: timestamp];
     
     return YES;
 }
-
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -315,7 +352,6 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
-//  --------------------------------
 - (instancetype ) initWithURL:(NSString *)configureURL
                      withSave:(NSString *)filename into:(NSString *)subpath of:(TDGetPathDirectory)directory
 {
@@ -337,13 +373,14 @@
 
 
 //  ------------------------------------------------------------------------------------------------
-+ ( instancetype ) preUpload:(NSString *)configureURL
++ ( instancetype ) preUpdate:(NSString *)configureURL
                     withSave:(NSString *)filename into:(NSString *)subpath of:(TDGetPathDirectory)directory
 {
     return [[[self class] alloc] initWithURL: configureURL withSave: filename into: subpath of: directory];
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for start procedure
 //  ------------------------------------------------------------------------------------------------
 - ( void ) startProcedure
 {
@@ -403,7 +440,7 @@
 }
 
 //  ------------------------------------------------------------------------------------------------
-
+//  ------------------------------------------------------------------------------------------------
 
 @end
 
