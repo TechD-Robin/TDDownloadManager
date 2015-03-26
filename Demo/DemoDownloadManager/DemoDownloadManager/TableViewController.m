@@ -346,7 +346,7 @@
     NSString                      * urlString;
     
     urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXMnJWUzhvS3ZuN1k&export=download";
-    procedure                       = [TDPreUpdateProcedure preUpload: urlString withSave: @"System.json" into: @"Download/Configure" of: TDDocumentDirectory];
+    procedure                       = [TDPreUpdateProcedure preUpdate: urlString withSave: @"System.json" into: @"Download/Configure" of: TDDocumentDirectory];
     if ( nil == procedure )
     {
         return;
