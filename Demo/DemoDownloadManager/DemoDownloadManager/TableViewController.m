@@ -12,7 +12,7 @@
 #import "ARCMacros.h"
 #import "TDNetworkReachabilityManager.h"
 #import "TDDownloadManager.h"
-#import "TDPreUploadProcedure.h"
+#import "TDPreUpdateProcedure.h"
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -342,11 +342,11 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _PreLoadProcedure
 {
-    TDPreUploadProcedure          * procedure;
+    TDPreUpdateProcedure          * procedure;
     NSString                      * urlString;
     
     urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXMnJWUzhvS3ZuN1k&export=download";
-    procedure                       = [TDPreUploadProcedure preUpload: urlString withSave: @"System.json" into: @"Download/Configure" of: TDDocumentDirectory];
+    procedure                       = [TDPreUpdateProcedure preUpload: urlString withSave: @"System.json" into: @"Download/Configure" of: TDDocumentDirectory];
     if ( nil == procedure )
     {
         return;
