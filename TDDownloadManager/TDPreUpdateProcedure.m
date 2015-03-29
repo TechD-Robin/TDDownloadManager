@@ -35,9 +35,13 @@
     NSString                      * configureFilename;          //  filename with full path.
     
     TDGetPathDirectory              configureDirectory;
-    NSString                      * configureSubpath;          //  full path.
+    NSString                      * configureSubpath;           //  full path.
     
     NSDictionary                  * configureData;
+    
+    
+    //  for download asynchronous.
+    dispatch_group_t                completionGroup;
     
 }
 
@@ -148,6 +152,10 @@
     configureSubpath                = nil;
     
     configureData                   = nil;
+    
+    
+    //  for download asynchronous.
+    completionGroup                 = NULL;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -297,6 +305,69 @@
     return YES;
 }
 
+
+//  ------------------------------------------------------------------------------------------------
+- ( BOOL ) _UpdateProcedure:(NSArray *)keyList completed:(void(^)(BOOL finished))completed
+{
+    if ( ( nil == keyList ) || ( [keyList count] == 0 ) )
+    {
+        return NO;
+    }
+    
+    
+    __block dispatch_group_t        group;
+    
+    group                           = dispatch_group_create();
+    dispatch_group_notify( group, dispatch_get_main_queue(), ^
+    {
+        //  use block section & call on here ...
+        if ( nil != completed )
+        {
+            completed( YES );
+        }
+     
+    });
+    
+    
+    
+    NSString                      * aKey;
+    NSDictionary                  * infoData;
+    
+    dispatch_queue_t                queue;
+    
+    
+    for ( int i = 0; i < [keyList count]; ++i )
+    {
+        aKey                        = [keyList objectAtIndex: i];
+        if ( nil == aKey )
+        {
+            continue;
+        }
+        
+        infoData                    = [configureData objectForKey: aKey];
+        if ( nil == infoData )
+        {
+            continue;
+        }
+        
+        queue                       = dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0 );
+        dispatch_async( queue, ^()
+        {
+            [self                   _UpdateDataWith: infoData];
+        });
+        
+        
+    }
+    
+//    completionGroup                 = group;
+    return YES;
+}
+
+
+
+
+
+
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _UpdateDataWith:(NSDictionary *)updateInfo
 {
@@ -432,9 +503,24 @@
         return;
     }
     
+    
+    void (^updateProcedureBlock)(BOOL finished) = ^(BOOL finished)
+    {
+        NSLog( @"test ... %d", finished );
+    };
+    
+    
+    
+    __weak __typeof(updateProcedureBlock)   weakUpdateProcedureBlock;
+    weakUpdateProcedureBlock                = updateProcedureBlock;
     [self                           _PreDownloadSystemConfigure: ^(BOOL finished)
     {
-        [self                       _UpdateProcedure: keyList];
+//.        [self                       _UpdateProcedure: keyList];
+        __strong __typeof(weakUpdateProcedureBlock) strongUpdateProcedureBlock;
+        strongUpdateProcedureBlock          = weakUpdateProcedureBlock;
+        
+        
+        [self   _UpdateProcedure: keyList completed: strongUpdateProcedureBlock];
     }];
     return;
 }
