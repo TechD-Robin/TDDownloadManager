@@ -53,6 +53,9 @@ NSString * TDGetCurrentFilePathWithUpdate( NSString * filename, NSString * subpa
 typedef     void (^ReadJSONCompletedCallbackBlock)(NSDictionary * jsonContent, NSError * error, BOOL finished);
 
 //  ------------------------------------------------------------------------------------------------
+typedef     void (^DownloadCompletedCallbackBlock)(NSError * error, BOOL finished);
+
+//  ------------------------------------------------------------------------------------------------
 //  the Download Manager provide method simply download data from URL;
 //  build this object base on AFNetworking.
 //  ------------------------------------------------------------------------------------------------
@@ -69,10 +72,11 @@ typedef     void (^ReadJSONCompletedCallbackBlock)(NSDictionary * jsonContent, N
  *
  *  @param downloadURL              the URL of file at internet.
  *  @param directory                enumeration for directory.
+ *  @param completed                a block section be executed when download completed.
  *
  *  @return YES|NO                  method success or failure.
  */
-+ ( BOOL ) simpleDownload:(NSString *)downloadURL forDirectory:(NSSearchPathDirectory)directory;
++ ( BOOL ) simpleDownload:(NSString *)downloadURL forDirectory:(NSSearchPathDirectory)directory completed:(DownloadCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -85,10 +89,12 @@ typedef     void (^ReadJSONCompletedCallbackBlock)(NSDictionary * jsonContent, N
  *  @param subpath                  the subpath of directory.
  *  @param directory                enumeration for directory.
  *  @param timestamp                the file update condition that was check for integer type.
+ *  @param completed                a block section be executed when download completed.
  *
  *  @return YES|NO                  method success or failure.
  */
-+ ( BOOL ) download:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory updateCheckBy:(NSString *)timestamp;
++ ( BOOL ) download:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory updateCheckBy:(NSString *)timestamp
+          completed:(DownloadCompletedCallbackBlock)completed ;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -100,10 +106,12 @@ typedef     void (^ReadJSONCompletedCallbackBlock)(NSDictionary * jsonContent, N
  *  @param fileURL                  the URL of file at internet.
  *  @param subpath                  the subpath of directory
  *  @param directory                enumeration for directory.
+ *  @param completed                a block section be executed when download completed.
  *
  *  @return YES|NO                  method success or failure.
  */
-+ ( BOOL ) replacementDownload:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory;
++ ( BOOL ) replacementDownload:(NSString *)filename from:(NSString *)fileURL into:(NSString *)subpath of:(TDGetPathDirectory)directory
+                     completed:(DownloadCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for download JSON data.
