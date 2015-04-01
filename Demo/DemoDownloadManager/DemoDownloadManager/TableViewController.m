@@ -278,7 +278,10 @@
     [TDDownloadManager              replacementDownload: @"StickerLibrary"
                                                    from: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
                                                    into: @"Test"
-                                                     of: TDCachesDirectory];
+                                                     of: TDCachesDirectory completed: ^(NSError * error, BOOL finished)
+    {
+        NSLog( @"result %d, %@", finished, error );
+    }];
     
 }
 
@@ -289,7 +292,10 @@
                                         from: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
                                         into: @"Test"
                                           of: TDDocumentDirectory
-                               updateCheckBy: @"15032001"];
+                               updateCheckBy: @"15032001" completed: ^(NSError * error, BOOL finished)
+    {
+        NSLog( @"result %d, %@", finished, error );
+    }];
     
 }
 
@@ -298,7 +304,10 @@
 {
 //    [TDDownloadManager simpleDownload: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download" forDirectory: NSCachesDirectory];
     [TDDownloadManager              simpleDownload: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
-                                      forDirectory: NSDocumentDirectory];
+                                      forDirectory: NSDocumentDirectory completed: ^(NSError * error, BOOL finished)
+    {
+        NSLog( @"result %d, %@", finished, error );
+    }];
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -352,10 +361,17 @@
         return;
     }
     
-//    [procedure                      startProcedure];
+    [procedure                      startProcedure];
 //    [procedure                      startProcedureWithKey: @"UpdateTab"];
-    [procedure                      startProcedureWithKeys: [NSArray arrayWithObjects: @"UpdateTab", @"abc", nil]];
+//    [procedure                      startProcedureWithKeys: [NSArray arrayWithObjects: @"UpdateTab", @"UpdateTab__test3", nil]];
     
+    __weak __typeof(procedure)      weakProcedure;
+    weakProcedure                   = procedure;
+    [procedure                      setPreUpdateCompletionBlock: ^(NSDictionary * updateResponses, NSError * error, BOOL finished)
+    {
+        NSLog( @" %@, %@, %d ", updateResponses, error, finished );
+        [weakProcedure              stopProcedure];
+    } ];
     
 }
 
@@ -393,6 +409,9 @@
     
     [self                           _InitAttributes];
     
+//    NSLog( @"boundle %@", [NSBundle mainBundle] );
+//    NSLog( @" %@ ", [[NSBundle mainBundle] bundleIdentifier]);
+//    NSLog( @" %@ ", [[NSBundle mainBundle] infoDictionary]);
 }
 
 - (void)didReceiveMemoryWarning {
