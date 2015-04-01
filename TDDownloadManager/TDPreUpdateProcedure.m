@@ -13,9 +13,24 @@
 
 #import "TDNetworkReachabilityManager.h"
 #import "TDDownloadManager.h"
+#import "ARCMacros.h"
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+
+static  NSString  * const TDPreUploadProcedureErrorDomain           = @"com.techd.pre-update.procedure.error";
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode )
+{
+    TDPreUpdateProcedureErrorCodeUndefined                  = -1,
+    TDPreUpdateProcedureErrorCodeSearchKeyError             = -2,
+    
+    TDPreUpdateProcedureErrorCodeNetworkUnreachable,
+    
+};
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -41,7 +56,10 @@
     
     
     //  for download asynchronous.
-    dispatch_group_t                completionGroup;
+    NSMutableDictionary           * downloadResponse;
+    NSInteger                       downloadCounter;
+    
+    PreUpdateCompletionBlock        preUpdateCompletionBlock;
     
 }
 
@@ -118,12 +136,17 @@
  *  check and download data with the configure data.
  *
  *  @param updateInfo               a configure data for key.
+ *  @param completed                a block section be executed when download completed.
  *
  *  @return YES|NO                  method success or failure.
  */
-- ( BOOL ) _UpdateDataWith:(NSDictionary *)updateInfo;
+- ( BOOL ) _UpdateDataWith:(NSDictionary *)updateInfo completed:(DownloadCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
+- ( void ) _PreUpdateProcedureErrorCallback:(TDPreUpdateProcedureErrorCode)errorCode error:(NSError *)error;
+
+//  ------------------------------------------------------------------------------------------------
+
 
 @end
 
@@ -155,7 +178,11 @@
     
     
     //  for download asynchronous.
-    completionGroup                 = NULL;
+    downloadResponse                = nil;
+    downloadCounter                 = 0;
+    
+    preUpdateCompletionBlock        = nil;
+
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -170,6 +197,7 @@
     json                            = [NSString stringWithContentsOfFile: configureFilename encoding: NSUTF8StringEncoding error: &error];
     if ( nil != error )
     {
+        [self                       _PreUpdateProcedureErrorCallback: 0 error: error];
         return NO;
     }
     
@@ -177,6 +205,7 @@
     configureData                   = [NSJSONSerialization JSONObjectWithData: [json dataUsingEncoding: NSUTF8StringEncoding] options: NSJSONReadingMutableContainers error: &error];
     if ( nil != error )
     {
+        [self                       _PreUpdateProcedureErrorCallback: 0 error: error];
         return NO;
     }
     return YES;
@@ -238,11 +267,12 @@
         if ( NO == finished )
         {
             //  load confiure from local file.
-            [self                   _LoadConfigureDataFromFile];
+            //[self                   _LoadConfigureDataFromFile];
             if ( nil != completed )
             {
                 completed( finished );
             }
+            [self                   _PreUpdateProcedureErrorCallback: 0 error: error];
             return;
         }
         
@@ -262,6 +292,7 @@
             {
                 completed( isReachable );
             }
+            [self                   _PreUpdateProcedureErrorCallback: TDPreUpdateProcedureErrorCodeNetworkUnreachable error: nil];
             return;
         }
         
@@ -276,66 +307,23 @@
 //  ------------------------------------------------------------------------------------------------
 - ( BOOL ) _UpdateProcedure:(NSArray *)keyList
 {
-    if ( ( nil == keyList ) || ( [keyList count] == 0 ) )
+    NSParameterAssert( nil != keyList );
+    
+    if ( [keyList count] == 0 )
     {
+        [self                       _PreUpdateProcedureErrorCallback: TDPreUpdateProcedureErrorCodeSearchKeyError error: nil];
         return NO;
     }
+
     
     NSString                      * aKey;
     NSDictionary                  * infoData;
-    
-    
-    for ( int i = 0; i < [keyList count]; ++i )
-    {
-        aKey                        = [keyList objectAtIndex: i];
-        if ( nil == aKey )
-        {
-            continue;
-        }
-        
-        infoData                    = [configureData objectForKey: aKey];
-        if ( nil == infoData )
-        {
-            continue;
-        }
-        [self                       _UpdateDataWith: infoData];
-        
-    }
- 
-    return YES;
-}
-
-
-//  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _UpdateProcedure:(NSArray *)keyList completed:(void(^)(BOOL finished))completed
-{
-    if ( ( nil == keyList ) || ( [keyList count] == 0 ) )
-    {
-        return NO;
-    }
-    
     
     __block dispatch_group_t        group;
-    
-    group                           = dispatch_group_create();
-    dispatch_group_notify( group, dispatch_get_main_queue(), ^
-    {
-        //  use block section & call on here ...
-        if ( nil != completed )
-        {
-            completed( YES );
-        }
-     
-    });
-    
-    
-    
-    NSString                      * aKey;
-    NSDictionary                  * infoData;
-    
     dispatch_queue_t                queue;
     
-    
+    group                           = dispatch_group_create();
+    downloadResponse                = [[NSMutableDictionary alloc] initWithCapacity: [keyList count]];
     for ( int i = 0; i < [keyList count]; ++i )
     {
         aKey                        = [keyList objectAtIndex: i];
@@ -346,30 +334,48 @@
         
         infoData                    = [configureData objectForKey: aKey];
         if ( nil == infoData )
+        {
+            continue;
+        }
+        
+        if ( [infoData objectForKey: @"DataLink"] == nil )
         {
             continue;
         }
         
         queue                       = dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0 );
-        dispatch_async( queue, ^()
+        dispatch_group_async( group, queue, ^()
         {
-            [self                   _UpdateDataWith: infoData];
+            [self                   _UpdateDataWith: infoData completed: ^(NSError * error, BOOL finished)
+            {
+                NSDictionary      * response;
+                
+                response            = @{ @"update infos": infoData, @"error": ( ( nil == error ) ? @"" : error ), @"finished" : @(finished) };
+                //  forward code is like : setObject: forKey: when type is NSMutableDictionary.
+                [downloadResponse   setObject: response forKey: aKey];
+                
+                //  check for all download procedure is callback.
+                if ( [downloadResponse count] != downloadCounter )
+                {
+                    return;
+                }
+                
+                if ( nil != preUpdateCompletionBlock )
+                {
+                    preUpdateCompletionBlock( downloadResponse, nil, YES );
+                }
+                
+            }];
         });
+        downloadCounter++;
         
-        
-    }
+    }   //  End of  for ( int i = 0; i < [keyList count]; ++i ).
     
-//    completionGroup                 = group;
     return YES;
 }
 
-
-
-
-
-
 //  ------------------------------------------------------------------------------------------------
-- ( BOOL ) _UpdateDataWith:(NSDictionary *)updateInfo
+- ( BOOL ) _UpdateDataWith:(NSDictionary *)updateInfo completed:(DownloadCompletedCallbackBlock)completed
 {
     if ( ( nil == updateInfo ) || ( [updateInfo count] == 0 ) )
     {
@@ -388,9 +394,57 @@
         return NO;
     }
     
-    [TDDownloadManager              download: name from: dataLink into: configureSubpath of: configureDirectory updateCheckBy: timestamp];
+    [TDDownloadManager              download: name from: dataLink into: configureSubpath of: configureDirectory updateCheckBy: timestamp completed: completed];
     
     return YES;
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _PreUpdateProcedureErrorCallback:(TDPreUpdateProcedureErrorCode)errorCode error:(NSError *)error
+{
+    if ( nil == preUpdateCompletionBlock )
+    {
+        return;
+    }
+    
+    if ( nil != error )
+    {
+        preUpdateCompletionBlock( nil, error, NO );
+        return;
+    }
+    
+    NSError                       * updateError;
+    NSString                      * errorMessage;
+    NSMutableDictionary           * errorInfos;
+    
+    updateError                     = nil;
+    errorMessage                    = nil;
+    switch ( errorCode )
+    {
+        case TDPreUpdateProcedureErrorCodeSearchKeyError:
+        {
+            errorMessage            = @"cannot find any search key in container of condition.";
+            break;
+        }
+        case TDPreUpdateProcedureErrorCodeNetworkUnreachable:
+        {
+            errorMessage            = @"network status is unreachabe.";
+            
+        }
+            
+        default:
+            return;
+    }
+    
+    
+    errorInfos                      = [@{
+                                            NSLocalizedDescriptionKey: NSLocalizedStringFromTable( errorMessage, @"TDPreUpdateProcedure", nil ),
+                                        } mutableCopy];
+    
+    updateError                     = [NSError errorWithDomain: TDPreUploadProcedureErrorDomain code: errorCode userInfo: errorInfos];
+    preUpdateCompletionBlock( nil, updateError, NO );
+    
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -422,6 +476,31 @@
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
+//  ------------------------------------------------------------------------------------------------
+- ( void ) dealloc
+{
+    if ( nil != configureData )
+    {
+        SAFE_ARC_RELEASE( configureData );
+        configureData               = nil;
+    }
+    
+    if ( nil != downloadResponse )
+    {
+        [downloadResponse           removeAllObjects];
+        SAFE_ARC_RELEASE( downloadResponse );
+        downloadResponse            = nil;
+    }
+    
+    if ( nil != preUpdateCompletionBlock )
+    {
+        SAFE_ARC_RELEASE( preUpdateCompletionBlock );
+        preUpdateCompletionBlock    = nil;
+    }
+    
+    SAFE_ARC_SUPER_DEALLOC();
+}
+
 //  ------------------------------------------------------------------------------------------------
 - (instancetype ) initWithURL:(NSString *)configureURL
                      withSave:(NSString *)filename into:(NSString *)subpath of:(TDGetPathDirectory)directory
@@ -457,17 +536,15 @@
 {
     [self                           _PreDownloadSystemConfigure: ^(BOOL finished)
     {
-//        NSLog( @"is finish %d,\n container : %@", finished, configureData );
-        NSArray                   * allKeys;
-        
-        allKeys                     = [configureData allKeys];
-        if ( ( nil == allKeys ) || ( [allKeys count] == 0 ) )
+        if ( NO == finished )
         {
             return;
         }
         
-        [self                       _UpdateProcedure: allKeys];
+        NSArray                   * allKeys;
         
+        allKeys                     = [configureData allKeys];
+        [self                       _UpdateProcedure: allKeys];
         
     }];
     return;
@@ -483,13 +560,14 @@
     
     [self                           _PreDownloadSystemConfigure: ^(BOOL finished)
     {
-        NSArray                   * keyList;
-        
-        keyList                     = [NSArray arrayWithObject: aKey];
-        if ( ( nil == keyList ) || ( [keyList count] == 0 ) )
+        if ( NO == finished )
         {
             return;
         }
+        
+        NSArray                   * keyList;
+        
+        keyList                     = [NSArray arrayWithObject: aKey];
         [self                       _UpdateProcedure: keyList];
     }];
     return;
@@ -498,32 +576,49 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) startProcedureWithKeys:(NSArray *)keyList
 {
-    if ( ( nil == keyList ) || ( [keyList count] == 0 ) )
+    [self                           _PreDownloadSystemConfigure: ^(BOOL finished)
+    {
+        if ( NO == finished )
+        {
+            return;
+        }
+        
+        [self                       _UpdateProcedure: keyList];
+    }];
+    
+    return;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) stopProcedure
+{
+    if ( nil != downloadResponse )
+    {
+        [downloadResponse           removeAllObjects];
+        SAFE_ARC_RELEASE( downloadResponse );
+        downloadResponse            = nil;
+    }
+    
+    if ( nil != preUpdateCompletionBlock )
+    {
+        SAFE_ARC_RELEASE( preUpdateCompletionBlock );
+        preUpdateCompletionBlock    = nil;
+    }
+    
+    downloadCounter                 = 0;
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setPreUpdateCompletionBlock:(PreUpdateCompletionBlock)completionBlock
+{
+    if ( nil == completionBlock )
     {
         return;
     }
-    
-    
-    void (^updateProcedureBlock)(BOOL finished) = ^(BOOL finished)
-    {
-        NSLog( @"test ... %d", finished );
-    };
-    
-    
-    
-    __weak __typeof(updateProcedureBlock)   weakUpdateProcedureBlock;
-    weakUpdateProcedureBlock                = updateProcedureBlock;
-    [self                           _PreDownloadSystemConfigure: ^(BOOL finished)
-    {
-//.        [self                       _UpdateProcedure: keyList];
-        __strong __typeof(weakUpdateProcedureBlock) strongUpdateProcedureBlock;
-        strongUpdateProcedureBlock          = weakUpdateProcedureBlock;
-        
-        
-        [self   _UpdateProcedure: keyList completed: strongUpdateProcedureBlock];
-    }];
-    return;
+    preUpdateCompletionBlock        = completionBlock;
 }
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
