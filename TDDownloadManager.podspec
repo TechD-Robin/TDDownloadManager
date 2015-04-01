@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "TDDownloadManager"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "A Download Manager of Tech.D."
 
   s.homepage     = "https://git.techd.idv.tw:5001"
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.source_files = 'ARCMacros.h', 'TDDownloadManager/*.{h,m,mm}'
 
 
-  s.dependency    "AFNetworking",         "~> 2.5.0"
+  s.dependency    "AFNetworking",         "~> 2.5.2"
   s.dependency    "TDFoundation",         "~> 0.0.1"
   s.dependency    "Foundation+TechD",     "~> 0.0.1"
 
