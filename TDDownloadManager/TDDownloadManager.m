@@ -111,7 +111,7 @@ BOOL _SearchUpdateFile( NSString * destinationFile, NSString * path, NSString * 
     manager                         = [NSFileManager defaultManager];
     list                            = [manager contentsOfDirectoryAtPath: path error: &error];
     
-    NSLog( @"list: %@", list  );
+    //NSLog( @"list: %@", list  );
     for ( NSString * file in list )
     {
         if ( nil == file )

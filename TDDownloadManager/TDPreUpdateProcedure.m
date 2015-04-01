@@ -394,6 +394,7 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode )
         return NO;
     }
     
+    [NSThread                       sleepForTimeInterval: 0.1f];
     [TDDownloadManager              download: name from: dataLink into: configureSubpath of: configureDirectory updateCheckBy: timestamp completed: completed];
     
     return YES;
