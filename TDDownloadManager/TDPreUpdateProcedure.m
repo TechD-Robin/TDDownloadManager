@@ -430,7 +430,7 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode )
         case TDPreUpdateProcedureErrorCodeNetworkUnreachable:
         {
             errorMessage            = @"network status is unreachabe.";
-            
+            break;
         }
             
         default:
@@ -495,7 +495,7 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode )
     if ( nil != preUpdateCompletionBlock )
     {
         SAFE_ARC_RELEASE( preUpdateCompletionBlock );
-        preUpdateCompletionBlock    = nil;
+        SAFE_ARC_ASSIGN_POINTER_NIL( preUpdateCompletionBlock );
     }
     
     SAFE_ARC_SUPER_DEALLOC();
