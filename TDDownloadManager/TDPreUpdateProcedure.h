@@ -17,6 +17,16 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark type define.
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief a block section be executed when pre-update procedure is completed.
+ *  a block section be executed when pre-update procedure is completed, these parameters will return completed information to method caller.
+ *
+ *  @param updateResponses          a container to store download file's information, include result of download.
+ *  @param error                    a NSError object, if pre-update procedure failure then this object has error information, otherwise it's nil object.
+ *  @param finished                 a boolean value, if pre-update procedure success then the value is YES, otherwise it's NO.
+ *
+ *  @return void                    nothing.
+ */
 typedef     void (^PreUpdateCompletionBlock)(NSDictionary * updateResponses, NSError * error, BOOL finished);
 
 //  ------------------------------------------------------------------------------------------------
@@ -86,9 +96,21 @@ typedef     void (^PreUpdateCompletionBlock)(NSDictionary * updateResponses, NSE
 - ( void ) startProcedureWithKeys:(NSArray *)keyList;
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for base methos of procedure
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief stop this pre-update procedure when complete.
+ *  stop this pre-update procedure when complete, this method will clear up some temporary data of procedure.
+ */
 - ( void ) stopProcedure;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set a block section be executed when pre-update procedure is completed.
+ *  set a block section be executed when pre-update procedure is completed; if you need result of pre-update procedure, call this method.
+ *
+ *  @param completionBlock          a block section be executed when pre-update procedure completed.
+ */
 - ( void ) setPreUpdateCompletionBlock:(PreUpdateCompletionBlock)completionBlock;
 
 //  ------------------------------------------------------------------------------------------------

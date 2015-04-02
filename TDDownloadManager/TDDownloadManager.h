@@ -53,6 +53,15 @@ NSString * TDGetCurrentFilePathWithUpdate( NSString * filename, NSString * subpa
 typedef     void (^ReadJSONCompletedCallbackBlock)(NSDictionary * jsonContent, NSError * error, BOOL finished);
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief a block section be execute when download file from internet is completed.
+ *  a block section be execute when download file from internet is completed, these parameters witll return completed information to method caller.
+ *
+ *  @param error                    a NSError object, if download method failure then this object has error information, otherwise it's nil object.
+ *  @param finished (YES|NO)        a boolean value, if download method success then the value is YES, otherwise it's NO.
+ *
+ *  @return void                    nothing.
+ */
 typedef     void (^DownloadCompletedCallbackBlock)(NSError * error, BOOL finished);
 
 //  ------------------------------------------------------------------------------------------------

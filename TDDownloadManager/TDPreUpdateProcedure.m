@@ -16,20 +16,29 @@
 #import "ARCMacros.h"
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark define constant string.
 //  ------------------------------------------------------------------------------------------------
-
 static  NSString  * const TDPreUploadProcedureErrorDomain           = @"com.techd.pre-update.procedure.error";
 
-
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare enumeration.
 //  ------------------------------------------------------------------------------------------------
-typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode )
-{
+/**
+ *  enumeration for pre-update's procedure error.
+ */
+typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
+    /**
+     *  maybe unknow how to define the error.
+     */
     TDPreUpdateProcedureErrorCodeUndefined                  = -1,
+    /**
+     *  when has error for search key of procedure's configure data.
+     */
     TDPreUpdateProcedureErrorCodeSearchKeyError             = -2,
-    
+    /**
+     *  when device's network status is unreachable.
+     */
     TDPreUpdateProcedureErrorCodeNetworkUnreachable,
-    
 };
 
 
@@ -44,21 +53,48 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode )
 //  ------------------------------------------------------------------------------------------------
 @interface TDPreUpdateProcedure ()
 {
+    
+    //  for download data.
+    /**
+     *  configure of update's URL.
+     */
     NSString                      * configureUpdateURL;
     
+    /**
+     *  download configure data, save to this filename. (filename with full path)
+     */
+    NSString                      * configureFilename;
     
-    NSString                      * configureFilename;          //  filename with full path.
-    
+    /**
+     *  save file's directory's type.
+     */
     TDGetPathDirectory              configureDirectory;
-    NSString                      * configureSubpath;           //  full path.
     
+    /**
+     *  save file's subpath of directory.
+     */
+    NSString                      * configureSubpath;
+    
+    /**
+     *  the container of pre-update's configure data.
+     */
     NSDictionary                  * configureData;
     
     
     //  for download asynchronous.
+    /**
+     *  a container for pre-update procedure's response of download.
+     */
     NSMutableDictionary           * downloadResponse;
+    
+    /**
+     *  pre-update procedure's counter of download.
+     */
     NSInteger                       downloadCounter;
     
+    /**
+     *  assign a block's pointer for be executed when pre-update procedure is completed
+     */
     PreUpdateCompletionBlock        preUpdateCompletionBlock;
     
 }
@@ -143,6 +179,14 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode )
 - ( BOOL ) _UpdateDataWith:(NSDictionary *)updateInfo completed:(DownloadCompletedCallbackBlock)completed;
 
 //  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief create a NSError object by error code, and execute method of callback block to return the error information.
+ *  create a NSError object by error code, and execute method of callback block to return the error information,
+ *  when error isn't nil, return the error object, skip create a new error object.
+ *
+ *  @param errorCode                a error code.
+ *  @param error                    a error object from other procedure.
+ */
 - ( void ) _PreUpdateProcedureErrorCallback:(TDPreUpdateProcedureErrorCode)errorCode error:(NSError *)error;
 
 //  ------------------------------------------------------------------------------------------------
@@ -472,12 +516,6 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode )
 //  ------------------------------------------------------------------------------------------------
 #pragma mark overwrite implementation of NSObject.
 //  ------------------------------------------------------------------------------------------------
-
-//  ------------------------------------------------------------------------------------------------
-
-//  ------------------------------------------------------------------------------------------------
-#pragma mark method for create the object.
-//  ------------------------------------------------------------------------------------------------
 - ( void ) dealloc
 {
     if ( nil != configureData )
@@ -502,6 +540,8 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode )
     SAFE_ARC_SUPER_DEALLOC();
 }
 
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
 - (instancetype ) initWithURL:(NSString *)configureURL
                      withSave:(NSString *)filename into:(NSString *)subpath of:(TDGetPathDirectory)directory
@@ -591,6 +631,8 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode )
 }
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for base methos of procedure
+//  ------------------------------------------------------------------------------------------------
 - ( void ) stopProcedure
 {
     if ( nil != downloadResponse )
@@ -609,7 +651,6 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode )
     downloadCounter                 = 0;
 }
 
-//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 - ( void ) setPreUpdateCompletionBlock:(PreUpdateCompletionBlock)completionBlock
 {

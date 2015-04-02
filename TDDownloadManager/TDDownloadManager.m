@@ -12,20 +12,31 @@
 #import "Foundation+TechD.h"
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark define constant string.
 //  ------------------------------------------------------------------------------------------------
 static  NSString  * const TDDownloadManagerErrorDomain              = @"com.techd.manager.download.error";
 //static  NSString  * const TDDownloadManagerUpdateErrorKey           = @"com.techd.manager.download.update.error";
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare enumeration.
 //  ------------------------------------------------------------------------------------------------
-typedef NS_ENUM( NSInteger, TDDownloadManagerErrorCode )
-{
+/**
+ *  enumeration for download manager's procedure error.
+ */
+typedef NS_ENUM( NSInteger, TDDownloadManagerErrorCode ){
+    /**
+     *  maybe unknow how to define the error.
+     */
     TDDownloadManagerErrorCodeUndefined                     = -1,
+    /**
+     *  when procedure has error for parameters of file
+     */
     TDDownloadManagerErrorCodeFilenameParamError            = -2,
+    /**
+     *  when procedure has error path data.
+     */
     TDDownloadManagerErrorCodePathError,
-    
 };
-
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
