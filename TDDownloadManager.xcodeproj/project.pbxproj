@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		2A1B18D71AB9D22400B5F345 /* NSString+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1B18D61AB9D22400B5F345 /* NSString+TechD.m */; };
 		2A2295C51ABC7910002D5F37 /* NSJSONSerialization+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2295C41ABC7910002D5F37 /* NSJSONSerialization+TechD.m */; };
-		2A52077A1AC07DE8005FE8A7 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A5207791AC07DE8005FE8A7 /* README.md */; };
-		2A8FDD281AB737A4006BD130 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2A8FDD1F1AB737A4006BD130 /* LICENSE */; };
-		2A8FDD291AB737A4006BD130 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD201AB737A4006BD130 /* README.md */; };
-		2A8FDD2A1AB737A4006BD130 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD201AB737A4006BD130 /* README.md */; };
 		2A8FDD2B1AB737A4006BD130 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD251AB737A4006BD130 /* TDTexturePackerXMLReader.m */; };
 		2A8FDD2C1AB737A4006BD130 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD251AB737A4006BD130 /* TDTexturePackerXMLReader.m */; };
 		2A8FDD2D1AB737A4006BD130 /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD271AB737A4006BD130 /* TDUtilities.m */; };
@@ -30,7 +26,6 @@
 		2AA3ABB91AA6332200A45D67 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA3AB9A1AA6332200A45D67 /* AFURLRequestSerialization.m */; };
 		2AA3ABBA1AA6332200A45D67 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA3AB9C1AA6332200A45D67 /* AFURLResponseSerialization.m */; };
 		2AA3ABBB1AA6332200A45D67 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA3AB9E1AA6332200A45D67 /* AFURLSessionManager.m */; };
-		2AA3ABBC1AA6332200A45D67 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2AA3ABA01AA6332200A45D67 /* README.md */; };
 		2AA3ABBD1AA6332200A45D67 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA3ABA31AA6332200A45D67 /* AFNetworkActivityIndicatorManager.m */; };
 		2AA3ABBE1AA6332200A45D67 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA3ABA51AA6332200A45D67 /* UIActivityIndicatorView+AFNetworking.m */; };
 		2AA3ABBF1AA6332200A45D67 /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA3ABA71AA6332200A45D67 /* UIAlertView+AFNetworking.m */; };
@@ -394,7 +389,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A8FDD281AB737A4006BD130 /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,8 +403,6 @@
 				2AA3ABBA1AA6332200A45D67 /* AFURLResponseSerialization.m in Sources */,
 				2AA3ABBF1AA6332200A45D67 /* UIAlertView+AFNetworking.m in Sources */,
 				2A9B92421AC2BBD00044CC8A /* TDPreUpdateProcedure.m in Sources */,
-				2A8FDD291AB737A4006BD130 /* README.md in Sources */,
-				2A52077A1AC07DE8005FE8A7 /* README.md in Sources */,
 				2AA3ABB31AA6332200A45D67 /* AFHTTPRequestOperation.m in Sources */,
 				2AA3AB761AA629DC00A45D67 /* TDDownloadManager.m in Sources */,
 				2AA3ABB61AA6332200A45D67 /* AFNetworkReachabilityManager.m in Sources */,
@@ -428,7 +420,6 @@
 				2AA3ABC31AA6332200A45D67 /* UIRefreshControl+AFNetworking.m in Sources */,
 				2A8FDD2D1AB737A4006BD130 /* TDUtilities.m in Sources */,
 				2AA3ABC41AA6332200A45D67 /* UIWebView+AFNetworking.m in Sources */,
-				2AA3ABBC1AA6332200A45D67 /* README.md in Sources */,
 				2AA3ABB91AA6332200A45D67 /* AFURLRequestSerialization.m in Sources */,
 				2AA3ABBE1AA6332200A45D67 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				2AC3D3C11AAEFC83007CB19F /* TDNetworkReachabilityManager.m in Sources */,
@@ -441,7 +432,6 @@
 			files = (
 				2A8FDD2E1AB737A4006BD130 /* TDUtilities.m in Sources */,
 				2A8FDD2C1AB737A4006BD130 /* TDTexturePackerXMLReader.m in Sources */,
-				2A8FDD2A1AB737A4006BD130 /* README.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
