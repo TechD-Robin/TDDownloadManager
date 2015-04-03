@@ -809,7 +809,7 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
          result                     = [NSJSONSerialization saveJSONContainer: jsonContent toFileAtPath: fullPath error: &saveError];
          if ( nil != completed )
          {
-             completed( jsonContent, nil, result );
+             completed( jsonContent, saveError, result );
          }
          return;
      }];
