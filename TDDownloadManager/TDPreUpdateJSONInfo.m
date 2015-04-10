@@ -13,6 +13,12 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+static  NSString  * const kTDPreUpdateJSONInfoKeyName               = @"Name";
+static  NSString  * const kTDPreUpdateJSONInfoKeyTimestamp          = @"Timestamp";
+static  NSString  * const kTDPreUpdateJSONInfoKeyDataLink           = @"DataLink";
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 
 
 //  ------------------------------------------------------------------------------------------------
@@ -43,7 +49,7 @@
     
     NSString                      * keyPath;
     
-    keyPath                         = [aKey stringByAppendingPathComponent: @"Name"];
+    keyPath                         = [aKey stringByAppendingPathComponent: kTDPreUpdateJSONInfoKeyName];
     NSParameterAssert( nil != keyPath );
     
     return [self stringValueForKeyPath: keyPath];
@@ -56,7 +62,7 @@
     
     NSString                      * keyPath;
     
-    keyPath                         = [aKey stringByAppendingPathComponent: @"Timestamp"];
+    keyPath                         = [aKey stringByAppendingPathComponent: kTDPreUpdateJSONInfoKeyTimestamp];
     NSParameterAssert( nil != keyPath );
     
     return [self stringValueForKeyPath: keyPath];
@@ -69,7 +75,7 @@
     
     NSString                      * keyPath;
     
-    keyPath                         = [aKey stringByAppendingPathComponent: @"DataLink"];
+    keyPath                         = [aKey stringByAppendingPathComponent: kTDPreUpdateJSONInfoKeyDataLink];
     NSParameterAssert( nil != keyPath );
     
     return [self stringValueForKeyPath: keyPath];
