@@ -14,6 +14,8 @@
 #import "TDDownloadManager.h"
 #import "TDPreUpdateProcedure.h"
 
+#import "TDPreUpdateJSONInfo.h"
+
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 @interface TableViewController ()
@@ -56,6 +58,7 @@
 - ( void ) _GetCurrentFilePath;
 
 - ( void ) _PreLoadProcedure;
+- ( void ) _GetPreLoadJSONInfo;
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -100,6 +103,7 @@
     [demoList                       addObject: @" get file current path with update." ];
 
     [demoList                       addObject: @" preload procedure." ];
+    [demoList                       addObject: @" get preload json data." ];
 
     demoViewController              = nil;
     
@@ -375,6 +379,29 @@
     
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _GetPreLoadJSONInfo
+{
+    TDPreUpdateJSONInfo           * info;
+    
+    info                            = [TDPreUpdateJSONInfo loadData: @"System.json" forDirectories: TDDocumentDirectory inDirectory: @"Download/Configure" encoding: NSUTF8StringEncoding];
+    if ( nil == info )
+    {
+        return;
+    }
+    
+    NSLog( @"name : %@ ", [info nameForKey: @"UpdateTab__test3"] );
+    
+    NSLog( @"timestamp : %@", [info timestampForKey: @"UpdateTab"] );
+    
+    NSLog( @"link : %@", [info dataLinkForKey: @"UpdateSystem"] );
+    NSLog( @"link : %@", [info dataLinkForKey: @"UpdateTab_test2"] );
+    
+    NSLog( @"update configure file name : %@", [info updateConfigureFilenameForKey: @"UpdateSystem"] );
+    NSLog( @"update configure full path : %@", [info updateConfigureFullPathForKey: @"UpdateTab" forDirectories: TDDocumentDirectory inDirectory: @"Download/Configure"] );
+    
+}
+
 
 //  ------------------------------------------------------------------------------------------------
 //  --------------------------------
@@ -490,6 +517,7 @@
         case 11:[self               _GetCurrentFilePath];               break;
             
         case 12:[self               _PreLoadProcedure];                 break;
+        case 13:[self               _GetPreLoadJSONInfo];               break;
         default:
             break;
     }
