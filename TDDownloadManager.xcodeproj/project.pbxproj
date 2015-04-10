@@ -10,6 +10,7 @@
 		2A1B18D71AB9D22400B5F345 /* NSString+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1B18D61AB9D22400B5F345 /* NSString+TechD.m */; };
 		2A2295C51ABC7910002D5F37 /* NSJSONSerialization+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2295C41ABC7910002D5F37 /* NSJSONSerialization+TechD.m */; };
 		2A8A59EA1AD81EE0000CEA93 /* TDJSONReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A59E91AD81EE0000CEA93 /* TDJSONReader.m */; };
+		2A8A59F01AD820F6000CEA93 /* TDPreUpdateJSONInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A59EF1AD820F6000CEA93 /* TDPreUpdateJSONInfo.m */; };
 		2A8FDD2B1AB737A4006BD130 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD251AB737A4006BD130 /* TDTexturePackerXMLReader.m */; };
 		2A8FDD2C1AB737A4006BD130 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD251AB737A4006BD130 /* TDTexturePackerXMLReader.m */; };
 		2A8FDD2D1AB737A4006BD130 /* TDUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD271AB737A4006BD130 /* TDUtilities.m */; };
@@ -71,6 +72,8 @@
 		2A5207791AC07DE8005FE8A7 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "Libraries/Foundation+TechD/README.md"; sourceTree = "<group>"; };
 		2A8A59E81AD81EE0000CEA93 /* TDJSONReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDJSONReader.h; sourceTree = "<group>"; };
 		2A8A59E91AD81EE0000CEA93 /* TDJSONReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDJSONReader.m; sourceTree = "<group>"; };
+		2A8A59EE1AD820F6000CEA93 /* TDPreUpdateJSONInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDPreUpdateJSONInfo.h; sourceTree = "<group>"; };
+		2A8A59EF1AD820F6000CEA93 /* TDPreUpdateJSONInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDPreUpdateJSONInfo.m; sourceTree = "<group>"; };
 		2A8FDD1F1AB737A4006BD130 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		2A8FDD201AB737A4006BD130 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2A8FDD221AB737A4006BD130 /* ARCMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCMacros.h; sourceTree = "<group>"; };
@@ -234,6 +237,8 @@
 				2AA3AB751AA629DC00A45D67 /* TDDownloadManager.m */,
 				2A9B92401AC2BBD00044CC8A /* TDPreUpdateProcedure.h */,
 				2A9B92411AC2BBD00044CC8A /* TDPreUpdateProcedure.m */,
+				2A8A59EE1AD820F6000CEA93 /* TDPreUpdateJSONInfo.h */,
+				2A8A59EF1AD820F6000CEA93 /* TDPreUpdateJSONInfo.m */,
 			);
 			path = TDDownloadManager;
 			sourceTree = "<group>";
@@ -424,6 +429,7 @@
 				2AA3ABC01AA6332200A45D67 /* UIButton+AFNetworking.m in Sources */,
 				2A2295C51ABC7910002D5F37 /* NSJSONSerialization+TechD.m in Sources */,
 				2AA3ABC31AA6332200A45D67 /* UIRefreshControl+AFNetworking.m in Sources */,
+				2A8A59F01AD820F6000CEA93 /* TDPreUpdateJSONInfo.m in Sources */,
 				2A8FDD2D1AB737A4006BD130 /* TDUtilities.m in Sources */,
 				2AA3ABC41AA6332200A45D67 /* UIWebView+AFNetworking.m in Sources */,
 				2AA3ABB91AA6332200A45D67 /* AFURLRequestSerialization.m in Sources */,
