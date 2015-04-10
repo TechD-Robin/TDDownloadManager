@@ -34,6 +34,7 @@
 		2A2DAC6C1AA78429002E408F /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC591AA78429002E408F /* UIWebView+AFNetworking.m */; };
 		2A2DAC741AA78450002E408F /* TDDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2DAC721AA78450002E408F /* TDDownloadManager.m */; };
 		2A476F2E1AC4066B0043FB21 /* TDPreUpdateProcedure.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A476F2D1AC4066B0043FB21 /* TDPreUpdateProcedure.m */; };
+		2A8A59ED1AD81F42000CEA93 /* TDJSONReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A59EC1AD81F42000CEA93 /* TDJSONReader.m */; };
 		2A8FDD391AB745AB006BD130 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2A8FDD301AB745AB006BD130 /* LICENSE */; };
 		2A8FDD3A1AB745AB006BD130 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD311AB745AB006BD130 /* README.md */; };
 		2A8FDD3B1AB745AB006BD130 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD361AB745AB006BD130 /* TDTexturePackerXMLReader.m */; };
@@ -110,6 +111,8 @@
 		2A2DAC751AA785B5002E408F /* ARCMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARCMacros.h; path = ../../../ARCMacros.h; sourceTree = "<group>"; };
 		2A476F2C1AC4066B0043FB21 /* TDPreUpdateProcedure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDPreUpdateProcedure.h; sourceTree = "<group>"; };
 		2A476F2D1AC4066B0043FB21 /* TDPreUpdateProcedure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDPreUpdateProcedure.m; sourceTree = "<group>"; };
+		2A8A59EB1AD81F42000CEA93 /* TDJSONReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDJSONReader.h; sourceTree = "<group>"; };
+		2A8A59EC1AD81F42000CEA93 /* TDJSONReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDJSONReader.m; sourceTree = "<group>"; };
 		2A8FDD301AB745AB006BD130 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		2A8FDD311AB745AB006BD130 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2A8FDD331AB745AB006BD130 /* ARCMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCMacros.h; sourceTree = "<group>"; };
@@ -326,6 +329,8 @@
 				2A8FDD381AB745AB006BD130 /* TDUtilities.m */,
 				2A8FDD351AB745AB006BD130 /* TDTexturePackerXMLReader.h */,
 				2A8FDD361AB745AB006BD130 /* TDTexturePackerXMLReader.m */,
+				2A8A59EB1AD81F42000CEA93 /* TDJSONReader.h */,
+				2A8A59EC1AD81F42000CEA93 /* TDJSONReader.m */,
 			);
 			path = TDFoundation;
 			sourceTree = "<group>";
@@ -443,6 +448,7 @@
 				2A2DAC691AA78429002E408F /* UIImageView+AFNetworking.m in Sources */,
 				2A8FDD3B1AB745AB006BD130 /* TDTexturePackerXMLReader.m in Sources */,
 				2A2DAC611AA78429002E408F /* AFURLResponseSerialization.m in Sources */,
+				2A8A59ED1AD81F42000CEA93 /* TDJSONReader.m in Sources */,
 				2A2DAC661AA78429002E408F /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				2A1B18DD1AB9D4CD00B5F345 /* NSString+TechD.m in Sources */,
 				2A2DAC5F1AA78429002E408F /* AFURLConnectionOperation.m in Sources */,
