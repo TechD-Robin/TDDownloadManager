@@ -282,9 +282,10 @@
     [TDDownloadManager              replacementDownload: @"StickerLibrary"
                                                    from: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
                                                    into: @"Test"
-                                                     of: TDCachesDirectory completed: ^(NSError * error, BOOL finished)
+                                                     of: TDCachesDirectory completed: ^(NSError * error, NSString * fullPath, BOOL finished)
     {
         NSLog( @"result %d, %@", finished, error );
+        NSLog( @"file full path : %@", fullPath );
     }];
     
 }
@@ -296,9 +297,10 @@
                                         from: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
                                         into: @"Test"
                                           of: TDDocumentDirectory
-                               updateCheckBy: @"15032001" completed: ^(NSError * error, BOOL finished)
+                               updateCheckBy: @"15032001" completed: ^(NSError * error, NSString * fullPath, BOOL finished)
     {
         NSLog( @"result %d, %@", finished, error );
+        NSLog( @"file full path : %@", fullPath );
     }];
     
 }
@@ -308,9 +310,10 @@
 {
 //    [TDDownloadManager simpleDownload: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download" forDirectory: NSCachesDirectory];
     [TDDownloadManager              simpleDownload: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
-                                      forDirectory: NSDocumentDirectory completed: ^(NSError * error, BOOL finished)
+                                      forDirectory: NSDocumentDirectory completed: ^(NSError * error, NSString * fullPath, BOOL finished)
     {
         NSLog( @"result %d, %@", finished, error );
+        NSLog( @"file full path : %@", fullPath );
     }];
 }
 
