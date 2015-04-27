@@ -42,7 +42,17 @@ typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-#pragma mark private method for NSJSONSerialization+TechD
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark declare private category (_Techd)
+//  ------------------------------------------------------------------------------------------------
+@interface NSJSONSerialization (_Techd)
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for error output
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief create a error object by error code.
@@ -53,7 +63,28 @@ typedef NS_ENUM( NSInteger, NSJSONSerialization_TechDErrorCode )
  *
  *  @return object|nil              a error object or nil.
  */
-NSError * _Error( id relationObject, NSJSONSerialization_TechDErrorCode errorCode )
++ ( NSError * ) _ErrorMessage:(id)relationObject with:(NSJSONSerialization_TechDErrorCode)errorCode;
+
+//  ------------------------------------------------------------------------------------------------
+
+@end
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark implementation private category (_Techd)
+//  ------------------------------------------------------------------------------------------------
+@implementation NSJSONSerialization (_Techd)
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for error output
+//  ------------------------------------------------------------------------------------------------
++ ( NSError * ) _ErrorMessage:(id)relationObject with:(NSJSONSerialization_TechDErrorCode)errorCode
 {
     NSString                      * errorMessage;
     NSMutableDictionary           * errorInfos;
@@ -81,16 +112,21 @@ NSError * _Error( id relationObject, NSJSONSerialization_TechDErrorCode errorCod
     }
     
     errorInfos                      = [@{
-                                            NSLocalizedDescriptionKey: NSLocalizedStringFromTable( errorMessage, NSJSONSerialization_TechD, nil ),
+                                         NSLocalizedDescriptionKey: NSLocalizedStringFromTable( errorMessage, NSJSONSerialization_TechD, nil ),
                                          } mutableCopy];
     
     return [NSError errorWithDomain: NSJSONSerialization_TechDErrorDomain code: errorCode userInfo: errorInfos];
 }
 
+//  ------------------------------------------------------------------------------------------------
+
+@end
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-
+#pragma mark -
+#pragma mark implementation public category (Techd)
+//  ------------------------------------------------------------------------------------------------
 @implementation NSJSONSerialization (TechD)
 
 //  ------------------------------------------------------------------------------------------------
@@ -181,7 +217,7 @@ NSError * _Error( id relationObject, NSJSONSerialization_TechDErrorCode errorCod
     {
         if ( NULL != error )
         {
-            *error                  = _Error( filepath, NSJSONSerialization_TechDErrorCodeFileNotExist );
+            *error                  = [[self class] _ErrorMessage: filepath with: NSJSONSerialization_TechDErrorCodeFileNotExist];
         }
         return nil;
     }
@@ -190,7 +226,7 @@ NSError * _Error( id relationObject, NSJSONSerialization_TechDErrorCode errorCod
     {
         if ( NULL != error )
         {
-            *error                  = _Error( filepath, NSJSONSerialization_TechDErrorCodeFileIsDir );
+            *error                  = [[self class] _ErrorMessage: filepath with: NSJSONSerialization_TechDErrorCodeFileIsDir];
         }
         return nil;
     }

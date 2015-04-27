@@ -47,7 +47,17 @@ typedef NS_ENUM( NSInteger, NSPropertyListSerialization_TechDErrorCode )
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-#pragma mark private method for NSPropertyListSerialization+TechD
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark declare private category (_Techd)
+//  ------------------------------------------------------------------------------------------------
+@interface NSPropertyListSerialization (_Techd)
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark declare for error output
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief create a error object by error code.
@@ -58,7 +68,28 @@ typedef NS_ENUM( NSInteger, NSPropertyListSerialization_TechDErrorCode )
  *
  *  @return object|nil              a error object or nil.
  */
-NSError * _Error( id relationObject, NSPropertyListSerialization_TechDErrorCode errorCode )
++ ( NSError * ) _ErrorMessage:(id)relationObject with:(NSPropertyListSerialization_TechDErrorCode)errorCode;
+
+//  ------------------------------------------------------------------------------------------------
+
+@end
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+#pragma mark -
+#pragma mark implementation private category (_Techd)
+//  ------------------------------------------------------------------------------------------------
+@implementation NSPropertyListSerialization (_Techd)
+
+//  ------------------------------------------------------------------------------------------------
+#pragma mark method for error output
+//  ------------------------------------------------------------------------------------------------
++ ( NSError * ) _ErrorMessage:(id)relationObject with:(NSPropertyListSerialization_TechDErrorCode)errorCode
 {
     NSString                      * errorMessage;
     NSMutableDictionary           * errorInfos;
@@ -91,16 +122,21 @@ NSError * _Error( id relationObject, NSPropertyListSerialization_TechDErrorCode 
     }
     
     errorInfos                      = [@{
-                                            NSLocalizedDescriptionKey: NSLocalizedStringFromTable( errorMessage, NSPropertyListSerialization_TechD, nil ),
+                                         NSLocalizedDescriptionKey: NSLocalizedStringFromTable( errorMessage, NSPropertyListSerialization_TechD, nil ),
                                          } mutableCopy];
     
     return [NSError errorWithDomain: NSPropertyListSerialization_TechDErrorDomain code: errorCode userInfo: errorInfos];
 }
 
+//  ------------------------------------------------------------------------------------------------
+
+@end
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
-
+#pragma mark -
+#pragma mark implementation public category (Techd)
+//  ------------------------------------------------------------------------------------------------
 @implementation NSPropertyListSerialization (TechD)
 
 //  ------------------------------------------------------------------------------------------------
@@ -191,7 +227,7 @@ NSError * _Error( id relationObject, NSPropertyListSerialization_TechDErrorCode 
     {
         if ( NULL != error )
         {
-            *error                  = _Error( filepath, NSPropertyListSerialization_TechDErrorCodeFileNotExist );
+            *error                  = [[self class] _ErrorMessage: filepath with: NSPropertyListSerialization_TechDErrorCodeFileNotExist];
         }
         return nil;
     }
@@ -200,7 +236,7 @@ NSError * _Error( id relationObject, NSPropertyListSerialization_TechDErrorCode 
     {
         if ( NULL != error )
         {
-            *error                  = _Error( filepath, NSPropertyListSerialization_TechDErrorCodeFileIsDir );
+            *error                  = [[self class] _ErrorMessage: filepath with: NSPropertyListSerialization_TechDErrorCodeFileIsDir];
         }
         return nil;
     }
@@ -224,7 +260,7 @@ NSError * _Error( id relationObject, NSPropertyListSerialization_TechDErrorCode 
     {
         if ( NULL != error )
         {
-            *error                  = _Error( plistString, NSPropertyListSerialization_TechDErrorCodeAllocDataObject );
+            *error                  = [[self class] _ErrorMessage: plistString with: NSPropertyListSerialization_TechDErrorCodeAllocDataObject];
         }
         return nil;
     }
