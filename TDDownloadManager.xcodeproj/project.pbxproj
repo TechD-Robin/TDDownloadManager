@@ -36,6 +36,9 @@
 		2AA3ABC21AA6332200A45D67 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA3ABAE1AA6332200A45D67 /* UIProgressView+AFNetworking.m */; };
 		2AA3ABC31AA6332200A45D67 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA3ABB01AA6332200A45D67 /* UIRefreshControl+AFNetworking.m */; };
 		2AA3ABC41AA6332200A45D67 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA3ABB21AA6332200A45D67 /* UIWebView+AFNetworking.m */; };
+		2AAB78941AEE83BE00DA71A8 /* NSBundle+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB788F1AEE83BE00DA71A8 /* NSBundle+TechD.m */; };
+		2AAB78951AEE83BE00DA71A8 /* NSDate+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB78911AEE83BE00DA71A8 /* NSDate+TechD.m */; };
+		2AAB78961AEE83BE00DA71A8 /* NSPropertyListSerialization+TechD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AAB78931AEE83BE00DA71A8 /* NSPropertyListSerialization+TechD.m */; };
 		2AC3D3C11AAEFC83007CB19F /* TDNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC3D3C01AAEFC83007CB19F /* TDNetworkReachabilityManager.m */; };
 /* End PBXBuildFile section */
 
@@ -127,6 +130,12 @@
 		2AA3ABB01AA6332200A45D67 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		2AA3ABB11AA6332200A45D67 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		2AA3ABB21AA6332200A45D67 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		2AAB788E1AEE83BE00DA71A8 /* NSBundle+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSBundle+TechD.h"; path = "Libraries/Foundation+TechD/Foundation+TechD/NSBundle+TechD.h"; sourceTree = "<group>"; };
+		2AAB788F1AEE83BE00DA71A8 /* NSBundle+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+TechD.m"; path = "Libraries/Foundation+TechD/Foundation+TechD/NSBundle+TechD.m"; sourceTree = "<group>"; };
+		2AAB78901AEE83BE00DA71A8 /* NSDate+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+TechD.h"; path = "Libraries/Foundation+TechD/Foundation+TechD/NSDate+TechD.h"; sourceTree = "<group>"; };
+		2AAB78911AEE83BE00DA71A8 /* NSDate+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+TechD.m"; path = "Libraries/Foundation+TechD/Foundation+TechD/NSDate+TechD.m"; sourceTree = "<group>"; };
+		2AAB78921AEE83BE00DA71A8 /* NSPropertyListSerialization+TechD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSPropertyListSerialization+TechD.h"; path = "Libraries/Foundation+TechD/Foundation+TechD/NSPropertyListSerialization+TechD.h"; sourceTree = "<group>"; };
+		2AAB78931AEE83BE00DA71A8 /* NSPropertyListSerialization+TechD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSPropertyListSerialization+TechD.m"; path = "Libraries/Foundation+TechD/Foundation+TechD/NSPropertyListSerialization+TechD.m"; sourceTree = "<group>"; };
 		2AC3D3BF1AAEFC83007CB19F /* TDNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDNetworkReachabilityManager.h; sourceTree = "<group>"; };
 		2AC3D3C01AAEFC83007CB19F /* TDNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDNetworkReachabilityManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,8 +175,14 @@
 				2A1B18D41AB9D10600B5F345 /* Foundation+TechD.h */,
 				2A1B18D51AB9D22400B5F345 /* NSString+TechD.h */,
 				2A1B18D61AB9D22400B5F345 /* NSString+TechD.m */,
+				2AAB78901AEE83BE00DA71A8 /* NSDate+TechD.h */,
+				2AAB78911AEE83BE00DA71A8 /* NSDate+TechD.m */,
+				2AAB788E1AEE83BE00DA71A8 /* NSBundle+TechD.h */,
+				2AAB788F1AEE83BE00DA71A8 /* NSBundle+TechD.m */,
 				2A2295C31ABC7910002D5F37 /* NSJSONSerialization+TechD.h */,
 				2A2295C41ABC7910002D5F37 /* NSJSONSerialization+TechD.m */,
+				2AAB78921AEE83BE00DA71A8 /* NSPropertyListSerialization+TechD.h */,
+				2AAB78931AEE83BE00DA71A8 /* NSPropertyListSerialization+TechD.m */,
 			);
 			name = "Foundation+TechD";
 			sourceTree = "<group>";
@@ -426,9 +441,12 @@
 				2AA3ABB51AA6332200A45D67 /* AFHTTPSessionManager.m in Sources */,
 				2A1B18D71AB9D22400B5F345 /* NSString+TechD.m in Sources */,
 				2AA3ABC11AA6332200A45D67 /* UIImageView+AFNetworking.m in Sources */,
+				2AAB78941AEE83BE00DA71A8 /* NSBundle+TechD.m in Sources */,
 				2AA3ABC01AA6332200A45D67 /* UIButton+AFNetworking.m in Sources */,
+				2AAB78951AEE83BE00DA71A8 /* NSDate+TechD.m in Sources */,
 				2A2295C51ABC7910002D5F37 /* NSJSONSerialization+TechD.m in Sources */,
 				2AA3ABC31AA6332200A45D67 /* UIRefreshControl+AFNetworking.m in Sources */,
+				2AAB78961AEE83BE00DA71A8 /* NSPropertyListSerialization+TechD.m in Sources */,
 				2A8A59F01AD820F6000CEA93 /* TDPreUpdateJSONInfo.m in Sources */,
 				2A8FDD2D1AB737A4006BD130 /* TDUtilities.m in Sources */,
 				2AA3ABC41AA6332200A45D67 /* UIWebView+AFNetworking.m in Sources */,
