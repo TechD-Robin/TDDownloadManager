@@ -28,7 +28,24 @@
  *
  *  @return void                    nothing.
  */
-typedef     void (^PreUpdateCompletionBlock)(NSDictionary * updateResponses, NSError * error, BOOL finished);
+typedef     void (^TDPreUpdateCompletionBlock)(NSDictionary * updateResponses, NSError * error, BOOL finished);
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief a block sectioin be executed when pre-update procedure is running.
+ *  a block sectioin be executed when pre-update procedure is running, these parameters will return process bytes to method caller.
+ *
+ *  @param downloadFile                 a download filename.
+ *  @param timestamp                    the file's timestamp.
+ *  @param bytesWritten                 the file's download bytes when a process loop.
+ *  @param totalBytesWritten            the file's already download bytes.
+ *  @param totalBytesExpectedToWrite    the file's total bytes.
+ *
+ *  @return void                        nothing.
+ */
+typedef     void (^TDPreUpdateTaskDidWriteDataBlock)(NSString * downloadFile, NSString * timestamp,
+                                                     int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite);
+
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -54,6 +71,9 @@ typedef     void (^PreUpdateCompletionBlock)(NSDictionary * updateResponses, NSE
 
 //  ------------------------------------------------------------------------------------------------
 #pragma mark declare for create the object.
+//  ------------------------------------------------------------------------------------------------
+- (instancetype)init NS_UNAVAILABLE;
+
 //  ------------------------------------------------------------------------------------------------
 /**
  *  @brief create a pre-update procedure object, check update condition from URL and save configure data.
@@ -112,7 +132,16 @@ typedef     void (^PreUpdateCompletionBlock)(NSDictionary * updateResponses, NSE
  *
  *  @param completionBlock          a block section be executed when pre-update procedure completed.
  */
-- ( void ) setPreUpdateCompletionBlock:(PreUpdateCompletionBlock)completionBlock;
+- ( void ) setPreUpdateCompletionBlock:(TDPreUpdateCompletionBlock)completionBlock;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set a block section be executed when pre-update procedure is running.
+ *  set a block section be executed when pre-update procedure is running; if you need process bytes of pre-update procedure, call this method.
+ *
+ *  @param dataBlock                a block section be executed when pre-update procedure running.
+ */
+- ( void ) setDownloadTaskDidWriteDataBlock:(TDPreUpdateTaskDidWriteDataBlock)dataBlock;
 
 //  ------------------------------------------------------------------------------------------------
 

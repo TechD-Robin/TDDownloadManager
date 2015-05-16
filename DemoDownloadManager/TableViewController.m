@@ -279,41 +279,80 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _DownloadFileAlwaysCover
 {
-    [TDDownloadManager              replacementDownload: @"StickerLibrary"
-                                                   from: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
-                                                   into: @"Test"
-                                                     of: TDCachesDirectory completed: ^(NSError * error, NSString * fullPath, BOOL finished)
+    TDDownloadManager             * manager;
+    
+    manager                         = [TDDownloadManager replacementDownload: @"StickerLibrary"
+                                                                        from: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
+                                                                        into: @"Test"
+                                                                          of: TDCachesDirectory completed:
+                                       ^(NSError * error, NSString * fullPath, BOOL finished)
     {
         NSLog( @"result %d, %@", finished, error );
         NSLog( @"file full path : %@", fullPath );
     }];
     
+    if ( nil == manager )
+    {
+        return;
+    }
+    
+    [manager                        setDownloadTaskDidWriteDataBlock:
+     ^( int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite )
+     {
+         NSLog( @"download %lld, %lld, %lld", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
+     }];
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _DownloadFileWithTimestamp
 {
-    [TDDownloadManager              download: @"StickerLibraryTabUpdate.zip"
-                                        from: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
-                                        into: @"Test"
-                                          of: TDDocumentDirectory
-                               updateCheckBy: @"15032001" completed: ^(NSError * error, NSString * fullPath, BOOL finished)
+    TDDownloadManager             * manager;
+    
+    manager                         = [TDDownloadManager download: @"StickerLibraryTabUpdate.zip"
+                                                             from: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
+                                                             into: @"Test"
+                                                               of: TDDocumentDirectory
+                                                    updateCheckBy: @"15032001" completed:
+                                       ^(NSError * error, NSString * fullPath, BOOL finished)
     {
         NSLog( @"result %d, %@", finished, error );
         NSLog( @"file full path : %@", fullPath );
     }];
     
+    if ( nil == manager )
+    {
+        return;
+    }
+    
+    [manager                        setDownloadTaskDidWriteDataBlock:
+     ^( int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite )
+     {
+         NSLog( @"download %lld, %lld, %lld", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
+     }];
 }
 
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _SimpleDownload
 {
 //    [TDDownloadManager simpleDownload: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download" forDirectory: NSCachesDirectory];
-    [TDDownloadManager              simpleDownload: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
+    TDDownloadManager             * manager;
+    
+    manager                         = [TDDownloadManager simpleDownload: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
                                       forDirectory: NSDocumentDirectory completed: ^(NSError * error, NSString * fullPath, BOOL finished)
     {
         NSLog( @"result %d, %@", finished, error );
         NSLog( @"file full path : %@", fullPath );
+    }];
+    
+    if ( nil == manager )
+    {
+        return;
+    }
+    
+    [manager                        setDownloadTaskDidWriteDataBlock:
+     ^( int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite )
+    {
+        NSLog( @"download %lld, %lld, %lld", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
     }];
 }
 
@@ -380,6 +419,12 @@
         [weakProcedure              stopProcedure];
     } ];
     
+    [procedure                      setDownloadTaskDidWriteDataBlock:
+     ^(NSString * downloadFile, NSString * timestamp, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite)
+    {
+        NSLog( @"download filename : %@, timestamp : %@", downloadFile, timestamp );
+        NSLog( @"download %lld, %lld, %lld", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
+    }];
 }
 
 //  ------------------------------------------------------------------------------------------------
