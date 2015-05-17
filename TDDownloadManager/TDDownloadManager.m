@@ -9,6 +9,7 @@
 #import "TDDownloadManager.h"
 
 #import "AFNetworking.h"
+#import "UIProgressView+AFNetworking.h"
 #import "Foundation+TechD.h"
 
 //  ------------------------------------------------------------------------------------------------
@@ -473,6 +474,12 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 #pragma mark declare private category ()
 //  ------------------------------------------------------------------------------------------------
 @interface TDDownloadManager ()
+{
+    /**
+     *  a download task of session; for set a progress view.
+     */
+    NSURLSessionDownloadTask      * sessionDownloadTask;
+}
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -497,6 +504,15 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 @interface TDDownloadManager (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark declare for initial this class.
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief initial the attributes of class.
+ *  initial the attributes of class.
+ */
+- ( void ) _InitAttributes;
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark declare for download procedure.
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -508,6 +524,15 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
  *  @return object|nil              the download manager object or nil.
  */
 + ( instancetype ) _DownloadManagerTaskDidWriteDataBlockWith:(AFURLSessionManager *)afManager;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set a download task of session.
+ *  set a download task of session; for set a progress view.
+ *
+ *  @param downloadTask             a download task.
+ */
+- ( void ) _SetDownloadManagerTask:(NSURLSessionDownloadTask *)downloadTask;
 
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -543,6 +568,15 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
 @implementation TDDownloadManager (Private)
 
 //  ------------------------------------------------------------------------------------------------
+#pragma mark method for initial this class.
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _InitAttributes
+{
+    [self                           setDidWriteDataBlock: nil];
+    sessionDownloadTask             = nil;
+}
+
+//  ------------------------------------------------------------------------------------------------
 #pragma mark method for download procedure.
 //  ------------------------------------------------------------------------------------------------
 + ( instancetype ) _DownloadManagerTaskDidWriteDataBlockWith:(AFURLSessionManager *)afManager
@@ -562,6 +596,16 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
          }
      }];
     return downloadManager;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _SetDownloadManagerTask:(NSURLSessionDownloadTask *)downloadTask
+{
+    if ( nil == downloadTask )
+    {
+        return;
+    }
+    sessionDownloadTask             = downloadTask;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -623,10 +667,18 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
               session, downloadTask, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
     }];
     
-    
     [downloatTask                   resume];
+
+    
     //  set callback block to get  bytes information of downloading.
-    return [[self class] _DownloadManagerTaskDidWriteDataBlockWith: manager];
+    TDDownloadManager             * downloadManager;
+
+    downloadManager                 = [[self class] _DownloadManagerTaskDidWriteDataBlockWith: manager];
+    if ( nil != downloadManager )
+    {
+        [downloadManager            _SetDownloadManagerTask: downloatTask];
+    }
+    return downloadManager;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -658,8 +710,17 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     }
     
     //  initial.
-    [self                           setDidWriteDataBlock: nil];
+    [self                           _InitAttributes];
     return self;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) dealloc
+{
+    if ( nil != sessionDownloadTask )
+    {
+        sessionDownloadTask    = nil;
+    }
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -711,8 +772,16 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     
     [downloatTask                   resume];
     
+    
     //  set callback block to get  bytes information of downloading.
-    return [[self class] _DownloadManagerTaskDidWriteDataBlockWith: manager];
+    TDDownloadManager             * downloadManager;
+    
+    downloadManager                 = [[self class] _DownloadManagerTaskDidWriteDataBlockWith: manager];
+    if ( nil != downloadManager )
+    {
+        [downloadManager            _SetDownloadManagerTask: downloatTask];
+    }
+    return downloadManager;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -911,6 +980,21 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
         return;
     }
     [self                           setDidWriteDataBlock: dataBlock];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setDownloadTaskProgressView:(UIProgressView *)progressView
+{
+    if ( nil == progressView )
+    {
+        return;
+    }
+    
+    if ( [progressView respondsToSelector: @selector( setProgressWithDownloadProgressOfTask: animated: )] == NO )
+    {
+        return;
+    }
+    [progressView setProgressWithDownloadProgressOfTask: sessionDownloadTask animated: YES];
 }
 
 //  ------------------------------------------------------------------------------------------------

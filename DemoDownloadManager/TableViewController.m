@@ -307,6 +307,7 @@
 - ( void ) _DownloadFileWithTimestamp
 {
     TDDownloadManager             * manager;
+    UIProgressView                * progressView;
     
     manager                         = [TDDownloadManager download: @"StickerLibraryTabUpdate.zip"
                                                              from: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
@@ -324,6 +325,13 @@
         return;
     }
     
+    progressView                    = [[UIProgressView alloc] initWithProgressViewStyle: UIProgressViewStyleBar];
+    if ( nil != progressView )
+    {
+        [[self                      view] addSubview: progressView];
+        [manager                    setDownloadTaskProgressView: progressView];
+    }
+    
     [manager                        setDownloadTaskDidWriteDataBlock:
      ^( int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite )
      {
@@ -336,6 +344,7 @@
 {
 //    [TDDownloadManager simpleDownload: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download" forDirectory: NSCachesDirectory];
     TDDownloadManager             * manager;
+    UIProgressView                * progressView;
     
     manager                         = [TDDownloadManager simpleDownload: @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXdXV4TWVVdkJORkU&export=download"
                                       forDirectory: NSDocumentDirectory completed: ^(NSError * error, NSString * fullPath, BOOL finished)
@@ -349,10 +358,23 @@
         return;
     }
     
+    progressView                    = [[UIProgressView alloc] initWithProgressViewStyle: UIProgressViewStyleBar];
+    if ( nil != progressView )
+    {
+        [[self                      view] addSubview: progressView];
+        [manager                    setDownloadTaskProgressView: progressView];
+    }
+    
     [manager                        setDownloadTaskDidWriteDataBlock:
      ^( int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite )
     {
         NSLog( @"download %lld, %lld, %lld", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
+        
+        if ( ( nil != progressView ) && ( totalBytesExpectedToWrite == totalBytesWritten ) )
+        {
+            [progressView           removeFromSuperview];
+            [[self view] reloadInputViews];
+        }
     }];
 }
 

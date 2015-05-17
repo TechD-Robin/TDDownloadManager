@@ -13,6 +13,10 @@
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
+@class UIProgressView;
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 #pragma mark declare for get path.
 //  ------------------------------------------------------------------------------------------------
 /**
@@ -199,6 +203,16 @@ typedef     void (^TDDownloadTaskDidWriteDataBlock)(int64_t bytesWritten, int64_
  *  @param dataBlock                a block section be executed when download task running.
  */
 - ( void ) setDownloadTaskDidWriteDataBlock:(TDDownloadTaskDidWriteDataBlock)dataBlock;
+
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set a progress view for download task.
+ *  set a progress view for download task.
+ *
+ *  @param progressView             a progress view.
+ */
+
+- ( void ) setDownloadTaskProgressView:(UIProgressView *)progressView;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
