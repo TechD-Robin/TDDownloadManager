@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "TDDownloadManager"
-  s.version      = "0.0.4"
+  s.version      = "0.0.6"
   s.summary      = "A Download Manager of Tech.D."
 
   s.homepage     = "https://git.techd.idv.tw:5001"
@@ -14,14 +14,13 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, "8.0"
   s.requires_arc = true
-  s.frameworks   = 'Foundation'
+  s.frameworks   = 'Foundation', 'UIKit' 
 
   s.source_files = 'ARCMacros.h', 'TDDownloadManager/*.{h,m,mm}'
 
-
-  s.dependency    "AFNetworking",         "~> 2.5.2"
-  s.dependency    "TDFoundation",         "~> 0.0.2"
-  #s.dependency    "Foundation+TechD",     "~> 0.0.1"
+  s.dependency    "AFNetworking",         "~> 2.5.4"
+  s.dependency    "TDFoundation",         "~> 0.0.3"
+  #s.dependency    "Foundation+TechD",    "~> 0.0.2"
 
 
 end
