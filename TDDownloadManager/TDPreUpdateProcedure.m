@@ -102,6 +102,11 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
      */
     TDPreUpdateTaskDidWriteDataBlock    didWriteDataBlock;
     
+    /**
+     *  a progress view for a download task of pre-update procedure.
+     */
+    UIProgressView                    * preUpdateProgressView;
+    
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -231,6 +236,7 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
     
     preUpdateCompletionBlock        = nil;
     didWriteDataBlock               = nil;
+    preUpdateProgressView           = nil;
 
 }
 
@@ -461,6 +467,8 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
             didWriteDataBlock( name, timestamp, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
         }
     }];
+    
+    [downloadManager                setDownloadTaskProgressView: preUpdateProgressView];
     return YES;
 }
 
@@ -694,13 +702,23 @@ typedef NS_ENUM( NSInteger, TDPreUpdateProcedureErrorCode ){
 }
 
 //  ------------------------------------------------------------------------------------------------
-- ( void ) setDownloadTaskDidWriteDataBlock:(TDPreUpdateTaskDidWriteDataBlock)dataBlock
+- ( void ) setPreUpdateDidWriteDataBlock:(TDPreUpdateTaskDidWriteDataBlock)dataBlock
 {
     if ( nil == dataBlock )
     {
         return;
     }
     didWriteDataBlock               = dataBlock;
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) setPreUpdateProgressView:(UIProgressView *)progressView
+{
+    if ( nil == progressView )
+    {
+        return;
+    }
+    preUpdateProgressView           = progressView;
 }
 
 //  ------------------------------------------------------------------------------------------------

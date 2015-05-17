@@ -12,6 +12,9 @@
 #import <Foundation/Foundation.h>
 #import "TDFoundation.h"
 
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
+@class UIProgressView;
 
 //  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
@@ -141,8 +144,18 @@ typedef     void (^TDPreUpdateTaskDidWriteDataBlock)(NSString * downloadFile, NS
  *
  *  @param dataBlock                a block section be executed when pre-update procedure running.
  */
-- ( void ) setDownloadTaskDidWriteDataBlock:(TDPreUpdateTaskDidWriteDataBlock)dataBlock;
+- ( void ) setPreUpdateDidWriteDataBlock:(TDPreUpdateTaskDidWriteDataBlock)dataBlock;
 
+//  ------------------------------------------------------------------------------------------------
+/**
+ *  @brief set a progress view for download task.
+ *  set a progress view for download task.
+ *
+ *  @param progressView             a progress view.
+ */
+- ( void ) setPreUpdateProgressView:(UIProgressView *)progressView;
+
+//  ------------------------------------------------------------------------------------------------
 //  ------------------------------------------------------------------------------------------------
 
 

@@ -336,6 +336,10 @@
      ^( int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite )
      {
          NSLog( @"download %lld, %lld, %lld", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
+         if ( ( nil != progressView ) && ( totalBytesExpectedToWrite == totalBytesWritten ) )
+         {
+             [progressView           removeFromSuperview];
+         }
      }];
 }
 
@@ -373,7 +377,6 @@
         if ( ( nil != progressView ) && ( totalBytesExpectedToWrite == totalBytesWritten ) )
         {
             [progressView           removeFromSuperview];
-            [[self view] reloadInputViews];
         }
     }];
 }
@@ -421,6 +424,7 @@
 {
     TDPreUpdateProcedure          * procedure;
     NSString                      * urlString;
+    UIProgressView                * progressView;
     
     urlString                       = @"https://docs.google.com/uc?authuser=0&id=0B1yHM9LysIXXMnJWUzhvS3ZuN1k&export=download";
     procedure                       = [TDPreUpdateProcedure preUpdate: urlString withSave: @"System.json" into: @"Download/Configure" of: TDDocumentDirectory];
@@ -433,6 +437,13 @@
 //    [procedure                      startProcedureWithKey: @"UpdateTab"];
 //    [procedure                      startProcedureWithKeys: [NSArray arrayWithObjects: @"UpdateTab", @"UpdateTab__test3", nil]];
     
+    progressView                    = [[UIProgressView alloc] initWithProgressViewStyle: UIProgressViewStyleBar];
+    if ( nil != progressView )
+    {
+        [[self                      view] addSubview: progressView];
+        [procedure                  setPreUpdateProgressView: progressView];
+    }
+    
     __weak __typeof(procedure)      weakProcedure;
     weakProcedure                   = procedure;
     [procedure                      setPreUpdateCompletionBlock: ^(NSDictionary * updateResponses, NSError * error, BOOL finished)
@@ -441,11 +452,15 @@
         [weakProcedure              stopProcedure];
     } ];
     
-    [procedure                      setDownloadTaskDidWriteDataBlock:
+    [procedure                      setPreUpdateDidWriteDataBlock:
      ^(NSString * downloadFile, NSString * timestamp, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite)
     {
         NSLog( @"download filename : %@, timestamp : %@", downloadFile, timestamp );
         NSLog( @"download %lld, %lld, %lld", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite );
+        if ( ( nil != progressView ) && ( totalBytesExpectedToWrite == totalBytesWritten ) )
+        {
+            [progressView           removeFromSuperview];
+        }
     }];
 }
 

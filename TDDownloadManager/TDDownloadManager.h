@@ -211,7 +211,6 @@ typedef     void (^TDDownloadTaskDidWriteDataBlock)(int64_t bytesWritten, int64_
  *
  *  @param progressView             a progress view.
  */
-
 - ( void ) setDownloadTaskProgressView:(UIProgressView *)progressView;
 
 //  ------------------------------------------------------------------------------------------------
