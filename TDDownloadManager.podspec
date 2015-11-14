@@ -3,13 +3,21 @@ Pod::Spec.new do |s|
 
   s.name         = "TDDownloadManager"
   s.version      = "0.0.6"
-  s.summary      = "A Download Manager of Tech.D."
+  s.summary      = "The `TDDownloadManager` is network library of Tech.D."
 
-  s.homepage     = "https://git.techd.idv.tw:5001"
-  s.source       = { :git => "git://git.techd.idv.tw/Libraries/TDDownloadManager.git", :tag => "#{s.version}" }
+  s.description  = <<-DESC
+                   The `TDDownloadManager` is network library of Tech.D.
 
-  s.license      = { :type=> "No License", :file => "LICENSE" }
-  s.author       = { "Robin Hsu" => "robinhsu599+dev@gmail.com" }
+                   * This library is package several network's working flow to simplify call,
+                   * is import directly from `AFNetworking` library.
+                   DESC
+
+  s.homepage     = "https://github.com/TechD-Robin/TDDownloadManager/"
+  s.source       = { :git => "https://github.com/TechD-Robin/TDDownloadManager.git", :tag => "#{s.version}" }
+
+  s.license            = 'MIT'
+  s.author             = { "Robin Hsu" => "robinhsu599+dev@gmail.com" }
+  s.social_media_url   = "https://plus.google.com/+RobinHsu"
 
 
   s.platform     = :ios, "8.0"
@@ -19,8 +27,8 @@ Pod::Spec.new do |s|
   s.source_files = 'ARCMacros.h', 'TDDownloadManager/*.{h,m,mm}'
 
   s.dependency    "AFNetworking",         "~> 2.5.4"
-  s.dependency    "TDFoundation",         "~> 0.0.3"
-  #s.dependency    "Foundation+TechD",    "~> 0.0.2"
+  s.dependency    "TDFoundation",         "~> 0.0.4"
+  #s.dependency    "Foundation+TechD",    "~> 0.0.3"
 
 
 end
