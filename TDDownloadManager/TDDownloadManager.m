@@ -860,10 +860,10 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     NSSet                         * contentTypes;
     NSURL                         * url;
     NSURLRequest                  * urlRequest;
-    AFHTTPRequestOperationManager * manager;
+    AFHTTPSessionManager          * manager;
     
     contentTypes                    = nil;
-    manager                         = [AFHTTPRequestOperationManager manager];
+    manager                         = [AFHTTPSessionManager manager];
     NSParameterAssert( nil != manager );
     
     url                             = [NSURL URLWithString: jsonURL];
@@ -875,14 +875,14 @@ BOOL _UpdateFileToCurrentDirectory( NSURL * sourceURL, NSString * destinationFil
     contentTypes                    = [NSSet setWithObjects: @"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", nil];
     [manager                        setResponseSerializer: [AFJSONResponseSerializer serializer]];
     [[manager                       responseSerializer] setAcceptableContentTypes: contentTypes];
-    [manager                        GET: jsonURL parameters: nil success: ^( AFHTTPRequestOperation * operation, id responseObject )
+    [manager                        GET: jsonURL parameters: nil progress: nil success: ^( NSURLSessionTask * task, id responseObject )
     {
         if ( nil != completed )
         {
             completed( responseObject, nil, YES );
         }
     }
-    failure: ^( AFHTTPRequestOperation * operation, NSError * error )
+    failure: ^(NSURLSessionTask *operation, NSError *error)
     {
         if ( nil != completed )
         {
