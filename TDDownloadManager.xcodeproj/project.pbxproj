@@ -15,6 +15,10 @@
 		2A31E7511CFEE815002BF74B /* AFImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A31E74A1CFEE815002BF74B /* AFImageDownloader.m */; };
 		2A31E7521CFEE815002BF74B /* AFImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A31E74A1CFEE815002BF74B /* AFImageDownloader.m */; };
 		2A31E7531CFEE815002BF74B /* AFImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A31E74A1CFEE815002BF74B /* AFImageDownloader.m */; };
+		2A61CF991D000A560050DDF2 /* TDAppAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A61CF981D000A560050DDF2 /* TDAppAPIClient.m */; };
+		2A61CF9A1D000A560050DDF2 /* TDAppAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A61CF981D000A560050DDF2 /* TDAppAPIClient.m */; };
+		2A61CF9B1D000A560050DDF2 /* TDAppAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A61CF981D000A560050DDF2 /* TDAppAPIClient.m */; };
+		2A61CF9C1D000A560050DDF2 /* TDAppAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A61CF981D000A560050DDF2 /* TDAppAPIClient.m */; };
 		2A8A59EA1AD81EE0000CEA93 /* TDJSONReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A59E91AD81EE0000CEA93 /* TDJSONReader.m */; };
 		2A8A59F01AD820F6000CEA93 /* TDPreUpdateJSONInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8A59EF1AD820F6000CEA93 /* TDPreUpdateJSONInfo.m */; };
 		2A8FDD2B1AB737A4006BD130 /* TDTexturePackerXMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A8FDD251AB737A4006BD130 /* TDTexturePackerXMLReader.m */; };
@@ -112,6 +116,8 @@
 		2A31E7491CFEE815002BF74B /* AFImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFImageDownloader.h; sourceTree = "<group>"; };
 		2A31E74A1CFEE815002BF74B /* AFImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFImageDownloader.m; sourceTree = "<group>"; };
 		2A31E74B1CFEE815002BF74B /* UIImage+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+AFNetworking.h"; sourceTree = "<group>"; };
+		2A61CF971D000A560050DDF2 /* TDAppAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAppAPIClient.h; sourceTree = "<group>"; };
+		2A61CF981D000A560050DDF2 /* TDAppAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDAppAPIClient.m; sourceTree = "<group>"; };
 		2A8A59E81AD81EE0000CEA93 /* TDJSONReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDJSONReader.h; sourceTree = "<group>"; };
 		2A8A59E91AD81EE0000CEA93 /* TDJSONReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDJSONReader.m; sourceTree = "<group>"; };
 		2A8A59EE1AD820F6000CEA93 /* TDPreUpdateJSONInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDPreUpdateJSONInfo.h; sourceTree = "<group>"; };
@@ -288,6 +294,8 @@
 				2AC3D3C01AAEFC83007CB19F /* TDNetworkReachabilityManager.m */,
 				2AA3AB731AA629DC00A45D67 /* TDDownloadManager.h */,
 				2AA3AB751AA629DC00A45D67 /* TDDownloadManager.m */,
+				2A61CF971D000A560050DDF2 /* TDAppAPIClient.h */,
+				2A61CF981D000A560050DDF2 /* TDAppAPIClient.m */,
 				2A9B92401AC2BBD00044CC8A /* TDPreUpdateProcedure.h */,
 				2A9B92411AC2BBD00044CC8A /* TDPreUpdateProcedure.m */,
 				2A8A59EE1AD820F6000CEA93 /* TDPreUpdateJSONInfo.h */,
@@ -611,6 +619,7 @@
 				2AA3ABC41AA6332200A45D67 /* UIWebView+AFNetworking.m in Sources */,
 				2AA3ABB91AA6332200A45D67 /* AFURLRequestSerialization.m in Sources */,
 				2AAB792C1AEE8CFE00DA71A8 /* NSPropertyListSerialization+TechD.m in Sources */,
+				2A61CF991D000A560050DDF2 /* TDAppAPIClient.m in Sources */,
 				2AA3ABBE1AA6332200A45D67 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				2AC3D3C11AAEFC83007CB19F /* TDNetworkReachabilityManager.m in Sources */,
 			);
@@ -622,6 +631,7 @@
 			files = (
 				2A31E74D1CFEE815002BF74B /* AFAutoPurgingImageCache.m in Sources */,
 				2A8FDD2E1AB737A4006BD130 /* TDUtilities.m in Sources */,
+				2A61CF9A1D000A560050DDF2 /* TDAppAPIClient.m in Sources */,
 				2A8FDD2C1AB737A4006BD130 /* TDTexturePackerXMLReader.m in Sources */,
 				2A31E7511CFEE815002BF74B /* AFImageDownloader.m in Sources */,
 			);
@@ -647,6 +657,7 @@
 				2AAB78FA1AEE8A3200DA71A8 /* UIImageView+AFNetworking.m in Sources */,
 				2AAB78FB1AEE8A3200DA71A8 /* UIProgressView+AFNetworking.m in Sources */,
 				2AAB78FC1AEE8A3200DA71A8 /* UIRefreshControl+AFNetworking.m in Sources */,
+				2A61CF9B1D000A560050DDF2 /* TDAppAPIClient.m in Sources */,
 				2AAB78FD1AEE8A3200DA71A8 /* UIWebView+AFNetworking.m in Sources */,
 				2AAB79001AEE8A3200DA71A8 /* AFHTTPSessionManager.m in Sources */,
 				2AAB79011AEE8A3200DA71A8 /* AFNetworkReachabilityManager.m in Sources */,
@@ -669,6 +680,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2AAB78EC1AEE877E00DA71A8 /* DemoDownloadManagerTests.m in Sources */,
+				2A61CF9C1D000A560050DDF2 /* TDAppAPIClient.m in Sources */,
 				2A31E74F1CFEE815002BF74B /* AFAutoPurgingImageCache.m in Sources */,
 				2A31E7531CFEE815002BF74B /* AFImageDownloader.m in Sources */,
 			);
