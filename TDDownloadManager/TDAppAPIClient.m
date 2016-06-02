@@ -182,41 +182,6 @@
 
 //  ------------------------------------------------------------------------------------------------
 
-- ( void )test
-{
-    NSDictionary *body = @{@"snippet": @{@"topLevelComment":@{@"snippet":@{@"textOriginal": @"test text" }},@"videoId": @"video id"}};
-    
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:body options:0 error:&error];
-    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    AFJSONRequestSerializer *serializer = [AFJSONRequestSerializer serializer];
-    serializer.timeoutInterval= [[[NSUserDefaults standardUserDefaults] valueForKey:@"timeoutInterval"] longValue];
-    [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [serializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [manager                POST:[NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&access_token=%@", @""] parameters: nil
-       constructingBodyWithBlock: ^(id <AFMultipartFormData> formData)
-    {
-        [formData appendPartWithHeaders:nil body:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
-        
-    }
-     
-    progress: nil success: ^( NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject )
-    
-    {
-        NSLog(@"Reply JSON: %@", responseObject);
-    } failure: ^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error )
-    {
-//        NSLog(@"Error: %@, %@, %@, %@, %@", error, operation.responseObject, operation.responseData, operation.responseString, operation.request);
-        NSLog( @"error %@", error );
-    }];
-}
-
-//  ------------------------------------------------------------------------------------------------
-
 
 @end
 
