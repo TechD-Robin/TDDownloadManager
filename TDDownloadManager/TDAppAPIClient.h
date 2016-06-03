@@ -18,7 +18,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 //  ------------------------------------------------------------------------------------------------
-//typedef     void (^loginResultCallbackBlock)(BOOL successLogin);
+typedef     void (^appAPIprogressBlock)(NSProgress * uploadProgress);
 typedef     void (^appAPIResponseSuccessBlock)(NSURLSessionDataTask * dataTask, id _Nullable response);
 typedef     void (^appAPIResponseFailureBlock)(NSURLSessionDataTask * _Nullable dataTask, NSError * error);
 
@@ -27,23 +27,29 @@ typedef     void (^appAPIResponseFailureBlock)(NSURLSessionDataTask * _Nullable 
 
 #pragma mark -
 #pragma mark class TDAppAPIClient
-@interface TDAppAPIClient : AFHTTPSessionManager
+@interface TDAppAPIClient : NSObject
 
 
 //  ------------------------------------------------------------------------------------------------
-//  ------------------------------------------------------------------------------------------------
-//  Gets the singleton instance.
-+ ( instancetype) defaultManager;
++ (NSURLSessionDataTask *) getData: (NSString *)URLString
+                        parameters: (nullable id)parameters
+                        acceptable: (NSSet *)responseContentTypes
+                          progress: (nullable appAPIprogressBlock)progress
+                           success: (appAPIResponseSuccessBlock)success
+                           failure: (appAPIResponseFailureBlock)failure;
 
-////  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 + (NSURLSessionDataTask *) postData: (NSString *)URLString
                          parameters: (nullable id)parameters
+                         acceptable: (NSSet *)responseContentTypes
+                           progress: (nullable appAPIprogressBlock)progress
                             success: (appAPIResponseSuccessBlock)success
                             failure: (appAPIResponseFailureBlock)failure;
 
-////  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
 + (NSURLSessionDataTask *) putData: (NSString *)URLString
                          parameters: (nullable id)parameters
+                        acceptable: (NSSet *)responseContentTypes
                             success: (appAPIResponseSuccessBlock)success
                             failure: (appAPIResponseFailureBlock)failure;
 

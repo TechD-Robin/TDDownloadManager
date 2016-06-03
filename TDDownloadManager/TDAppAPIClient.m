@@ -46,6 +46,9 @@
 - ( void ) _InitAttributes;
 
 //  ------------------------------------------------------------------------------------------------
++ ( id ) _CreateSessionManager:(NSString *)URLString acceptable:(NSSet *)responseContentTypes;
+
+//  ------------------------------------------------------------------------------------------------
 
 //  ------------------------------------------------------------------------------------------------
 
@@ -68,6 +71,29 @@
 //  ------------------------------------------------------------------------------------------------
 - ( void ) _InitAttributes
 {
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
++ ( id ) _CreateSessionManager:(NSString *)URLString acceptable:(NSSet *)responseContentTypes
+{
+    AFHTTPSessionManager          * sessionManager;
+    AFJSONRequestSerializer       * requestSerializer;
+    AFJSONResponseSerializer      * responseSerializer;
+    
+    sessionManager                  = [[AFHTTPSessionManager alloc] initWithBaseURL: [NSURL URLWithString: URLString]];
+    requestSerializer               = [AFJSONRequestSerializer serializer];
+    responseSerializer              = [AFJSONResponseSerializer serializer];
+    NSParameterAssert( nil != sessionManager );
+    NSParameterAssert( nil != requestSerializer );
+    NSParameterAssert( nil != responseSerializer );
+    
+    [sessionManager                 setSecurityPolicy: [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModePublicKey]];
+    [responseSerializer             setAcceptableContentTypes: responseContentTypes];
+    [sessionManager                 setRequestSerializer: requestSerializer];
+    [sessionManager                 setResponseSerializer: responseSerializer];
+    
+    return sessionManager;
 }
 
 //  ------------------------------------------------------------------------------------------------
@@ -106,79 +132,68 @@
 //  ------------------------------------------------------------------------------------------------
 #pragma mark method for create the object.
 //  ------------------------------------------------------------------------------------------------
-+ ( instancetype ) defaultManager
-{
-    static TDAppAPIClient         * defaultManager   = nil;
-    static dispatch_once_t          oneToken;
-    
-    _dispatch_once( &oneToken, ^
-    {
-        defaultManager              = [[[self class] alloc] initWithBaseURL: [NSURL URLWithString: @"http://localhost:8000/"]];
-        NSParameterAssert( nil != defaultManager );
-        [defaultManager             setSecurityPolicy: [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModePublicKey]];
-    });
-    
-    return defaultManager;
-}
 
 //  ------------------------------------------------------------------------------------------------
-////  ------------------------------------------------------------------------------------------------
-+ (NSURLSessionDataTask *) postData: (NSString *)URLString
-                         parameters: (nullable id)parameters
-                            success: (appAPIResponseSuccessBlock)success
-                            failure: (appAPIResponseFailureBlock)failure
-{
-    NSSet                           * contentTypes;
-    TDAppAPIClient                  * defaultManager;
-    AFJSONRequestSerializer       * requestSerializer;
-    AFJSONResponseSerializer      * responseSerializer;
-    
-    
-    requestSerializer               = [AFJSONRequestSerializer serializer];
-    responseSerializer              = [AFJSONResponseSerializer serializer];
-    defaultManager                  = [[self class] defaultManager];
-    NSParameterAssert( nil != requestSerializer );
-    NSParameterAssert( nil != responseSerializer );
-    NSParameterAssert( nil != defaultManager );
-    
-    
-    contentTypes                    = [NSSet setWithObjects: @"application/json", nil];
-    [responseSerializer             setAcceptableContentTypes: contentTypes];
-    
-    [defaultManager                 setRequestSerializer: requestSerializer];
-    [defaultManager                 setResponseSerializer: responseSerializer];
-    
-    return [defaultManager POST: URLString parameters: parameters progress: nil success: success failure: failure];
-}
-
-////  ------------------------------------------------------------------------------------------------
-+ (NSURLSessionDataTask *) putData: (NSString *)URLString
++ (NSURLSessionDataTask *) getData: (NSString *)URLString
                         parameters: (nullable id)parameters
+                        acceptable: (NSSet *)responseContentTypes
+                          progress: (nullable appAPIprogressBlock)progress
                            success: (appAPIResponseSuccessBlock)success
                            failure: (appAPIResponseFailureBlock)failure
 {
-    NSSet                           * contentTypes;
-    TDAppAPIClient                  * defaultManager;
-    AFJSONRequestSerializer       * requestSerializer;
-    AFJSONResponseSerializer      * responseSerializer;
+    AFHTTPSessionManager          * sessionManager;
     
+    if ( nil == responseContentTypes )
+    {
+        NSLog( @"Warning, the resopnse acceptable content type container is nil!" );
+    }
+    sessionManager                  = [[self class] _CreateSessionManager: URLString acceptable: responseContentTypes];
+    NSParameterAssert( nil != sessionManager );
     
-    requestSerializer               = [AFJSONRequestSerializer serializer];
-    responseSerializer              = [AFJSONResponseSerializer serializer];
-    defaultManager                  = [[self class] defaultManager];
-    NSParameterAssert( nil != requestSerializer );
-    NSParameterAssert( nil != responseSerializer );
-    NSParameterAssert( nil != defaultManager );
-    
-    
-    contentTypes                    = [NSSet setWithObjects: @"application/json", nil];
-    [responseSerializer             setAcceptableContentTypes: contentTypes];
-    
-    [defaultManager                 setRequestSerializer: requestSerializer];
-    [defaultManager                 setResponseSerializer: responseSerializer];
-    
-    return [defaultManager PUT: URLString parameters: parameters success: success failure: failure];
+    return [sessionManager GET: URLString parameters: parameters progress: progress success: success failure: failure];
 }
+
+//  ------------------------------------------------------------------------------------------------
++ (NSURLSessionDataTask *) postData: (NSString *)URLString
+                         parameters: (nullable id)parameters
+                         acceptable: (NSSet *)responseContentTypes
+                           progress: (nullable appAPIprogressBlock)progress
+                            success: (appAPIResponseSuccessBlock)success
+                            failure: (appAPIResponseFailureBlock)failure
+{
+    AFHTTPSessionManager          * sessionManager;
+    
+    if ( nil == responseContentTypes )
+    {
+        NSLog( @"Warning, the resopnse acceptable content type container is nil!" );
+    }
+    sessionManager                  = [[self class] _CreateSessionManager: URLString acceptable: responseContentTypes];
+    NSParameterAssert( nil != sessionManager );
+    
+    return [sessionManager POST: URLString parameters: parameters progress: progress success: success failure: failure];
+}
+
+//  ------------------------------------------------------------------------------------------------
+//  ------------------------------------------------------------------------------------------------
++ (NSURLSessionDataTask *) putData: (NSString *)URLString
+                        parameters: (nullable id)parameters
+                        acceptable: (NSSet *)responseContentTypes
+                           success: (appAPIResponseSuccessBlock)success
+                           failure: (appAPIResponseFailureBlock)failure
+{
+    AFHTTPSessionManager          * sessionManager;
+    
+    if ( nil == responseContentTypes )
+    {
+        NSLog( @"Warning, the resopnse acceptable content type container is nil!" );
+    }
+    sessionManager                  = [[self class] _CreateSessionManager: URLString acceptable: responseContentTypes];
+    NSParameterAssert( nil != sessionManager );
+    
+    return [sessionManager PUT: URLString parameters: parameters success: success failure: failure];
+}
+
+//  ------------------------------------------------------------------------------------------------
 
 //  ------------------------------------------------------------------------------------------------
 
