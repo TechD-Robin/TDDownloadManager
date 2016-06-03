@@ -12,6 +12,7 @@
 #import "ARCMacros.h"
 #import "TDNetworkReachabilityManager.h"
 #import "TDDownloadManager.h"
+#import "TDAppAPIClient.h"
 #import "TDPreUpdateProcedure.h"
 
 #import "TDPreUpdateJSONInfo.h"
@@ -60,6 +61,10 @@
 - ( void ) _PreLoadProcedure;
 - ( void ) _GetPreLoadJSONInfo;
 
+- ( void ) _PutDataByAPI;
+- ( void ) _PostDataByAPI;
+- ( void ) _GetDataByAPI;
+
 //  ------------------------------------------------------------------------------------------------
 
 @end
@@ -104,6 +109,10 @@
 
     [demoList                       addObject: @" preload procedure." ];
     [demoList                       addObject: @" get preload json data." ];
+    
+    [demoList                       addObject: @" Put data by API."];
+    [demoList                       addObject: @" Post data by API."];
+    [demoList                       addObject: @" Get data by API."];
 
     demoViewController              = nil;
     
@@ -487,6 +496,81 @@
     
 }
 
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _PutDataByAPI
+{
+    NSMutableDictionary               * param;
+    NSSet                             * contentTypes;
+    NSString                          * token;
+    
+    param                               = [NSMutableDictionary dictionaryWithCapacity: 1];
+    contentTypes                        = [NSSet setWithObjects: @"application/json", nil];
+    NSParameterAssert( nil != param );
+    
+    token                               = @"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJnYW1lIiwiaXNzIjoidGl0YW4iLCJnYW1lIjoiZ2FtZTEiLCJqdGkiOiJjYlRpb01mM1I3S0hsc3Bvc01BeUN3IiwiaWF0IjoxNDY0ODYwNjQ3LCJpZCI6MzY2Nzk2NzQ0OH0.hTOumoe9xdRF7AqJqSzms56TMShbLaFe5M7ZP89A6ss";
+    
+    [param                              setObject: token forKey: @"token"];
+    
+    [TDAppAPIClient                     putData: @"http://localhost:8000//APIs" parameters: param acceptable: contentTypes
+                                        success: ^(NSURLSessionDataTask * dataTask, id response)
+    {
+        NSLog( @"response object : %@", response );
+    }
+    failure: ^(NSURLSessionDataTask * dataTask, NSError * error)
+    {
+        NSLog( @"dataTask :%@, error: %@", dataTask, error );
+    }];
+    
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _PostDataByAPI
+{
+    NSMutableDictionary               * param;
+    NSMutableDictionary               * subParam;
+    NSSet                             * contentTypes;
+    
+    param                               = [NSMutableDictionary dictionaryWithCapacity: 1];
+    subParam                            = [NSMutableDictionary new];
+    contentTypes                        = [NSSet setWithObjects: @"application/json", nil];
+    NSParameterAssert( nil != param );
+    NSParameterAssert( nil != subParam );
+    
+    [subParam                           setObject: @(2) forKey:  @"test"];
+    [param                              setObject: subParam forKey: @"traits"];
+    
+    
+    [TDAppAPIClient                 postData: @"http://localhost:8000/APIs"
+                                  parameters: param acceptable: contentTypes progress: nil 
+                                     success: ^(NSURLSessionDataTask * dataTask, id response)
+    {
+        NSLog( @"response object : %@", response );
+    }
+    failure: ^(NSURLSessionDataTask * dataTask, NSError * error)
+    {
+        NSLog( @"dataTask :%@, error: %@", dataTask, error );
+    }];
+}
+
+//  ------------------------------------------------------------------------------------------------
+- ( void ) _GetDataByAPI
+{
+    NSSet                             * contentTypes;
+    
+    contentTypes                        = [NSSet setWithObjects: @"application/json", nil];
+
+    //  test to get ubike data.
+    [TDAppAPIClient                 getData: @"http://goo.gl/s2zRUQ"
+                                  parameters: nil acceptable: contentTypes progress: nil
+                                     success: ^(NSURLSessionDataTask * dataTask, id response)
+    {
+         NSLog( @"response object : %@", response );
+    }
+    failure: ^(NSURLSessionDataTask * dataTask, NSError * error)
+    {
+         NSLog( @"dataTask :%@, error: %@", dataTask, error );
+    }];
+}
 
 //  ------------------------------------------------------------------------------------------------
 //  --------------------------------
@@ -603,6 +687,10 @@
             
         case 12:[self               _PreLoadProcedure];                 break;
         case 13:[self               _GetPreLoadJSONInfo];               break;
+        
+        case 14:[self               _PutDataByAPI];                     break;
+        case 15:[self               _PostDataByAPI];                    break;
+        case 16:[self               _GetDataByAPI];                     break;
         default:
             break;
     }

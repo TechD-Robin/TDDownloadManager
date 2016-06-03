@@ -20,6 +20,24 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+    
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
+    
+<!--    <key>NSExceptionDomains</key>-->
+<!--    <dict>-->
+<!--        <key>localhost</key>-->
+<!--        <dict>-->
+<!--            <key>NSExceptionMinimumTLSVersion</key>-->
+<!--            <string>TLSv1.0</string>-->
+<!--            <key>NSExceptionRequiresForwardSecrecy</key>-->
+<!--            <false/>-->
+<!--        </dict>-->
+<!--    </dict>-->
+
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
